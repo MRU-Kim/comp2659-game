@@ -28,4 +28,3 @@ void clearScreen(char *base, char color){
 		*(location++)=color;
 	}
 }
-
