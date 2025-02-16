@@ -11,6 +11,7 @@ Professor     	Steve Kalmar
 #include <osbind.h>
 
 #include "raster.h"
+#include "CONST.H"
 
 #define BytesPerScreen 32000
 
@@ -19,6 +20,8 @@ Professor     	Steve Kalmar
    inputs:
    base   - pointed on the starting address of the bitmap
    color  - color to fill the screen with
+
+   comments: change char *base to UINT8,UINT16, or UINT32?
 */
 void clearScreen(char *base, char color){
 	register int i=0;
@@ -27,4 +30,121 @@ void clearScreen(char *base, char color){
 	while(i++<BytesPerScreen){
 		*(location++)=color;
 	}
+}
+
+/* function: clear8Bit
+   clears an 8-bit bitmap
+   inputs:
+   base   - pointed on the starting address of the bitmap
+   bitmap -
+   column - starting column in the bitmap
+   row    - starting row in the bitmap
+   height - number of rows affected
+*/
+void clear8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height){
+    int i;
+    UINT8* clearArea = base+(y * 80) + (x >> 3); /* remove base +? */
+
+    for(i=0;i<height;i++){
+        *clearArea |= *(bitmap++); /* remove? */
+        *clearArea = 0x00;
+        clearArea += 80;
+    }
+}
+
+/* function: clear16Bitmap
+   clears a 16-bit bitmap
+   inputs:
+   base   - pointed on the starting address of the bitmap
+   bitmap -
+   column - starting column in the bitmap
+   row    - starting row in the bitmap
+   height - number of rows affected
+*/
+void clear16Bitmap(UINT16 *base, UINT16* bitmap, int x, int y, int height){
+    int i;
+    UINT16* clearArea = base + (y * 40) + (x >> 4); /* remove base +? */
+
+    for(i=0;i<height;i++){
+        *clearArea |= *(bitmap++); /* remove? */
+        *clearArea = 0x00;
+        clearArea += 40;
+    }
+}
+
+/* function: clear32Bitmap
+   clears a 32-bit bitmap
+   inputs:
+   base   - pointed on the starting address of the bitmap
+   bitmap -
+   column - starting column in the bitmap
+   row    - starting row in the bitmap
+   height - number of rows affected
+*/
+void clear32Bitmap(UINT32 *base, UINT32* bitmap, int x, int y, int height){
+    int i;
+    UINT32* clearArea = base + (y * 20) + (x >> 5); /* remove base +? */
+
+    for(i=0;i<height;i++){
+        *clearArea |= *(bitmap++); /* remove? */
+        *clearArea = 0x00;
+        clearArea += 20;
+    }
+}
+
+/* function: plot8Bitmap
+   plots an 8-bit bitmap
+   inputs:
+   base   - pointed on the starting address of the bitmap
+   bitmap -
+   column - starting column in the bitmap
+   row    - starting row in the bitmap
+   height - number of rows affected
+*/
+void plot8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height) {
+    int i;
+
+    UINT8 *plotLocation = base + (y * 80) + (x >> 3);
+    for(i=0;i<height;i++) {
+        *plotLocation ^= *(bitmap++);
+        plotLocation += 80;
+    }
+}
+
+/* function: plot16Bitmap
+   plots a 16-bit bitmap
+   inputs:
+   base   - pointed on the starting address of the bitmap
+   bitmap -
+   column - starting column in the bitmap
+   row    - starting row in the bitmap
+   height - number of rows affected
+*/
+void plot16Bitmap(UINT16 *base, UINT16* bitmap, int x, int y, int height) {
+    int i;
+
+    UINT16 *plotLocation = base + (y * 40) + (x >> 4);
+    for(i=0;i<height;i++) {
+        *plotLocation ^= *(bitmap++);
+        plotLocation += 40;
+    }
+}
+
+/* function: plot32Bitmap
+   plots a 32-bit bitmap
+   inputs:
+   base   - pointed on the starting address of the bitmap
+   bitmap -
+   column - starting column in the bitmap
+   row    - starting row in the bitmap
+   height - number of rows affected
+*/
+void plot32Bitmap(UINT32 *base, UINT32* bitmap, int x, int y, int height) {
+    int i;
+
+    UINT32 *plotLocation = base + (y * 20) + (x >> 5);
+    for(i=0;i<height;i++) {
+        *plotLocation ^= *(bitmap++);
+        plotLocation += 20;
+    }
 }
