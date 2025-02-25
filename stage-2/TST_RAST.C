@@ -15,13 +15,19 @@ Professor     	Steve Kalmar
 
 int main()
 {
-	char *base = Physbase();  /* 8-bit */
+	UINT8 *base8 = Physbase();  /* 8-bit */
+	UINT16 *base16 = Physbase();
+	UINT32 *base32 = Physbase();
 	Cnecin();
-	clearScreen(base,0); /* set screen to all black */
+	clearScreen(base8,0); /* set screen to all white */
 	Cnecin();
-	plot16Bitmap(base,Dino,320,295,DinoHeight);
+	plot16Bitmap(base16,Dino,320,200,DinoHeight);
 	Cnecin();
-	clear16Bitmap(base,Dino,320,295,DinoHeight);
-
+	plot32HorizontalLine(base32, 200+DinoHeight);
+	Cnecin();
+	clear16Bitmap(base16,Dino,320,200,DinoHeight);
+	Cnecin();
+	clearScreen(base8,0); /* set screen to all white */
+	Cnecin();
 	return 0;
 }

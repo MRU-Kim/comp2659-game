@@ -16,19 +16,19 @@ Professor     	Steve Kalmar
 #define BytesPerScreen 32000
 
 /* function: clearScreen
-   clears the screen with the color input.
+   clears the screen with the pattern input.
    inputs:
    base   - pointed on the starting address of the bitmap
-   color  - color to fill the screen with
+   pattern  - pattern to fill the screen with
 
    comments: change char *base to UINT8,UINT16, or UINT32?
 */
-void clearScreen(char *base, char color){
+void clearScreen(UINT8 *base, char pattern){
 	register int i=0;
-	register char *location=base;
+	register UINT8 *location = base;
 
 	while(i++<BytesPerScreen){
-		*(location++)=color;
+		*(location++)=pattern;
 	}
 }
 
@@ -63,10 +63,10 @@ void clear8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height){
 */
 void clear16Bitmap(UINT16 *base, UINT16* bitmap, int x, int y, int height){
     int i;
-    UINT16* clearArea = base + (y * 40) + (x >> 4); /* remove base +? */
+    UINT16* clearArea = base + (y * 40) + (x >> 4);
 
     for(i=0;i<height;i++){
-        *clearArea |= *(bitmap++); /* remove? */
+        *clearArea |= *(bitmap++); 
         *clearArea = 0x00;
         clearArea += 40;
     }
@@ -83,10 +83,10 @@ void clear16Bitmap(UINT16 *base, UINT16* bitmap, int x, int y, int height){
 */
 void clear32Bitmap(UINT32 *base, UINT32* bitmap, int x, int y, int height){
     int i;
-    UINT32* clearArea = base + (y * 20) + (x >> 5); /* remove base +? */
+    UINT32* clearArea = base + (y * 20) + (x >> 3); 
 
     for(i=0;i<height;i++){
-        *clearArea |= *(bitmap++); /* remove? */
+        *clearArea |= *(bitmap++); 
         *clearArea = 0x00;
         clearArea += 20;
     }
@@ -147,4 +147,22 @@ void plot32Bitmap(UINT32 *base, UINT32* bitmap, int x, int y, int height) {
         *plotLocation ^= *(bitmap++);
         plotLocation += 20;
     }
+}
+
+/* function: plot32Bitmap
+   plots a horizontal line
+   inputs:
+   base   - pointed on the starting address of the bitmap
+   row    - row to plot line in
+*/
+void plot32HorizontalLine (UINT32 *base, int y) {
+    int i;
+    UINT32 *plotLocation = base + (y * 20);
+    for(i=0;i<20;i++) {
+        *plotLocation |= -1;
+        plotLocation++;
+    }
+
+
+
 }
