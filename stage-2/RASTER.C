@@ -61,9 +61,9 @@ void clear8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height){
    row    - starting row in the bitmap
    height - number of rows affected
 */
-void clear16Bitmap(UINT16 *base, UINT16* bitmap, int x, int y, int height){
+void clear16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height){
     int i;
-    UINT16* clearArea = base + (y * 40) + (x >> 4);
+    UINT16* clearArea = (UINT16 *)base + (y * 40) + (x >> 4);
 
     for(i=0;i<height;i++){
         *clearArea |= *(bitmap++); 
@@ -81,9 +81,9 @@ void clear16Bitmap(UINT16 *base, UINT16* bitmap, int x, int y, int height){
    row    - starting row in the bitmap
    height - number of rows affected
 */
-void clear32Bitmap(UINT32 *base, UINT32* bitmap, int x, int y, int height){
+void clear32Bitmap(UINT8 *base, UINT32* bitmap, int x, int y, int height){
     int i;
-    UINT32* clearArea = base + (y * 20) + (x >> 3); 
+    UINT32* clearArea = (UINT32 *)base + (y * 20) + (x >> 3); 
 
     for(i=0;i<height;i++){
         *clearArea |= *(bitmap++); 
@@ -120,10 +120,10 @@ void plot8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height) {
    row    - starting row in the bitmap
    height - number of rows affected
 */
-void plot16Bitmap(UINT16 *base, UINT16* bitmap, int x, int y, int height) {
+void plot16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height) {
     int i;
 
-    UINT16 *plotLocation = base + (y * 40) + (x >> 4);
+    UINT16 *plotLocation = (UINT16 *)base + (y * 40) + (x >> 4);
     for(i=0;i<height;i++) {
         *plotLocation ^= *(bitmap++);
         plotLocation += 40;
@@ -139,10 +139,10 @@ void plot16Bitmap(UINT16 *base, UINT16* bitmap, int x, int y, int height) {
    row    - starting row in the bitmap
    height - number of rows affected
 */
-void plot32Bitmap(UINT32 *base, UINT32* bitmap, int x, int y, int height) {
+void plot32Bitmap(UINT8 *base, UINT32* bitmap, int x, int y, int height) {
     int i;
 
-    UINT32 *plotLocation = base + (y * 20) + (x >> 5);
+    UINT32 *plotLocation = (UINT32 *)base + (y * 20) + (x >> 5);
     for(i=0;i<height;i++) {
         *plotLocation ^= *(bitmap++);
         plotLocation += 20;
@@ -155,9 +155,9 @@ void plot32Bitmap(UINT32 *base, UINT32* bitmap, int x, int y, int height) {
    base   - pointed on the starting address of the bitmap
    row    - row to plot line in
 */
-void plot32HorizontalLine (UINT32 *base, int y) {
+void plotHorizontalLine (UINT8 *base, int y) {
     int i;
-    UINT32 *plotLocation = base + (y * 20);
+    UINT32 *plotLocation = (UINT32 *)base + (y * 20);
     for(i=0;i<20;i++) {
         *plotLocation |= -1;
         plotLocation++;
