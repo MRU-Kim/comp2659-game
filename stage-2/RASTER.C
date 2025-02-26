@@ -2,7 +2,7 @@
 Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino 
 Course name   	COMP 2659-002
 Stage	    	Stage 2
-Deadline        February 10, 2024
+Deadline        February 28, 2024
 File name       RASTER.C
 Professor     	Steve Kalmar
 */
@@ -16,12 +16,11 @@ Professor     	Steve Kalmar
 #define BytesPerScreen 32000
 
 /* function: clearScreen
-   clears the screen with the pattern input.
+   clears the screen with the 8 bit pattern input.
    inputs:
    base   - pointed on the starting address of the bitmap
    pattern  - pattern to fill the screen with
 
-   comments: change char *base to UINT8,UINT16, or UINT32?
 */
 void clearScreen(UINT8 *base, char pattern){
 	register int i=0;
@@ -83,7 +82,7 @@ void clear16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height){
 */
 void clear32Bitmap(UINT8 *base, UINT32* bitmap, int x, int y, int height){
     int i;
-    UINT32* clearArea = (UINT32 *)base + (y * 20) + (x >> 3); 
+    UINT32* clearArea = (UINT32 *)base + (y * 20) + (x >> 5); 
 
     for(i=0;i<height;i++){
         *clearArea |= *(bitmap++); 

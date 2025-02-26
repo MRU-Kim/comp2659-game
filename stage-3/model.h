@@ -36,5 +36,3 @@ typedef struct {
     Score score;
     HighScore highScore;
 } Model;
-
-proto

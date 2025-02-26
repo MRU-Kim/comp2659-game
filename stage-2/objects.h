@@ -14,4 +14,6 @@ Professor     	Steve Kalmar
 
 extern UINT16 Dino[];
 
+extern UINT16 CactusLarge[];
+
 #endif

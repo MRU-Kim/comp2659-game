@@ -23,6 +23,8 @@ int main()
 	Cnecin();
 	plotHorizontalLine(base, 200+DinoHeight);
 	Cnecin();
+	plot16Bitmap(base,CactusLarge,340,200,CactusLargeHeight);
+	Cnecin();
 	clear16Bitmap(base,Dino,320,200,DinoHeight);
 	Cnecin();
 	clearScreen(base,0); /* set screen to all white */
