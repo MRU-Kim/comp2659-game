@@ -26,7 +26,9 @@ int main()
 	plot16Bitmap(base,CactusLarge,340,200,CactusLargeHeight);
 	Cnecin();
 	clear16Bitmap(base,Dino,320,200,DinoHeight);
+	plot16Bitmap(base,DinoCrouch,320,200,DinoHeight);
 	Cnecin();
+	clear16Bitmap(base,Dino,320,200,DinoHeight);
 	clearScreen(base,0); /* set screen to all white */
 	Cnecin();
 	return 0;

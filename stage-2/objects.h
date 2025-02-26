@@ -13,6 +13,8 @@ Professor     	Steve Kalmar
 #include "CONST.H"
 
 extern UINT16 Dino[];
+extern UINT16 DinoCrouch[];
+
 
 extern UINT16 CactusLarge[];
 
