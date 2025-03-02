@@ -13,8 +13,6 @@ Professor     	Steve Kalmar
 #include "raster.h"
 #include "CONST.H"
 
-#define BytesPerScreen 32000
-
 /* function: clearScreen
    clears the screen with the 8 bit pattern input.
    inputs:

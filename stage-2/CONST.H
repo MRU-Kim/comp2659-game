@@ -18,6 +18,7 @@ typedef unsigned long UINT32;
 /* screen */
 #define ScreenWidth 640
 #define ScreenHeight 400
+#define BytesPerScreen 32000
 
 /* object */
 #define DinoHeight 16
