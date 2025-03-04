@@ -3,7 +3,7 @@
 
 #include "CONST.H"
 
-void clearScreen(UINT8 *base, char color); 
+void clearScreen(UINT8 *base); 
 void clear8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height);
 void clear16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height);
 void clear32Bitmap(UINT8 *base, UINT32* bitmap, int x, int y, int height);

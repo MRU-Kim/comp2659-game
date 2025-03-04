@@ -20,12 +20,12 @@ Professor     	Steve Kalmar
    pattern  - pattern to fill the screen with
 
 */
-void clearScreen(UINT8 *base, char pattern){
+void clearScreen(UINT8 *base){
 	register int i=0;
-	register UINT8 *location = base;
+	register UINT32 *location = (UINT32 *)base;
 
-	while(i++<BytesPerScreen){
-		*(location++)=pattern;
+	while(i++<BytesPerScreen/4){
+		*(location++)= 0x0000;
 	}
 }
 
@@ -118,11 +118,14 @@ void plot8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height) {
 */
 void plot16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height) {
     int i;
+    int offset = x&31;
+    UINT32 offBitmap = (UINT32) bitmap;
 
-    UINT16 *plotLocation = (UINT16 *)base + (y * 40) + (x >> 4);
+    UINT32 *plotLocation = (UINT32 *)base + (y * 20) + (x >> 5);
     for(i=0;i<height;i++) {
+
         *plotLocation |= *(bitmap++);
-        plotLocation += 40;
+        plotLocation += 20;
     }
 }
 
