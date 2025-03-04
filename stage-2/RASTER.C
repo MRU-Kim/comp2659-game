@@ -43,7 +43,7 @@ void clear8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height){
     UINT8* clearArea = base+(y * 80) + (x >> 3); /* remove base +? */
 
     for(i=0;i<height;i++){
-        *clearArea |= *(bitmap++); /* remove? */
+       /* *clearArea |= *(bitmap++); /* remove? */
         *clearArea = 0x00;
         clearArea += 80;
     }
@@ -63,8 +63,7 @@ void clear16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height){
     UINT16* clearArea = (UINT16 *)base + (y * 40) + (x >> 4);
 
     for(i=0;i<height;i++){
-        *clearArea |= *(bitmap++); 
-        *clearArea = 0x00;
+        *clearArea ^= *(bitmap++);
         clearArea += 40;
     }
 }
@@ -103,7 +102,7 @@ void plot8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height) {
 
     UINT8 *plotLocation = base + (y * 80) + (x >> 3);
     for(i=0;i<height;i++) {
-        *plotLocation ^= *(bitmap++);
+        *plotLocation |= *(bitmap++);
         plotLocation += 80;
     }
 }
@@ -122,7 +121,7 @@ void plot16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height) {
 
     UINT16 *plotLocation = (UINT16 *)base + (y * 40) + (x >> 4);
     for(i=0;i<height;i++) {
-        *plotLocation ^= *(bitmap++);
+        *plotLocation |= *(bitmap++);
         plotLocation += 40;
     }
 }
@@ -141,7 +140,7 @@ void plot32Bitmap(UINT8 *base, UINT32* bitmap, int x, int y, int height) {
 
     UINT32 *plotLocation = (UINT32 *)base + (y * 20) + (x >> 5);
     for(i=0;i<height;i++) {
-        *plotLocation ^= *(bitmap++);
+        *plotLocation |= *(bitmap++);
         plotLocation += 20;
     }
 }
