@@ -111,21 +111,56 @@ void plot8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height) {
    plots a 16-bit bitmap
    inputs:
    base   - pointed on the starting address of the bitmap
-   bitmap -
-   column - starting column in the bitmap
-   row    - starting row in the bitmap
+   bitmap - pointer to 16bit bitmap
+   x - horizontal coord to plot on the bitmap to the frame buffer
+   y - vertical coord to plot on the bitmap to the frame buffer
    height - number of rows affected
 */
 void plot16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height) {
     int i;
-    int offset = x&31;
-    UINT32 offBitmap = (UINT32) bitmap;
+    int offset = x&15; /*x%16* how far on horizontal plane the x is from being word alligned*/
 
-    UINT32 *plotLocation = (UINT32 *)base + (y * 20) + (x >> 5);
-    for(i=0;i<height;i++) {
+    /*plot location is y rows down, and x columns right*/
+    UINT16 *plotLocation = (UINT16 *)base + (y * 40) + (x >> 4);
 
-        *plotLocation |= *(bitmap++);
-        plotLocation += 20;
+    /*check if x is in bounds*/
+    if(x > -16 && x < 640 ){
+
+        /*check if bitmap is plotted off of left screen edge,
+        if so offset and plot single wordwidth*/
+        if (x < 0){
+            for(i=0;i<height;i++) {
+                /*plot the bitmap shifted abs(x) to the left */
+                *(plotLocation+1) |= *(bitmap++)<<-x;
+                plotLocation += 40;
+            } 
+        }
+
+        /*check if bitmap is plotted off of right screen edge,
+        if so offset and plot single wordwidth*/
+        else if (x > 639-16){
+            for(i=0;i<height;i++) {
+                /*plot the bitmap shifted  to the left */
+                *(plotLocation) |= *(bitmap++)>> offset;
+                plotLocation += 40;
+            } 
+        }
+        /*If x is word not alligned plot over 2 words width, else use 1*/
+        else if (offset != 0){
+            for(i=0;i<height;i++) {
+
+                *plotLocation |= *(bitmap)>>offset;
+                *(plotLocation+1) |= *(bitmap++)<< (16 - offset);
+                plotLocation += 40;
+            }
+        }
+        else{
+            for(i=0;i<height;i++) {
+
+                *plotLocation |= *(bitmap++);
+                plotLocation += 40;
+            }
+        }
     }
 }
 

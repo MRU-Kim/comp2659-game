@@ -19,45 +19,41 @@ int main()
 
 	int i;
 	Cnecin();
-	clearScreen(base,0); /* set screen to all white */
+	clearScreen(base); /* set screen to all white */
 	Cnecin();
 	plot16Bitmap(base,Dino,320,200,DinoHeight);
-	i = 0;
-	
+	i = 600;
 	Cnecin();
-
-
 	clear16Bitmap(base,Dino,320,200,DinoHeight);
 
 
-	while(i < 50){
+	while(i < 640){
 
-		plot16Bitmap(base,Dino,320+i,200,DinoHeight);
+		plot16Bitmap(base,Dino,i,200,DinoHeight);
+		
 		Cnecin();
-		clear16Bitmap(base,Dino,320+i,200,DinoHeight);
+
+		clearScreen(base); /* set screen to all white */
+
 		i++;
 
 		
 	}
-	Cnecin();
 	plotHorizontalLine(base, 200+DinoHeight);
-	Cnecin();
-	plot16Bitmap(base,CactusLarge,600-16,200,CactusLargeHeight);
 	Cnecin();
 	
 	
 	while( i<600-16){
 		Cnecin();
-		clear16Bitmap(base,CactusLarge,600-16-i,200,CactusLargeHeight);
+		clearScreen(base); /* set screen to all white */
 		i++;
-		plot16Bitmap(base,CactusLarge,600-16-i,200,CactusLargeHeight);
+		plot16Bitmap(base,CactusLarge,(600-16)-i,200,CactusLargeHeight);
 	}
 
-	clear16Bitmap(base,Dino,320,200,DinoHeight);
 	plot16Bitmap(base,DinoCrouch,320,200,DinoHeight);
 	Cnecin();
 	clear16Bitmap(base,Dino,320,200,DinoHeight);
-	clearScreen(base,0); /* set screen to all white */
+	clearScreen(base); /* set screen to all white */
 	Cnecin();
 	return 0;
 }
