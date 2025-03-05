@@ -118,47 +118,52 @@ void plot8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height) {
 */
 void plot16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height) {
     int i;
+    
     int offset = x&15; /*x%16* how far on horizontal plane the x is from being word alligned*/
+    UINT16 *plotLocation;
+    int usedHeight = height;
+    
+    if (y < 0 && y > -height){
+        bitmap += -y;
+        usedHeight += y;
+        y = 0;
+    }   else if (y > 399-16){
+        usedHeight -= y - 399-16;
+    }
 
-    /*plot location is y rows down, and x columns right*/
-    UINT16 *plotLocation = (UINT16 *)base + (y * 40) + (x >> 4);
+    /*plot location is a word, y rows down, and x/16 words right*/
+    plotLocation = (UINT16 *)base + (y * 40) + (x >> 4);
 
     /*check if x is in bounds*/
-    if(x > -16 && x < 640 ){
-
+    if(x > -16 && x < 640){
         /*check if bitmap is plotted off of left screen edge,
         if so offset and plot single wordwidth*/
         if (x < 0){
-            for(i=0;i<height;i++) {
-                /*plot the bitmap shifted abs(x) to the left */
+            for(i=0;i<usedHeight;i++) {
+                /*plot the bitmap shifted abs(x) to the left 
+                x is negative*/
                 *(plotLocation+1) |= *(bitmap++)<<-x;
                 plotLocation += 40;
             } 
         }
-
         /*check if bitmap is plotted off of right screen edge,
-        if so offset and plot single wordwidth*/
+        if so, offset and plot single wordwidth*/
         else if (x > 639-16){
-            for(i=0;i<height;i++) {
+            for(i=0;i<usedHeight;i++) {
                 /*plot the bitmap shifted  to the left */
                 *(plotLocation) |= *(bitmap++)>> offset;
                 plotLocation += 40;
             } 
         }
-        /*If x is word not alligned plot over 2 words width, else use 1*/
-        else if (offset != 0){
-            for(i=0;i<height;i++) {
-
-                *plotLocation |= *(bitmap)>>offset;
-                *(plotLocation+1) |= *(bitmap++)<< (16 - offset);
-                plotLocation += 40;
-            }
-        }
+        /*If x is not word alligned plot over 2 words width, else use 1*/
         else{
-            for(i=0;i<height;i++) {
-
-                *plotLocation |= *(bitmap++);
+            for(i=0;i<usedHeight;i++) {
+                *plotLocation |= *(bitmap)>>offset;
+                if(offset != 0){
+                    *(plotLocation+1) |= *(bitmap)<< (16 - offset);
+                }
                 plotLocation += 40;
+                bitmap++;
             }
         }
     }

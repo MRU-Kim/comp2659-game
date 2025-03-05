@@ -21,24 +21,18 @@ int main()
 	Cnecin();
 	clearScreen(base); /* set screen to all white */
 	Cnecin();
-	plot16Bitmap(base,Dino,320,200,DinoHeight);
-	i = 600;
+	plot16Bitmap(base,Dino,320,384,DinoHeight);
 	Cnecin();
 	clear16Bitmap(base,Dino,320,200,DinoHeight);
 
 
-	while(i < 640){
+	for(i = -16; i < 640; i++){
 
-		plot16Bitmap(base,Dino,i,200,DinoHeight);
-		
+		plot16Bitmap(base,Dino,i,i,DinoHeight);
 		Cnecin();
-
 		clearScreen(base); /* set screen to all white */
-
-		i++;
-
-		
 	}
+
 	plotHorizontalLine(base, 200+DinoHeight);
 	Cnecin();
 	
