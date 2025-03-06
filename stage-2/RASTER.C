@@ -50,21 +50,65 @@ void clear8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height){
 }
 
 /* function: clear16Bitmap
-   clears a 16-bit bitmap
+   clears a 16-bit bitmap by toggleling the pixels of that bitmap
    inputs:
    base   - pointed on the starting address of the bitmap
-   bitmap -
+   bitmap - pointer to start of bitmap array
    column - starting column in the bitmap
    row    - starting row in the bitmap
    height - number of rows affected
 */
-void clear16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height){
+void clear16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height){    
     int i;
-    UINT16* clearArea = (UINT16 *)base + (y * 40) + (x >> 4);
 
-    for(i=0;i<height;i++){
-        *clearArea ^= *(bitmap++);
-        clearArea += 40;
+    int offset = x&15; /*x%16* how far on horizontal plane the x is from being word alligned*/
+    UINT16 *location;
+    int usedHeight = height;
+    
+    if (y < 0 && y > -height){
+        bitmap += -y;
+        usedHeight += y;
+        y = 0;
+    }
+    else if (y > 399-16){
+        usedHeight -= y - 399-16;
+    }
+
+    /*location is a word, y rows down, and x/16 words right*/
+    location = (UINT16 *)base + (y * 40) + (x >> 4);
+
+    /*check if x is in bounds*/
+    if(x > -16 && x < 640){
+        /*check if bitmap is off of left screen edge,
+        if so offset and togglr single wordwidth*/
+        if (x < 0){
+            for(i=0;i<usedHeight;i++) {
+                /*toggle the bitmap shifted abs(x) to the left 
+                x is negative*/
+                *(location+1) ^= *(bitmap++)<<-x;
+                location += 40;
+            } 
+        }
+        /*check if bitmap is off of right screen edge,
+        if so, offset and toggle single wordwidth*/
+        else if (x > 639-16){
+            for(i=0;i<usedHeight;i++) {
+                /*toggle the bitmap shifted  to the left */
+                *(location) ^= *(bitmap++)>> offset;
+                location += 40;
+            } 
+        }
+        /*If x is not word alligned toggle over 2 words width, else use 1*/
+        else{
+            for(i=0;i<usedHeight;i++) {
+                *location ^= *(bitmap)>>offset;
+                if(offset != 0){
+                    *(location+1) ^= *(bitmap)<< (16 - offset);
+                }
+                location += 40;
+                bitmap++;
+            }
+        }
     }
 }
 
@@ -109,6 +153,7 @@ void plot8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height) {
 
 /* function: plot16Bitmap
    plots a 16-bit bitmap
+   prints only when some part of the bit map will be in  screen
    inputs:
    base   - pointed on the starting address of the bitmap
    bitmap - pointer to 16bit bitmap
@@ -117,6 +162,7 @@ void plot8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height) {
    height - number of rows affected
 */
 void plot16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height) {
+   
     int i;
     
     int offset = x&15; /*x%16* how far on horizontal plane the x is from being word alligned*/

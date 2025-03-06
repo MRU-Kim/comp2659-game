@@ -21,10 +21,8 @@ int main()
 	Cnecin();
 	clearScreen(base); /* set screen to all white */
 	Cnecin();
-	plot16Bitmap(base,Dino,320,384,DinoHeight);
+	plot16Bitmap(base,Dino,320,390,DinoHeight);
 	Cnecin();
-	clear16Bitmap(base,Dino,320,200,DinoHeight);
-
 
 	for(i = -16; i < 640; i++){
 
