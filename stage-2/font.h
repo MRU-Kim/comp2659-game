@@ -1,7 +1,7 @@
 #ifndef FONT_H
 #define FONT_H
 
-#include "types.h"
+#include "CONST.H"
 
 extern const UINT8 font[];     /* 8x8 system font */
 

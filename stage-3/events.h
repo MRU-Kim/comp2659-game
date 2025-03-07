@@ -6,16 +6,24 @@ Deadline        February 28, 2024
 File name       events.h
 Professor       Steve Kalmar
 */
+
+#ifndef EVENTS_H
+#define EVENTS_H
+
+#include "model.h"
+
 /*async events*/
-void jump();
-void jumpHeld());
-void crouch();
-void aircrouch();
+void handleJump(DinoPlayer *player);
+void handleJumpHeld(DinoPlayer *player);
+void handleCrouch(DinoPlayer *player);
+void handleAircrouch(DinoPlayer *player);
 
 /*sync events*/
-void scroll();
-void spawnObsticle();
+void scroll(Terrain *terrain);
+void spawnObsticle(CactusSmall *cactusSmall);
 
 /*cascade events*/
-void dinoDeath();
-void speedUp();
+void dinoDeath(DinoPlayer *player);
+void speedUp(Terrain *terrain);
+
+#endif
