@@ -10,14 +10,17 @@ Professor     	Steve Kalmar
 #include <stdio.h>
 #include <osbind.h>
 
-#include "raster.h"
+#include "RASTER.H"
 #include "CONST.H"
 
 /* function: clearScreen
-   clears the screen with the 8 bit pattern input.
+   Fills the screen with a specific color/pattern. The function
+   writes the given color to every byte in the screen memory
+   to effectively clear the screen with the specific color/pattern.
+   
    inputs:
-   base   - pointed on the starting address of the bitmap
-   pattern  - pattern to fill the screen with
+   base    - pointed on the starting address of the bitmap
+   color   - color/pattern to fill the screen with
 
 */
 void clearScreen(UINT8 *base){
@@ -30,7 +33,11 @@ void clearScreen(UINT8 *base){
 }
 
 /* function: clear8Bit
-   clears an 8-bit bitmap
+   Clears an 8px bitmap. The function clears an 8px wide 
+   section of the screen by setting the corresponding bytes to 0. 
+   The clearing is done for the specified height starting from
+   the given (x,y) coordinate.
+
    inputs:
    base   - pointed on the starting address of the bitmap
    bitmap -
@@ -50,10 +57,14 @@ void clear8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height){
 }
 
 /* function: clear16Bitmap
-   clears a 16-bit bitmap by toggleling the pixels of that bitmap
+   Clears a 16px bitmap. The function removes a 16px wide 
+   section of the screen by setting the corresponding bytes to 0. 
+   The clearing is done for the specified height starting from
+   the given (x,y) coordinate.
+
    inputs:
    base   - pointed on the starting address of the bitmap
-   bitmap - pointer to start of bitmap array
+   bitmap -
    column - starting column in the bitmap
    row    - starting row in the bitmap
    height - number of rows affected
@@ -113,7 +124,10 @@ void clear16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height){
 }
 
 /* function: clear32Bitmap
-   clears a 32-bit bitmap
+   Clears a 32px bitmap. The function removes a 32px wide 
+   section of the screen by setting the corresponding bytes to 0. 
+   The clearing is done for the specified height starting from
+   the given (x,y) coordinate.
    inputs:
    base   - pointed on the starting address of the bitmap
    bitmap -
@@ -133,7 +147,11 @@ void clear32Bitmap(UINT8 *base, UINT32* bitmap, int x, int y, int height){
 }
 
 /* function: plot8Bitmap
-   plots an 8-bit bitmap
+   Plots an 8px wide bitmap onto the screen. The function renders 
+   an 8px wide bitmap at a specified (x,y) coordinate position
+   on the screen. It uses an XOR operation, which allows for toggling
+   pixels on and off with each call.
+
    inputs:
    base   - pointed on the starting address of the bitmap
    bitmap -
@@ -152,13 +170,16 @@ void plot8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height) {
 }
 
 /* function: plot16Bitmap
-   plots a 16-bit bitmap
-   prints only when some part of the bit map will be in  screen
+   Plots a 16px wide bitmap onto the screen. The function renders 
+   a 16px wide bitmap at a specified (x,y) coordinate position
+   on the screen. It uses an XOR operation, which allows for toggling
+   pixels on and off with each call.
+
    inputs:
    base   - pointed on the starting address of the bitmap
-   bitmap - pointer to 16bit bitmap
-   x - horizontal coord to plot on the bitmap to the frame buffer
-   y - vertical coord to plot on the bitmap to the frame buffer
+   bitmap -
+   column - starting column in the bitmap
+   row    - starting row in the bitmap
    height - number of rows affected
 */
 void plot16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height) {
@@ -216,7 +237,11 @@ void plot16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height) {
 }
 
 /* function: plot32Bitmap
-   plots a 32-bit bitmap
+   Plots a 32px wide bitmap onto the screen. The function renders 
+   a 32px wide bitmap at a specified (x,y) coordinate position
+   on the screen. It uses an XOR operation, which allows for toggling
+   pixels on and off with each call.
+
    inputs:
    base   - pointed on the starting address of the bitmap
    bitmap -
@@ -234,8 +259,12 @@ void plot32Bitmap(UINT8 *base, UINT32* bitmap, int x, int y, int height) {
     }
 }
 
-/* function: plot32Bitmap
-   plots a horizontal line
+/* function: plotHorizontalLine
+   Plots a horizontal line accross the screen. The function
+   sets all pixels in a single horizontal row to 1, effectively 
+   drawing a solid horizontal line. It modifies 20 full bytes
+   at a specified y-coordinate.
+
    inputs:
    base   - pointed on the starting address of the bitmap
    row    - row to plot line in
