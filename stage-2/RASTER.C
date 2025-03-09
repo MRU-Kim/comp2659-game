@@ -14,13 +14,9 @@ Professor     	Steve Kalmar
 #include "CONST.H"
 
 /* function: clearScreen
-   Fills the screen with a specific color/pattern. The function
-   writes the given color to every byte in the screen memory
-   to effectively clear the screen with the specific color/pattern.
-   
+    clears screen
    inputs:
-   base    - pointed on the starting address of the bitmap
-   color   - color/pattern to fill the screen with
+   base    - pointer to starting address of framebuffer
 
 */
 void clearScreen(UINT8 *base){
@@ -32,42 +28,83 @@ void clearScreen(UINT8 *base){
 	}
 }
 
-/* function: clear8Bit
-   Clears an 8px bitmap. The function clears an 8px wide 
-   section of the screen by setting the corresponding bytes to 0. 
-   The clearing is done for the specified height starting from
-   the given (x,y) coordinate.
+/* function: clear8Bitmap
+   Clears a 8px bitmap. Used to clear pixles activated by the 
+    plot8Bitmap() function.
+    toggles each pixel as to only clear the prev plotted bitmap, given that the same (x,y) .
 
-   inputs:
-   base   - pointed on the starting address of the bitmap
-   bitmap -
-   column - starting column in the bitmap
-   row    - starting row in the bitmap
-   height - number of rows affected
+    inputs:
+    base    - pointer to starting address of framebuffer
+    bitmap - pointer to start of 8px wide bit map
+    y - vertical cord to be cleared
+    x - horizontal cord to be cleared
+    height - height of bitmap
+*/
 */
 void clear8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height){
     int i;
-    UINT8* clearArea = base+(y * 80) + (x >> 3); /* remove base +? */
+    
+    int offset = x&7; /*x%8* how far on horizontal plane the x is from being byte alligned*/
+    UINT8 *plotLocation;
+    int usedHeight = height;
+    
+    if (y < 0 && y > -height){
+        bitmap += -y;
+        usedHeight += y;
+        y = 0;
+    }   else if (y > 399-8){
+        usedHeight -= y - 399-8;
+    }
 
-    for(i=0;i<height;i++){
-       /* *clearArea |= *(bitmap++); /* remove? */
-        *clearArea = 0x00;
-        clearArea += 80;
+    /*plot location is a byte, y rows down, and x/8 bytes right*/
+    plotLocation = (UINT16 *)base + (y * 80) + (x >> 3);
+
+    /*check if x is in bounds*/
+    if(x > -8 && x < 640){
+        /*check if bitmap is plotted off of left screen edge,
+        if so offset and plot single bitwidth*/
+        if (x < 0){
+            for(i=0;i<usedHeight;i++) {
+                /*plot the bitmap shifted abs(x) to the left 
+                x is negative*/
+                *(plotLocation+1) ^= *(bitmap++)<<-x;
+                plotLocation += 80;
+            } 
+        }
+        /*check if bitmap is plotted off of right screen edge,
+        if so, offset and plot single wordwidth*/
+        else if (x > 639-8){
+            for(i=0;i<usedHeight;i++) {
+                /*plot the bitmap shifted  to the left */
+                *(plotLocation) ^= *(bitmap++)>> offset;
+                plotLocation += 80;
+            } 
+        }
+        /*If x is not word alligned plot over 2 words width, else use 1*/
+        else{
+            for(i=0;i<usedHeight;i++) {
+                *plotLocation ^= *(bitmap)>>offset;
+                if(offset != 0){
+                    *(plotLocation+1) ^= *(bitmap)<< (8 - offset);
+                }
+                plotLocation += 80;
+                bitmap++;
+            }
+        }
     }
 }
 
 /* function: clear16Bitmap
-   Clears a 16px bitmap. The function removes a 16px wide 
-   section of the screen by setting the corresponding bytes to 0. 
-   The clearing is done for the specified height starting from
-   the given (x,y) coordinate.
+   Clears a 16px bitmap. Used to clear pixles activated by the 
+    plot16Bitmap() function.
+    toggles each pixel as to only clear the prev plotted bitmap, given that the same (x,y) .
 
    inputs:
-   base   - pointed on the starting address of the bitmap
-   bitmap -
-   column - starting column in the bitmap
-   row    - starting row in the bitmap
-   height - number of rows affected
+   base    - pointer to starting address of framebuffer
+   bitmap - pointer to start of 16px wide bit map
+   y - vertical cord to be cleared
+   x - horizontal cord to be cleared
+   height - height of bitmap
 */
 void clear16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height){    
     int i;
@@ -124,16 +161,16 @@ void clear16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height){
 }
 
 /* function: clear32Bitmap
-   Clears a 32px bitmap. The function removes a 32px wide 
-   section of the screen by setting the corresponding bytes to 0. 
-   The clearing is done for the specified height starting from
-   the given (x,y) coordinate.
+   Clears a 32px bitmap. Used to clear pixles activated by the 
+    plot32Bitmap() function.
+    toggles each pixel as to only clear the prev plotted bitmap, given that the same (x,y) .
+
    inputs:
-   base   - pointed on the starting address of the bitmap
-   bitmap -
-   column - starting column in the bitmap
-   row    - starting row in the bitmap
-   height - number of rows affected
+   base    - pointer to starting address of framebuffer
+   bitmap - pointer to start of 32px wide bit map
+   y - vertical cord to be cleared
+   x - horizontal cord to be cleared
+   height - height of bitmap
 */
 void clear32Bitmap(UINT8 *base, UINT32* bitmap, int x, int y, int height){
     int i;
@@ -149,41 +186,81 @@ void clear32Bitmap(UINT8 *base, UINT32* bitmap, int x, int y, int height){
 /* function: plot8Bitmap
    Plots an 8px wide bitmap onto the screen. The function renders 
    an 8px wide bitmap at a specified (x,y) coordinate position
-   on the screen. It uses an XOR operation, which allows for toggling
-   pixels on and off with each call.
+   on the screen. It uses an OR operation.
 
    inputs:
    base   - pointed on the starting address of the bitmap
    bitmap -
-   column - starting column in the bitmap
-   row    - starting row in the bitmap
+   y - vertical cord to be cleared
+   x - horizontal cord to be cleared
    height - number of rows affected
 */
 void plot8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height) {
     int i;
+    
+    int offset = x&7; /*x%8* how far on horizontal plane the x is from being byte alligned*/
+    UINT8 *plotLocation;
+    int usedHeight = height;
+    
+    if (y < 0 && y > -height){
+        bitmap += -y;
+        usedHeight += y;
+        y = 0;
+    }   else if (y > 399-8){
+        usedHeight -= y - 399-8;
+    }
 
-    UINT8 *plotLocation = base + (y * 80) + (x >> 3);
-    for(i=0;i<height;i++) {
-        *plotLocation |= *(bitmap++);
-        plotLocation += 80;
+    /*plot location is a byte, y rows down, and x/8 bytes right*/
+    plotLocation = (UINT16 *)base + (y * 80) + (x >> 3);
+
+    /*check if x is in bounds*/
+    if(x > -8 && x < 640){
+        /*check if bitmap is plotted off of left screen edge,
+        if so offset and plot single bitwidth*/
+        if (x < 0){
+            for(i=0;i<usedHeight;i++) {
+                /*plot the bitmap shifted abs(x) to the left 
+                x is negative*/
+                *(plotLocation+1) |= *(bitmap++)<<-x;
+                plotLocation += 80;
+            } 
+        }
+        /*check if bitmap is plotted off of right screen edge,
+        if so, offset and plot single wordwidth*/
+        else if (x > 639-8){
+            for(i=0;i<usedHeight;i++) {
+                /*plot the bitmap shifted  to the left */
+                *(plotLocation) |= *(bitmap++)>> offset;
+                plotLocation += 80;
+            } 
+        }
+        /*If x is not word alligned plot over 2 words width, else use 1*/
+        else{
+            for(i=0;i<usedHeight;i++) {
+                *plotLocation |= *(bitmap)>>offset;
+                if(offset != 0){
+                    *(plotLocation+1) |= *(bitmap)<< (8 - offset);
+                }
+                plotLocation += 80;
+                bitmap++;
+            }
+        }
     }
 }
 
 /* function: plot16Bitmap
    Plots a 16px wide bitmap onto the screen. The function renders 
    a 16px wide bitmap at a specified (x,y) coordinate position
-   on the screen. It uses an XOR operation, which allows for toggling
-   pixels on and off with each call.
+   on the screen. It uses an OR operation.
 
    inputs:
    base   - pointed on the starting address of the bitmap
    bitmap -
-   column - starting column in the bitmap
-   row    - starting row in the bitmap
+   y - vertical cord to be cleared
+   x - horizontal cord to be cleared
    height - number of rows affected
 */
 void plot16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height) {
-   
     int i;
     
     int offset = x&15; /*x%16* how far on horizontal plane the x is from being word alligned*/
@@ -239,8 +316,7 @@ void plot16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height) {
 /* function: plot32Bitmap
    Plots a 32px wide bitmap onto the screen. The function renders 
    a 32px wide bitmap at a specified (x,y) coordinate position
-   on the screen. It uses an XOR operation, which allows for toggling
-   pixels on and off with each call.
+   on the screen. It uses an OR operation.
 
    inputs:
    base   - pointed on the starting address of the bitmap
