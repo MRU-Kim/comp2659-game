@@ -41,9 +41,7 @@ void scroll(CactusMed cacti[], ScrollSpeed scrollspeed){
     }
 }
 
-void spawnMedCactus(CactusMed *CactusMed){
-    cactusSmall->x = ScreenWidth;
-    cactusSmall->delta_x = -10;
+void spawnMedCactus(CactusMed *cactusMed){
 }
 /*cascade events*/
 

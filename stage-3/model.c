@@ -49,13 +49,8 @@ void stand(DinoPlayer *player){
 void spawnCactusMed(CactusMed *cactusMed){
     cactusMed->x = 639+16;
     cactusMed->y = 100;
-    cactusMed->delta_x = -5;
 }
 
-/* Moves a cactus towards the left side, accross the screen */
-void moveCactusMed(CactusMed *cactusMed){
-    cactusMed->x += cactusMed->delta_x;
-}
 
 /*------score behaviors------*/
 /* Increments the player's score */

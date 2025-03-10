@@ -52,10 +52,17 @@ typedef struct {
     Ground ground;
     Score score;
     HighScore highScore;
-    ScrollSpeed crollSpeed;
+    ScrollSpeed scrollSpeed;
 } Model;
 /*init ex:
-    Model gameModel = {{319,200, 0, 0}, {360,200,}}; 
+    Model gameModel = {
+    .player = {319,200, 0, 0},
+    .cactiMed = {{360,200},{-20,200},{-20,200}},
+    .ground = {200},
+    .score = {0},
+    .highScore = {0},
+    .scrollSpeed = {5}
+    };
 */
 
 
@@ -71,7 +78,6 @@ void stand(DinoPlayer *player);
 /*cactus behaviors*/
 /*med cactus*/
 void spawnMedCactus(CactusMed *cactusMed);
-void moveCactusMed(CactusMed *cactusMed, ScrollSpeed scroll);
 
 /*score behaviors*/
 void increment(Score *score);
