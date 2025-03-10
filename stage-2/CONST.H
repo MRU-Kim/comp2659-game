@@ -22,7 +22,9 @@ typedef unsigned long UINT32;
 
 /* object */
 #define DinoHeight 16
-#define  CactusLargeHeight 16
+#define CactusMedHeight 16
+#define GroundLevel 200
+
 
 
 #endif

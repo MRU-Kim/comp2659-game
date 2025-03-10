@@ -48,14 +48,14 @@ void stand(DinoPlayer *player){
 /* Spawns a cactus at a fixed starting position */
 void spawnCactusMed(CactusMed *cactusMed){
     cactusMed->x = 639+16;
-    cactusMed->y = 100;
-    cactusMed->delta_x = -5;
+    cactusMed->y = GroundLevel;
+}
+void scrollMedCactus(CactusMed *cactusMed,ScrollSpeed scrollSpeed){
+    if((*cactusMed).x>-15){ /*if the cactus is on screen */
+        (*cactusMed).x+= scrollSpeed.delta_x;
+    }
 }
 
-/* Moves a cactus towards the left side, accross the screen */
-void moveCactusMed(CactusMed *cactusMed){
-    cactusMed->x += cactusMed->delta_x;
-}
 
 /*------score behaviors------*/
 /* Increments the player's score */

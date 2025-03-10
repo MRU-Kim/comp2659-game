@@ -32,18 +32,23 @@ void handleAircrouch(DinoPlayer *player){
 }
 
 /*sync events*/
-void scroll(CactusMed cacti[], ScrollSpeed scrollspeed){
+
+/* function: scroll
+    scrolls all scrollable objects to the left 
+    so far this is only cactusMed
+   inputs:
+   CactusMed - array of cactusMed
+   ScrollSpeed - Scroll speed to be forced on all side scrolling objects
+
+*/
+void scroll(CactusMed *cacti[], ScrollSpeed scrollSpeed){
     int i;
     for (i = 2; i>+0; i--){
-        if(cacti[i].x>-15){ /*if the cactus is on screen */
-            cacti[i].x+= scrollspeed.delta_x;
-        }
+        scrollMedCactus(cacti[i],scrollSpeed);
     }
 }
 
-void spawnMedCactus(CactusMed *CactusMed){
-    cactusSmall->x = ScreenWidth;
-    cactusSmall->delta_x = -10;
+void spawnMedCactus(CactusMed *cactusMed){
 }
 /*cascade events*/
 
