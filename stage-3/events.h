@@ -19,11 +19,10 @@ void handleCrouch(DinoPlayer *player);
 void handleAircrouch(DinoPlayer *player);
 
 /*sync events*/
-void scroll(Terrain *terrain);
-void spawnObsticle(CactusSmall *cactusSmall);
+void scroll(CactusMed cacti[], ScrollSpeed scrollspeed){
+void spawnMedCactus(CactusMed *CactusMed);
 
 /*cascade events*/
 void dinoDeath(DinoPlayer *player);
-void speedUp(Terrain *terrain);
-
+void speedUp(ScrollSpeed *scrollspeed);
 #endif

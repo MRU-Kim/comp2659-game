@@ -1,0 +1,12 @@
+test3: test3.o events.o model.o
+	cc68x -g test3.o events.o  model.o -o test3
+
+test3.o: test3.c events.h model.h
+	cc68x -g -c -I../stage-2 test3.c
+
+events.o: events.c events.h
+	cc68x -g -c events.c
+
+
+model.o: model.c model.h
+	cc68x -g -c -I../stage-2 model.c

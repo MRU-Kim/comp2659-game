@@ -8,7 +8,6 @@ Professor     	Steve Kalmar
 */
 
 #include <osbind.h>
-#include <osbind.h>
 #include "RASTER.H"
 #include "objects.h"
 #include "CONST.H"
@@ -24,7 +23,7 @@ int main()
 	plot16Bitmap(base,Dino,320,390,DinoHeight);
 	Cnecin();
 
-	for(i = -16; i < 399; i++){
+	for(i = -16; i < ScreenHeight-1; i++){
 
 		plot16Bitmap(base,Dino,i,i,DinoHeight);
 		Cnecin();
@@ -39,7 +38,7 @@ int main()
 		Cnecin();
 		clearScreen(base); /* set screen to all white */
 		i++;
-		plot16Bitmap(base,CactusLarge,(600-16)-i,200,CactusLargeHeight);
+		plot16Bitmap(base,CactusMed,(600-16)-i,200,CactusLargeHeight);
 	}
 
 	plot16Bitmap(base,DinoCrouch,320,200,DinoHeight);

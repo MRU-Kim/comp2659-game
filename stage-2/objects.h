@@ -17,6 +17,6 @@ extern UINT16 Dino[];
 
 extern UINT16 DinoCrouch[];
 
-extern UINT16 CactusLarge[];
+extern UINT16 CactusMed[];
 
 #endif

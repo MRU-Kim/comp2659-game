@@ -16,24 +16,27 @@ typedef struct {
     int isCrouched;
 } DinoPlayer;
 
+typedef struct
+{
+    int delta_x;
+} ScrollSpeed;
+
+
 typedef struct {
     unsigned int x, y;
-    int delta_x;
 } CactusSmall;
 
 typedef struct {
     unsigned int x, y;
-    int delta_x;
 } CactusMed;
 
 typedef struct {
     unsigned int x, y;
-    int delta_x;
 } CactusLarge;
 
 typedef struct {
     unsigned int x, y;
-} Terrain;
+} Ground;
 
 typedef struct {
     unsigned int x,y,value;
@@ -45,24 +48,30 @@ typedef struct {
 
 typedef struct {
     DinoPlayer player;
-    CactusSmall cactiSmall[3];    /* never making more than 3 cacti on screen*/
     CactusMed cactiMed[3];
-    CactusLarge cactiLarge[3];
-    Terrain terrain;
+    Ground ground;
     Score score;
     HighScore highScore;
+    ScrollSpeed crollSpeed;
 } Model;
+/*init ex:
+    Model gameModel = {{319,200, 0, 0}, {360,200,}}; 
+*/
+
 
 /*dino behaviors*/
 void jump(DinoPlayer *player);
-void crouch(DinoPlayer *player);
+void fall(DinoPlayer *player);
 void aircrouch(DinoPlayer *player);
+void land(DinoPlayer *player);
+void crouch(DinoPlayer *player);
 void stand(DinoPlayer *player);
 
 
 /*cactus behaviors*/
-void spawn(CactusSmall *cactusSmall);
-void move(CactusSmall *cactusSmall);
+/*med cactus*/
+void spawnMedCactus(CactusMed *cactusMed);
+void moveCactusMed(CactusMed *cactusMed, ScrollSpeed scroll);
 
 /*score behaviors*/
 void increment(Score *score);

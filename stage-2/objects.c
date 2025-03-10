@@ -46,7 +46,7 @@ UINT16 DinoCrouch[]={
     0x3fe0, 
     0x0360
 };
-UINT16 CactusLarge[]={
+UINT16 CactusMed[]={
     0x0180,
     0x03C0,
     0x03C0,

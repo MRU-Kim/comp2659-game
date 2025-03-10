@@ -16,13 +16,23 @@ scrolling
 */
 
 #include "model.h"
+#include "../stage-2/const.h"
 
 /*------dino behaviors------*/
 /* Makes Dino jump by setting its vertical velocity */
 void jump(DinoPlayer *player){
     player->delta_y = -10;
 }
-
+void fall(DinoPlayer *player){
+    player->delta_y = 10;
+}
+void land(DinoPlayer *player){
+    player->delta_y = 0;
+}
+/* Allows Dino to crouch mid-air */
+void aircrouch(DinoPlayer *player){
+    player->delta_y = 20;
+}
 /* Makes Dino crouch by decreasing its y-position */
 void crouch(DinoPlayer *player){
     player->isCrouched = 1;
@@ -32,22 +42,19 @@ void stand(DinoPlayer *player){
 }
 
 
-/* Allows Dino to crouch mid-air */
-void aircrouch(DinoPlayer *player){
-    player->delta_y += 5;
-}
+
 
 /*------cactus behaviors------*/
 /* Spawns a cactus at a fixed starting position */
-void spawnCactusSmall(CactusSmall *cactusSmall){
-    cactusSmall->x = 639+16;
-    cactusSmall->y = 100;
-    cactusSmall->delta_x = -5;
+void spawnCactusMed(CactusMed *cactusMed){
+    cactusMed->x = 639+16;
+    cactusMed->y = 100;
+    cactusMed->delta_x = -5;
 }
 
 /* Moves a cactus towards the left side, accross the screen */
-void move(CactusSmall *cactusSmall){
-    cactusSmall->x += cactusSmall->delta_x;
+void moveCactusMed(CactusMed *cactusMed){
+    cactusMed->x += cactusMed->delta_x;
 }
 
 /*------score behaviors------*/

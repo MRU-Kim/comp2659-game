@@ -8,6 +8,8 @@ Professor       Steve Kalmar
 */
 
 #include "events.h"
+#include "../stage-2/const.h"
+
 
 void handleJump(DinoPlayer *player){
     if (player->y == 0) { /* on the ground */
@@ -29,14 +31,21 @@ void handleAircrouch(DinoPlayer *player){
     aircrouch(player);
 }
 
-void scroll(Terrain *terrain){
-    terrain->x += 5; 
+/*sync events*/
+void scroll(CactusMed cacti[], ScrollSpeed scrollspeed){
+    int i;
+    for (i = 2; i>+0; i--){
+        if(cacti[i].x>-15){ /*if the cactus is on screen */
+            cacti[i].x+= scrollspeed.delta_x;
+        }
+    }
 }
 
-void spawnObsticle(CactusSmall *cactusSmall){
-    cactusSmall->x = 500;
+void spawnMedCactus(CactusMed *CactusMed){
+    cactusSmall->x = ScreenWidth;
     cactusSmall->delta_x = -10;
 }
+/*cascade events*/
 
 void dinoDeath(DinoPlayer *player){
     player->x = -5; /* start position */
@@ -44,6 +53,5 @@ void dinoDeath(DinoPlayer *player){
     player->delta_y = 0;
 }
 
-void speedUp(Terrain *terrain){
-    terrain->y += 10;
+void speedUp(ScrollSpeed *scrollspeed){
 }
