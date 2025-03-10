@@ -25,8 +25,12 @@ void jump(DinoPlayer *player){
 
 /* Makes Dino crouch by decreasing its y-position */
 void crouch(DinoPlayer *player){
-    player->y += 5;
+    player->isCrouched = 1;
 }
+void stand(DinoPlayer *player){
+    player->isCrouched = 0;
+}
+
 
 /* Allows Dino to crouch mid-air */
 void aircrouch(DinoPlayer *player){
@@ -35,8 +39,8 @@ void aircrouch(DinoPlayer *player){
 
 /*------cactus behaviors------*/
 /* Spawns a cactus at a fixed starting position */
-void spawn(CactusSmall *cactusSmall){
-    cactusSmall->x = 500;
+void spawnCactusSmall(CactusSmall *cactusSmall){
+    cactusSmall->x = 639+16;
     cactusSmall->y = 100;
     cactusSmall->delta_x = -5;
 }

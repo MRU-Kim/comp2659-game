@@ -24,7 +24,7 @@ void clearScreen(UINT8 *base){
 	register UINT32 *location = (UINT32 *)base;
 
 	while(i++<BytesPerScreen/4){
-		*(location++)= 0x0000;
+		*(location++)= 0x00000000;
 	}
 }
 
@@ -39,7 +39,6 @@ void clearScreen(UINT8 *base){
     y - vertical cord to be cleared
     x - horizontal cord to be cleared
     height - height of bitmap
-*/
 */
 void clear8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height){
     int i;
@@ -57,7 +56,7 @@ void clear8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height){
     }
 
     /*plot location is a byte, y rows down, and x/8 bytes right*/
-    plotLocation = (UINT16 *)base + (y * 80) + (x >> 3);
+    plotLocation = base + (y * 80) + (x >> 3);
 
     /*check if x is in bounds*/
     if(x > -8 && x < 640){
@@ -211,7 +210,7 @@ void plot8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height) {
     }
 
     /*plot location is a byte, y rows down, and x/8 bytes right*/
-    plotLocation = (UINT16 *)base + (y * 80) + (x >> 3);
+    plotLocation = base + (y * 80) + (x >> 3);
 
     /*check if x is in bounds*/
     if(x > -8 && x < 640){
