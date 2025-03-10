@@ -16,7 +16,7 @@ scrolling
 */
 
 #include "model.h"
-#include "../stage-2/const.h"
+#include "../stage-2/CONST.H"
 
 /*------dino behaviors------*/
 /* Makes Dino jump by setting its vertical velocity */
