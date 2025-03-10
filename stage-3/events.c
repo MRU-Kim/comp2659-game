@@ -8,7 +8,7 @@ Professor       Steve Kalmar
 */
 
 #include "events.h"
-#include "../stage-2/const.h"
+#include "../stage-2/CONST.H"
 
 
 void handleJump(DinoPlayer *player){
