@@ -118,8 +118,9 @@ void clear16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height){
         y = 0;
     }
     else if (y > 399-16){
-        usedHeight -= y - 399-16;
+        usedHeight -= y - (399-16);
     }
+    
 
     /*location is a word, y rows down, and x/16 words right*/
     location = (UINT16 *)base + (y * 40) + (x >> 4);
@@ -270,10 +271,10 @@ void plot16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height) {
         bitmap += -y;
         usedHeight += y;
         y = 0;
-    }   else if (y > 399-16){
-        usedHeight -= y - 399-16;
+    }   else if (y > 399-height){
+        usedHeight -= y - (399-height);
     }
-
+    printf("%d\n",usedHeight);
     /*plot location is a word, y rows down, and x/16 words right*/
     plotLocation = (UINT16 *)base + (y * 40) + (x >> 4);
 
