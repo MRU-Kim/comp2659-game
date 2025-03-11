@@ -51,8 +51,8 @@ void clear8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height){
         bitmap += -y;
         usedHeight += y;
         y = 0;
-    }   else if (y > 399-8){
-        usedHeight -= y - 399-8;
+    }   else if (y > 399-height){
+        usedHeight -= y - (399-height);
     }
 
     /*plot location is a byte, y rows down, and x/8 bytes right*/
@@ -117,8 +117,8 @@ void clear16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height){
         usedHeight += y;
         y = 0;
     }
-    else if (y > 399-16){
-        usedHeight -= y - (399-16);
+    else if (y > 399-height){
+        usedHeight -= y - (399-height);
     }
     
 
@@ -206,8 +206,8 @@ void plot8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height) {
         bitmap += -y;
         usedHeight += y;
         y = 0;
-    }   else if (y > 399-8){
-        usedHeight -= y - 399-8;
+    }   else if (y > 399-height){
+        usedHeight -= y - (399-height);
     }
 
     /*plot location is a byte, y rows down, and x/8 bytes right*/
@@ -267,11 +267,11 @@ void plot16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height) {
     UINT16 *plotLocation;
     int usedHeight = height;
     
-    if (y < 0 && y > -height){
+    if (y < 0 && y > -height){ /*if above screen by n amount, but still in screen advance bit map n times, remove used height*/
         bitmap += -y;
         usedHeight += y;
         y = 0;
-    }   else if (y > 399-height){
+    }   else if (y > 399-height){/*if bit map would be printed below screen by n amount remove usedHight be n amount*/
         usedHeight -= y - (399-height);
     }
     /*plot location is a word, y rows down, and x/16 words right*/
@@ -351,7 +351,4 @@ void plotHorizontalLine (UINT8 *base, int y) {
         *plotLocation |= -1;
         plotLocation++;
     }
-
-
-
 }
