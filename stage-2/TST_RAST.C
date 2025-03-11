@@ -36,7 +36,7 @@ int main()
 	
 	while( i<600-16){
 		Cnecin();
-		clearScreen(base); /* set screen to all white */
+
 		i++;
 		plot16Bitmap(base,CactusMed,(600-16)-i,200,CactusLargeHeight);
 	}
