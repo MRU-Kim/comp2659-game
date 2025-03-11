@@ -274,7 +274,6 @@ void plot16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height) {
     }   else if (y > 399-height){
         usedHeight -= y - (399-height);
     }
-    printf("%d\n",usedHeight);
     /*plot location is a word, y rows down, and x/16 words right*/
     plotLocation = (UINT16 *)base + (y * 40) + (x >> 4);
 
