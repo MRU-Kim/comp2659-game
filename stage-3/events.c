@@ -52,6 +52,7 @@ void scroll(CactusMed *cacti[], ScrollSpeed scrollSpeed){
 }
 
 void spawnMedCactus(CactusMed *cactusMed){
+void spawnMedCactus(CactusMed *cactusMed){
 }
 /*cascade events*/
 

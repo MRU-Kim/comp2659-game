@@ -20,10 +20,10 @@ int main()
 	Cnecin();
 	clearScreen(base); /* set screen to all white */
 	Cnecin();
-	plot16Bitmap(base,Dino,320,390,DinoHeight);
+	plot16Bitmap(base,Dino,320,385,DinoHeight);
 	Cnecin();
 
-	for(i = -16; i < ScreenHeight-1; i++){
+	for(i = 383; i < ScreenHeight-1; i++){
 
 		plot16Bitmap(base,Dino,i,i,DinoHeight);
 		Cnecin();
@@ -36,7 +36,7 @@ int main()
 	
 	while( i<600-16){
 		Cnecin();
-		clearScreen(base); /* set screen to all white */
+
 		i++;
 		plot16Bitmap(base,CactusMed,(600-16)-i,200,CactusMedHeight);
 	}
