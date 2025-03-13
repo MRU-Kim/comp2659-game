@@ -14,6 +14,9 @@ Professor     	Steve Kalmar
 typedef unsigned char UINT8;
 typedef unsigned int  UINT16;
 typedef unsigned long UINT32;
+typedef int bool;
+#define true 1
+#define false 0
 
 /* screen */
 #define ScreenWidth 640
@@ -24,6 +27,7 @@ typedef unsigned long UINT32;
 #define DinoHeight 16
 #define CactusMedHeight 16
 #define GroundLevel 200
+#define MaxJump GroundLevel-DinoHeight-30
 
 
 

@@ -13,7 +13,8 @@ Professor       Steve Kalmar
 typedef struct {
     unsigned int x, y;
     int delta_y;
-    int isCrouched;
+    bool isCrouched;
+    bool isAlive
 } DinoPlayer;
 
 typedef struct
@@ -56,7 +57,7 @@ typedef struct {
 } Model;
 /*init ex:
     Model gameModel = {
-    .player = {319,GroundLevel-16, 0, 0},
+    .player = {319,GroundLevel-16, 0, false, true},
     .cactiMed = {{360,GroundLevel-16},{-20,GroundLevel-16},{-20,GroundLevel-16}},
     .ground = {GroundLevel},
     .score = {0},
@@ -73,6 +74,7 @@ void aircrouch(DinoPlayer *player);
 void land(DinoPlayer *player);
 void crouch(DinoPlayer *player);
 void stand(DinoPlayer *player);
+void die(DinoPlayer *player);
 
 
 /*cactus behaviors*/
@@ -85,5 +87,7 @@ void increment(Score *score);
 
 /*high score behaviors*/
 void updateScore(HighScore *highScore, Score *score);
+
+/*model behaviors*/
 
 #endif

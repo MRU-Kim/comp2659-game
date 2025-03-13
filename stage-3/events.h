@@ -24,5 +24,7 @@ void spawnMedCactus(CactusMed *CactusMed);
 
 /*cascade events*/
 void dinoDeath(DinoPlayer *player);
-void speedUp(ScrollSpeed *scrollspeed);
+void milestone(ScrollSpeed *scrollspeed);
+void updateHighscore(Score score, HighScore highscore);
+void resetAfterDeath(Model *model, Model startconditions);
 #endif
