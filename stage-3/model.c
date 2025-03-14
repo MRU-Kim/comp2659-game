@@ -33,6 +33,11 @@ void land(DinoPlayer *player){
 void aircrouch(DinoPlayer *player){
     player->delta_y = 20;
 }
+void updateY(DinoPlayer *player){
+    player->y += player->delta_y;
+}
+
+
 /* Makes Dino crouch by decreasing its y-position */
 void crouch(DinoPlayer *player){
     player->isCrouched = 1;

@@ -19,10 +19,11 @@ void handleCrouch(DinoPlayer *player);
 void handleAircrouch(DinoPlayer *player);
 
 /*sync events*/
-void scroll(CactusMed cacti[], ScrollSpeed scrollspeed);
+void scroll (CactusMed *cacti[], ScrollSpeed scrollspeed);
+void changeDinoY (DinoPlayer *dino);
 void spawnMedCactus(CactusMed *CactusMed);
 
-void initializeModel(Model *model);
+void initializeModel(Model *model, int cactiInPlay);
 
 /*cascade events*/
 void dinoDeath(DinoPlayer *player);

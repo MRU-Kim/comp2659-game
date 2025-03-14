@@ -51,6 +51,14 @@ void scroll(CactusMed *cacti[], ScrollSpeed scrollSpeed){
     }
 }
 
+/* function: changeDinoY
+    on update change dinoY according to dinoY
+*/
+void changeDinoY (DinoPlayer *dino){
+    
+}
+
+
 void spawnMedCactus(CactusMed *cactusMed){
 
 }

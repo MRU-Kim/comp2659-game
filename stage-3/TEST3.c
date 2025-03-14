@@ -12,32 +12,11 @@ Professor     	Steve Kalmar
 #include "model.h"
 #include "../stage-2/const.h"
 
-DinoPlayer player = {100,GroundY+DinoHeight,false,true}; 
-/*initializes player where x=200, y=groundlevel+dinohieght,not crouched, is alive*/
-
-CactusMed cacti[3] = {{200,CactMedY},{-16,CactMedY},{-16,CactMedY}};
-/*initializes 3 med cactus 1 in play 2 out of play*/
-
-Ground ground = {GroundY};
-
-Score score = {639-5*8,10,0};
-/*initiallizes score to the top right of the screen and sets to 0*/
-HighScore highScore = {639-5*8-5*8,10,0};
-/*initiallizes high score to the left of score and sets to 0*/
-
-ScrollSpeed scrollSpeed = {0};
-/*sets scroll speed to 0*/
 
 
 int main()
 {
-    Model gameModel = {
-        {100,GroundY+DinoHeight,false,true},
-        cacti,
-        ground,
-        score,
-        highScore,
-        ScrollSpeed
-    };
+    Model gameModel;
+    initializeModel(&gameModel,0);
     return 0;
 }

@@ -1,5 +1,6 @@
 Stage 3
 - tester
+- dino updater
 
 stage 4
 - renderer

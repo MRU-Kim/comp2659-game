@@ -13,8 +13,7 @@ Professor       Steve Kalmar
 
 
 typedef struct {
-    unsigned int x, y;
-    int delta_y;
+    int x, y, delta_y;
     bool isCrouched;
     bool isAlive;
 } DinoPlayer;
@@ -26,27 +25,27 @@ typedef struct
 
 
 typedef struct {
-    unsigned int x, y;
+    int x, y;
 } CactusSmall;
 
 typedef struct {
-    unsigned int x, y;
+    int x, y;
 } CactusMed;
 
 typedef struct {
-    unsigned int x, y;
+    int x, y;
 } CactusLarge;
 
 typedef struct {
-    unsigned int y;
+    int y;
 } Ground;
 
 typedef struct {
-    unsigned int x,y,value;
+    int x,y,value;
 } Score;
 
 typedef struct {
-    unsigned int x,y,value;
+    int x,y,value;
 } HighScore;
 
 typedef struct {
@@ -76,6 +75,7 @@ void jump(DinoPlayer *player);
 void fall(DinoPlayer *player);
 void aircrouch(DinoPlayer *player);
 void land(DinoPlayer *player);
+
 void crouch(DinoPlayer *player);
 void stand(DinoPlayer *player);
 void die(DinoPlayer *player);
@@ -84,7 +84,6 @@ void die(DinoPlayer *player);
 /*cactus behaviors*/
 /*med cactus*/
 void spawnMedCactus(CactusMed *cactusMed);
-
 void scrollMedCactus(CactusMed *cactusMed,ScrollSpeed scrollSpeed);
 
 /*score behaviors*/
