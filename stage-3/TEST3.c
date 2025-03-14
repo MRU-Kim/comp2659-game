@@ -13,7 +13,7 @@ Professor     	Steve Kalmar
 #include "../stage-2/const.h"
 
 
-
+unsigned int ticks70;
 int main()
 {
     Model gameModel;

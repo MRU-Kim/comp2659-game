@@ -1,10 +1,11 @@
 Stage 3
 - tester
 - dino updater
+- make random sead generator
 
 stage 4
 - renderer
-
+- 
 stage 5
 stage 6
 stage 7
