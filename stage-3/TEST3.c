@@ -11,9 +11,12 @@ Professor     	Steve Kalmar
 #include "events.h"
 #include "model.h"
 #include "../stage-2/const.h"
+#include <time.h>
 
 
 unsigned int ticks70;
+char input;
+
 int main()
 {
     Model gameModel;
