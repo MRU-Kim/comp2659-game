@@ -46,15 +46,17 @@ void handleAircrouch(DinoPlayer *player){
 */
 void scroll(CactusMed *cacti[], ScrollSpeed scrollSpeed){
     int i;
-    for (i = 2; i>+0; i--){
+    for (i = 2; i>=0; i--){
         scrollMedCactus(cacti[i],scrollSpeed);
     }
 }
 
 /* function: changeDinoY
-    on update change dinoY according to dinoY
+    on update change dino Y according to delta_y
+    don't place dino above MaxJump, or dinoY
+    check if dino is hitting cactus, if so, call death
 */
-void changeDinoY (DinoPlayer *dino){
+void playerUpdate (DinoPlayer *dino){
     
 }
 
@@ -64,12 +66,12 @@ void spawnMedCactus(CactusMed *cactusMed){
 }
 
 /* fucntion: initializeModel
-    initializes model to start conditions with up to 3 cactus in play
+    initializes model to start conditions
     inputs:
     Model- model to be initialized
-    CactiInPlay amount of cactus, up to 3 to be be in play
+
 */
-void initializeModel(Model *model, int cactiInPlay){
+void initializeModel(Model *model){
     int i;
     model->player.x = 100; /*init player*/
     model->player.y = DinoY;
@@ -82,11 +84,6 @@ void initializeModel(Model *model, int cactiInPlay){
     {
         model->cactiMed[i].x = -16;
         model->cactiMed[i].y = CactMedY;
-    }
-    /*[put cactus into play]*/
-    for (i = 0; i < cactiInPlay; i++)
-    {
-        model->cactiMed[i].x = 640+i*16;
     }
     model->ground.y = GroundY;
 

@@ -27,12 +27,10 @@ typedef int bool;
 #define DinoHeight 16
 #define CactMedHght 16
 
-/*Model logic constants*/
-#define MaxJump DinoY-30
-
-/*Model location init constants*/
+/*Model location  constants*/
 #define GroundY 200
 #define DinoY GroundY-DinoHeight
+#define MaxJump DinoY-30
 #define CactMedY GroundY-CactMedHght
 #define ScoreX 639-5*8
 #define ScoreY 10
