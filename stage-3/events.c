@@ -12,13 +12,13 @@ Professor       Steve Kalmar
 #include "model.h"
 
 void handleJump(DinoPlayer *player){
-    if (player->y == GroundLevel+DinoHeight) { /* on the ground */
+    if (player->y == GroundY+DinoHeight) { /* on the ground */
         jump(player);
     }
 }
 
 void handleJumpHeld(DinoPlayer *player){
-    if (player->y > GroundLevel-DinoHeight && player-> y > MaxJump) { /* in the air */
+    if (player->y > GroundY-DinoHeight && player-> y > MaxJump) { /* in the air */
         jump(player);
     }
     else {
@@ -41,7 +41,7 @@ void handleAircrouch(DinoPlayer *player){
     so far this is only cactusMed
     inputs:
     CactusMed - array of cactusMed
-    ScrollSpeed - Scroll speed to be forced on all side scrolling objects
+    ScrollSpeed - ScrollSpeed speed to be forced on all side scrolling objects
 
 */
 void scroll(CactusMed *cacti[], ScrollSpeed scrollSpeed){
@@ -52,7 +52,45 @@ void scroll(CactusMed *cacti[], ScrollSpeed scrollSpeed){
 }
 
 void spawnMedCactus(CactusMed *cactusMed){
-void spawnMedCactus(CactusMed *cactusMed){
+
+}
+
+/* fucntion: initializeModel
+    initializes model to start conditions with up to 3 cactus in play
+    inputs:
+    Model- model to be initialized
+    CactiInPlay amount of cactus, up to 3 to be be in play
+*/
+void initializeModel(Model *model, int cactiInPlay){
+    int i;
+    model->player.x = 100; /*init player*/
+    model->player.y = DinoY;
+    model->player.delta_y = 0;
+    model->player.isAlive = true;
+    model->player.isCrouched = false;
+
+    /*init cacti*/
+    for ( i = 0; i < 3; i++)
+    {
+        model->cactiMed[i].x = -16;
+        model->cactiMed[i].y = CactMedY;
+    }
+    /*[put cactus into play]*/
+    for (i = 0; i < cactiInPlay; i++)
+    {
+        model->cactiMed[i].x = 640+i*16;
+    }
+    model->ground.y = GroundY;
+
+    model->score.x = ScoreX;
+    model->score.y = ScoreY;
+    model->score.value = 0;
+
+    model->highScore.x = HighScoreX;
+    model->highScore.y = HighScoreY;
+    model->highScore.value = 0;
+
+    model->scrollSpeed.delta_x = 0;
 }
 /*cascade events*/
 

@@ -1,2 +1,13 @@
 .vscode
 .DS_Store
+stage-3/model_test.c
+stage-2/TST_RAST.O
+.gitignore
+stage-2/OBJECTS.O
+stage-2/RAST_ASM.O
+stage-2/RASTER.O
+stage-3/EVENTS.O
+stage-3/MODEL.O
+stage-3/TEST3.O
+stage-3/A.OUT
+stage-3/TEST3

@@ -9,12 +9,14 @@ Professor       Steve Kalmar
 
 #ifndef MODEL_H
 #define MODEL_H
+#include "../stage-2/CONST.H"
+
 
 typedef struct {
     unsigned int x, y;
     int delta_y;
     bool isCrouched;
-    bool isAlive
+    bool isAlive;
 } DinoPlayer;
 
 typedef struct
@@ -36,7 +38,7 @@ typedef struct {
 } CactusLarge;
 
 typedef struct {
-    unsigned int x, y;
+    unsigned int y;
 } Ground;
 
 typedef struct {
@@ -57,16 +59,12 @@ typedef struct {
 } Model;
 /*init ex:
     Model gameModel = {
-<<<<<<< HEAD
-    .player = {319,GroundLevel-16, 0, false, true},
-    .cactiMed = {{360,GroundLevel-16},{-20,GroundLevel-16},{-20,GroundLevel-16}},
-    .ground = {GroundLevel},
-=======
+    .player = {319,GroundY-16, 0, false, true},
+    .cactiMed = {{360,GroundY-16},{-20,GroundY-16},{-20,GroundY-16}},
+    .ground = {GroundY},
     .player = {319,200, 0, 0},
     .cactiMed = {{360,200},{-20,200},{-20,200}},
     .ground = {200},
->>>>>>> 059dc81df5a32576525598c1d80d267f5e91f5af
-    .score = {0},
     .highScore = {0},
     .scrollSpeed = {5}
     };
@@ -86,16 +84,17 @@ void die(DinoPlayer *player);
 /*cactus behaviors*/
 /*med cactus*/
 void spawnMedCactus(CactusMed *cactusMed);
-<<<<<<< HEAD
+
 void scrollMedCactus(CactusMed *cactusMed,ScrollSpeed scrollSpeed);
-=======
->>>>>>> 059dc81df5a32576525598c1d80d267f5e91f5af
 
 /*score behaviors*/
 void increment(Score *score);
 
 /*high score behaviors*/
 void updateScore(HighScore *highScore, Score *score);
+
+/*scroll speed behaviors*/
+void startScroll(ScrollSpeed *scrollSpeed);
 
 /*model behaviors*/
 

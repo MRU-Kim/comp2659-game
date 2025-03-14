@@ -17,7 +17,6 @@ scrolling
 
 #include "model.h"
 #include "../stage-2/CONST.H"
-#include "../stage-2/CONST.H"
 
 /*------dino behaviors------*/
 /* Makes Dino jump by setting its vertical velocity */
@@ -54,11 +53,11 @@ void die(DinoPlayer *player){
 /* Spawns a cactus at a fixed starting position */
 void spawnCactusMed(CactusMed *cactusMed){
     cactusMed->x = 639+16;
-    cactusMed->y = GroundLevel;
+    cactusMed->y = GroundY;
 }
 void scrollMedCactus(CactusMed *cactusMed,ScrollSpeed scrollSpeed){
-    if((*cactusMed).x>-15){ /*if the cactus is on screen */
-        (*cactusMed).x+= scrollSpeed.delta_x;
+    if((*cactusMed).x>-16){ /*if the cactus is on screen */
+        (*cactusMed).x-= scrollSpeed.delta_x;
     }
 }
 
@@ -76,3 +75,8 @@ void updateScore(HighScore *highScore, Score *score){
         highScore->value = score->value;
     }
 }
+
+void startScroll(ScrollSpeed *scrollSpeed){
+    scrollSpeed->delta_x = 5;
+}
+

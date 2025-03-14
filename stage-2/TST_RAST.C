@@ -38,7 +38,7 @@ int main()
 		Cnecin();
 
 		i++;
-		plot16Bitmap(base,CactusMed,(600-16)-i,200,CactusMedHeight);
+		plot16Bitmap(base,CactusMed,(600-16)-i,200,CactMedHieght);
 	}
 
 	plot16Bitmap(base,DinoCrouch,320,200,DinoHeight);
