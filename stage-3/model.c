@@ -18,22 +18,25 @@ scrolling
 #include "model.h"
 #include "../stage-2/CONST.H"
 
+/*tester libs*/
+#include <stdio.h>
+
 /*------dino behaviors------*/
 /* Makes Dino jump by setting its vertical velocity only if it
     does'nt have any downward momentum*/
-void jump(DinoPlayer *player){
+void dinoJump(DinoPlayer *player){
     if (player->delta_y<=0)
     {
         player->delta_y = -10;
     }
 }
 
-/* function fall
+/* function dinoFall
     cancels momentum or acclerates downwards
     inputs: 
     player - dinno object
 */
-void fall(DinoPlayer *player){
+void dinoFall(DinoPlayer *player){
     if (player->y < DinoY){
 
         if (player->delta_y>=0) /*if downward momentum*/
@@ -47,11 +50,11 @@ void fall(DinoPlayer *player){
         player->delta_y++;
     }
 }
-void land(DinoPlayer *player){
+void dinoLand(DinoPlayer *player){
     player->delta_y = 0;
 }
 /* Allows Dino to crouch mid-air */
-void aircrouch(DinoPlayer *player){
+void dinoAirCrouch(DinoPlayer *player){
     player->delta_y = 20;
 }
 void updateY(DinoPlayer *player){
@@ -60,14 +63,14 @@ void updateY(DinoPlayer *player){
 
 
 /* Makes Dino crouch by decreasing its y-position */
-void crouch(DinoPlayer *player){
+void dinoCrouch(DinoPlayer *player){
     player->isCrouched = 1;
 }
-void stand(DinoPlayer *player){
+void dinoStand(DinoPlayer *player){
     player->isCrouched = 0;
 }
 
-void die(DinoPlayer *player){
+void dinoDie(DinoPlayer *player){
     player->isAlive = 0;
 }
 
@@ -77,36 +80,37 @@ void die(DinoPlayer *player){
 
 /*------cactus behaviors------*/
 /* Spawns a cactus at a fixed starting position */
-void spawnCactusMed(CactusMed *cactusMed){
+void medCactusSpawn(CactusMed *cactusMed){
     cactusMed->x = 639+16;
     cactusMed->y = GroundY;
 }
-void scrollMedCactus(CactusMed *cactusMed,ScrollSpeed scrollSpeed){
-    if((*cactusMed).x>-16){ /*if the cactus is on screen */
-        (*cactusMed).x-= scrollSpeed.delta_x;
+void medCactusScroll(CactusMed *cactusMed,ScrollSpeed scrollSpeed){
+    if(cactusMed->x>-16){ /*if the cactus is on screen */
+        cactusMed->x-= scrollSpeed.delta_x;
     }
+
 }
 
 
 /*------score behaviors------*/
 /* Increments the player's score */
-void increment(Score *score){
+void scoreIncrement(Score *score){
     score->value++;
 }
 
 /*------high score behaviors------*/
 /* Updates the high school if the current score is higher */
-void updateScore(HighScore *highScore, Score *score){
+void scoreUpdate(HighScore *highScore, Score *score){
     if (score->value > highScore->value){
         highScore->value = score->value;
     }
 }
 
-void startScroll(ScrollSpeed *scrollSpeed){
+void scrollStart(ScrollSpeed *scrollSpeed){
     scrollSpeed->delta_x = 5;
 }
 
-void stopScroll(ScrollSpeed *scrollSpeed){
+void scrollStop(ScrollSpeed *scrollSpeed){
     scrollSpeed->delta_x = 0;
 }
 

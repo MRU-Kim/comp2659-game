@@ -31,7 +31,7 @@ typedef int bool;
 #define GroundY 200
 #define DinoY GroundY-DinoHeight
 #define MaxJump DinoY-30
-#define CactMedY GroundY-CactMedHght
+#define CactMedY GroundY-CactMedHeight
 #define ScoreX 639-5*8
 #define ScoreY 10
 #define HighScoreX ScoreX-40

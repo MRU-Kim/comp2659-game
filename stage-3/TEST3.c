@@ -14,7 +14,6 @@ Professor     	Steve Kalmar
 #include <osbind.h>
 #include <stdio.h>
 
-
 unsigned int ticks70;
 char input;
 
@@ -22,28 +21,35 @@ int main()
 {
     Model gameModel;
     evInitializeModel(&gameModel);
-    
 
-    input = Cnecin();
+    input = 0;
+
+    while (input != ' ')
+    {
+        printf("start? press space%c\n", input);
+        input = Cnecin();
+    }
+
+    startGame(&gameModel);
 
     while (input != '`')
     {
+        printf("main loop\n");
+
         /*show status of objects*/
 
-        printf("player x=%d, y=%d, dy=%d, isCrch=%d, isAlive=%d\n", 
-            gameModel.player.x, gameModel.player.y, gameModel.player.delta_y, 
-            gameModel.player.isCrouched, gameModel.player.isCrouched);
-
-        while (input != ' ')
+        printf("player x=%d, y=%d, dy=%d, isCrch=%d, isAlive=%d\n",
+               gameModel.player.x, gameModel.player.y, gameModel.player.delta_y,
+               gameModel.player.isCrouched, gameModel.player.isCrouched);
+        printf("medCactus1 x,y=%d,%d medCactus2 x,y=%d,%d medCactus3 x,y=%d,%d\n",
+               gameModel.cactiMed[0].x, gameModel.cactiMed[0].y,
+               gameModel.cactiMed[1].x, gameModel.cactiMed[1].y,
+               gameModel.cactiMed[2].x, gameModel.cactiMed[2].y, );
+        /*reset input*/
+        input = 0;
+        while (input != ' '&&input != '`')
         {
-            printf("%c\n", input);
-            input = Cnecin();
-        }
-        startGame(&gameModel);
-
-        while (input != ' ')
-        {
-            printf("%c\n", input);
+            printf("choose input then press space to advance\n");
             input = Cnecin();
             switch (input)
             {
@@ -51,14 +57,16 @@ int main()
                 {
                     evJump(&gameModel.player);
                 }
-                else{
-                    evDinoFall(&gameModel.player);
+                else if (input == 's')
+                {
+                    evCrouch(&gameModel.player);
                 }
             }
         }
-        /*advance time*/
+        printf("scroll\n");
+        evScroll(&gameModel);
+        printf("update player\n");
         evPlayerUpdate(&gameModel.player);
-        evScroll(&gameModel.cactiMed,ScrollSpeed);
     }
 
     return 0;

@@ -19,10 +19,9 @@ void evAircrouch(DinoPlayer *player);
 void startGame(Model *model);
 
 /*sync events*/
-void evScroll(CactusMed *cacti[], ScrollSpeed scrollspeed);
+void evScroll(Model *model);
 void evPlayerUpdate(DinoPlayer *player);
-void evSpawnMedCactus(CactusMed *CactusMed);
-void evDinoFall(DinoPlayer *evDinoDeath);
+void evCactusSpawn(Model *model);
 
 void evInitializeModel(Model *model);
 

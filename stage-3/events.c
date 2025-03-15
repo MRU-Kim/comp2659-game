@@ -11,24 +11,28 @@ Professor       Steve Kalmar
 #include "../stage-2/const.h"
 #include "model.h"
 
+/*tester libs*/
+#include <stdio.h>
+
+
 /*ASYNC EVENTS*/
 void evJump(DinoPlayer *player)
 {
     if (player->y == GroundY + DinoHeight &&
         player->delta_y < MaxJump)
     { /* on the ground and below maxjump*/
-        jump(player);
+        dinoJump(player);
     }
 }
 
 void evCrouch(DinoPlayer *player)
 {
-    crouch(player);
+    dinoCrouch(player);
 }
 
 void evAircrouch(DinoPlayer *player)
 {
-    aircrouch(player);
+    dinoAirCrouch(player);
 }
 
 /* function startGame
@@ -36,7 +40,7 @@ void evAircrouch(DinoPlayer *player)
     */
 void startGame(Model *model)
 {
-    startScroll(&model->scrollSpeed);
+    scrollStart(&model->scrollSpeed);
 }
 
 /*SYNC EVENTS*/
@@ -49,12 +53,12 @@ void startGame(Model *model)
     ScrollSpeed - ScrollSpeed speed to be forced on all side scrolling objects
 
 */
-void evScroll(CactusMed *cacti[], ScrollSpeed scrollSpeed)
+void evScroll(Model *model)
 {
     int i;
     for (i = 2; i >= 0; i--)
     {
-        scrollMedCactus(cacti[i], scrollSpeed);
+        medCactusScroll(&model->cactiMed[i], model->scrollSpeed);
     }
 }
 
@@ -66,31 +70,29 @@ void evScroll(CactusMed *cacti[], ScrollSpeed scrollSpeed)
 void evPlayerUpdate(DinoPlayer *player)
 {
     player->y += player->delta_y;
-    if (player->y>DinoY) /*dino below bounds*/
+    if (player->y > DinoY) /*dino below bounds*/
     {
         player->y = DinoY;
     }
-    else if (player->y < MaxJump)/*dino above bounds*/
+    else if (player->y < MaxJump) /*dino above bounds*/
     {
         player->y = MaxJump;
     }
-    else if (player->delta_y>=0 && player->y < DinoY) /*dino in air and  */
+    else if (player->delta_y >= 0 && player->y < DinoY) /*dino in air and  */
     {
-        
+        dinoFall(player);
     }
-    
-    
-    
 }
-
-void evSpawnMedCactus(CactusMed *cactusMed)
+/* function: evCactusSpawn
+    chooses what obsticles to spawn based on some randomeness
+    ideally spawning them every 1 to 2 seconds
+    inputs:
+    - 
+*/
+void evCactusSpawn(Model *model)
 {
 }
 
-void evDinoFall(DinoPlayer *evDinoDeath)
-{
-    
-}
 
 /* fucntion: evInitializeModel
     initializes model to start conditions
