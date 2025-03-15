@@ -37,6 +37,28 @@ typedef int bool;
 #define HighScoreX ScoreX-40
 #define HighScoreY ScoreY
 
+/* stage 7 - sounds */
 
+#define OFF                 0
+#define ON                  1
+
+#define CHANNEL_A           0
+#define CHANNEL_B           1
+#define CHANNEL_C           2
+
+/* fine and coarse registers of each channels */
+#define A_FINE              CHANNEL_A
+#define A_COARSE            CHANNEL_A + 1
+#define B_FINE              CHANNEL_B + 1
+#define B_COARSE            CHANNEL_B + 2
+#define C_FINE              CHANNEL_C + 2
+#define C_COARSE            CHANNEL_C + 3
+#define NOISE_REG           6
+#define GOTO_VOLUME         8
+
+#define MIXER               7
+
+#define PSG_SELECT_ADDRESS  0xFF8800
+#define PSG_WRITE_ADDRESS   0xFF8802
 
 #endif
