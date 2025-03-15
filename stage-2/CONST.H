@@ -25,7 +25,7 @@ typedef int bool;
 
 /* object */
 #define DinoHeight 16
-#define CactMedHght 16
+#define CactMedHeight 16
 
 /*Model location  constants*/
 #define GroundY 200

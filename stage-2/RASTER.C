@@ -14,7 +14,7 @@ Professor     	Steve Kalmar
 #include "CONST.H"
 
 /* function: clearScreen
-    clears screen
+   clears screen
    inputs:
    base    - pointer to starting address of framebuffer
 
@@ -29,8 +29,7 @@ void clearScreen(UINT8 *base){
 }
 
 /* function: clear8Bitmap
-   Clears a 8px bitmap. Used to clear pixles activated by the 
-    plot8Bitmap() function.
+   Clears a 8px bitmap. Used to clear pixles activated by the plot8Bitmap() function.
     toggles each pixel as to only clear the prev plotted bitmap, given that the same (x,y) .
 
     inputs:
