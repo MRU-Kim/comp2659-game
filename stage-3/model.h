@@ -83,7 +83,7 @@ void die(DinoPlayer *player);
 
 /*cactus behaviors*/
 /*med cactus*/
-void spawnMedCactus(CactusMed *cactusMed);
+void evSpawnMedCactus(CactusMed *cactusMed);
 void scrollMedCactus(CactusMed *cactusMed,ScrollSpeed scrollSpeed);
 
 /*score behaviors*/
@@ -92,8 +92,9 @@ void increment(Score *score);
 /*high score behaviors*/
 void updateScore(HighScore *highScore, Score *score);
 
-/*scroll speed behaviors*/
+/*evScroll speed behaviors*/
 void startScroll(ScrollSpeed *scrollSpeed);
+void stopScroll(ScrollSpeed *scrollSpeed);
 
 /*model behaviors*/
 

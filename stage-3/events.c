@@ -11,67 +11,95 @@ Professor       Steve Kalmar
 #include "../stage-2/const.h"
 #include "model.h"
 
-void handleJump(DinoPlayer *player){
-    if (player->y == GroundY+DinoHeight) { /* on the ground */
+/*ASYNC EVENTS*/
+void evJump(DinoPlayer *player)
+{
+    if (player->y == GroundY + DinoHeight &&
+        player->delta_y < MaxJump)
+    { /* on the ground and below maxjump*/
         jump(player);
     }
 }
 
-void handleJumpHeld(DinoPlayer *player){
-    if (player->y > GroundY-DinoHeight && player-> y > MaxJump) { /* in the air */
-        jump(player);
-    }
-    else {
-        fall(player);
-    }
-}
-
-void handleCrouch(DinoPlayer *player){
+void evCrouch(DinoPlayer *player)
+{
     crouch(player);
 }
 
-void handleAircrouch(DinoPlayer *player){
+void evAircrouch(DinoPlayer *player)
+{
     aircrouch(player);
 }
 
-/*sync events*/
+/* function startGame
+    on jump input start game
+    */
+void startGame(Model *model)
+{
+    startScroll(&model->scrollSpeed);
+}
 
-/* function: scroll
-    scrolls all scrollable objects to the left 
+/*SYNC EVENTS*/
+
+/* function: evScroll
+    scrolls all scrollable objects to the left
     so far this is only cactusMed
     inputs:
     CactusMed - array of cactusMed
     ScrollSpeed - ScrollSpeed speed to be forced on all side scrolling objects
 
 */
-void scroll(CactusMed *cacti[], ScrollSpeed scrollSpeed){
+void evScroll(CactusMed *cacti[], ScrollSpeed scrollSpeed)
+{
     int i;
-    for (i = 2; i>=0; i--){
-        scrollMedCactus(cacti[i],scrollSpeed);
+    for (i = 2; i >= 0; i--)
+    {
+        scrollMedCactus(cacti[i], scrollSpeed);
     }
 }
 
-/* function: changeDinoY
+/* function: evPlayerUpdate
     on update change dino Y according to delta_y
     don't place dino above MaxJump, or dinoY
     check if dino is hitting cactus, if so, call death
 */
-void playerUpdate (DinoPlayer *dino){
+void evPlayerUpdate(DinoPlayer *player)
+{
+    player->y += player->delta_y;
+    if (player->y>DinoY) /*dino below bounds*/
+    {
+        player->y = DinoY;
+    }
+    else if (player->y < MaxJump)/*dino above bounds*/
+    {
+        player->y = MaxJump;
+    }
+    else if (player->delta_y>=0 && player->y < DinoY) /*dino in air and  */
+    {
+        
+    }
+    
+    
     
 }
 
-
-void spawnMedCactus(CactusMed *cactusMed){
-
+void evSpawnMedCactus(CactusMed *cactusMed)
+{
 }
 
-/* fucntion: initializeModel
+void evDinoFall(DinoPlayer *evDinoDeath)
+{
+    
+}
+
+/* fucntion: evInitializeModel
     initializes model to start conditions
     inputs:
     Model- model to be initialized
 
 */
-void initializeModel(Model *model){
+void evInitializeModel(Model *model)
+{
     int i;
     model->player.x = 100; /*init player*/
     model->player.y = DinoY;
@@ -80,7 +108,7 @@ void initializeModel(Model *model){
     model->player.isCrouched = false;
 
     /*init cacti*/
-    for ( i = 0; i < 3; i++)
+    for (i = 0; i < 3; i++)
     {
         model->cactiMed[i].x = -16;
         model->cactiMed[i].y = CactMedY;
@@ -99,30 +127,31 @@ void initializeModel(Model *model){
 }
 /*cascade events*/
 
-
-/* function: milestone
-    after 1000 points increase the speed of the scroll
+/* function: evMilestone
+    after 1000 points increase the speed of the evScroll
     inputs:
     scrollspeed - object that controls speed of scrolling objects
 */
-void milestone(ScrollSpeed *scrollspeed){
+void evMilestone(ScrollSpeed *scrollspeed)
+{
 }
-/*function: dinoDeath
+/*function: evDinoDeath
     triggers on the dino hitbox intersects with a cactus hitbox
-        stops scroll, dino dies, sets new high score, places game into new run after next jump input
+        stops evScroll, dino dies, sets new high score, places game into new run after next jump input
 */
-void dinoDeath(DinoPlayer *player){
+void evDinoDeath(DinoPlayer *player)
+{
     player->x = -5; /* start position */
     player->y = 0;
     player->delta_y = 0;
 }
 
-void updateHighscore(Score score, HighScore highscore){
-
+void evUpdateHighscore(Score score, HighScore highscore)
+{
 }
-/* function: resetAfterDeath
+/* function: evResetAfterDeath
     a death reset everything into new run except high score
 */
-void resetAfterDeath(Model *model, Model startconditions){
-
+void evResetAfterDeath(Model *model, Model startconditions)
+{
 }

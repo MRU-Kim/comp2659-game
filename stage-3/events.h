@@ -13,21 +13,22 @@ Professor       Steve Kalmar
 #include "model.h"
 
 /*async events*/
-void handleJump(DinoPlayer *player);
-void handleJumpHeld(DinoPlayer *player);
-void handleCrouch(DinoPlayer *player);
-void handleAircrouch(DinoPlayer *player);
+void evJump(DinoPlayer *player);
+void evCrouch(DinoPlayer *player);
+void evAircrouch(DinoPlayer *player);
+void startGame(Model *model);
 
 /*sync events*/
-void scroll (CactusMed *cacti[], ScrollSpeed scrollspeed);
-void playerUpdate (DinoPlayer *dino);
-void spawnMedCactus(CactusMed *CactusMed);
+void evScroll(CactusMed *cacti[], ScrollSpeed scrollspeed);
+void evPlayerUpdate(DinoPlayer *player);
+void evSpawnMedCactus(CactusMed *CactusMed);
+void evDinoFall(DinoPlayer *evDinoDeath);
 
-void initializeModel(Model *model);
+void evInitializeModel(Model *model);
 
 /*cascade events*/
-void dinoDeath(DinoPlayer *player);
-void milestone(ScrollSpeed *scrollspeed);
-void updateHighscore(Score score, HighScore highscore);
-void resetAfterDeath(Model *model, Model startconditions);
+void evDinoDeath(DinoPlayer *player);
+void evMilestone(ScrollSpeed *scrollspeed);
+void evUpdateHighscore(Score score, HighScore highscore);
+void evResetAfterDeath(Model *model, Model startconditions);
 #endif
