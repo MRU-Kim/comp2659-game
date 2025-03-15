@@ -19,12 +19,33 @@ scrolling
 #include "../stage-2/CONST.H"
 
 /*------dino behaviors------*/
-/* Makes Dino jump by setting its vertical velocity */
+/* Makes Dino jump by setting its vertical velocity only if it
+    does'nt have any downward momentum*/
 void jump(DinoPlayer *player){
-    player->delta_y = -10;
+    if (player->delta_y<=0)
+    {
+        player->delta_y = -10;
+    }
 }
+
+/* function fall
+    cancels momentum or acclerates downwards
+    inputs: 
+    player - dinno object
+*/
 void fall(DinoPlayer *player){
-    player->delta_y = 10;
+    if (player->y < DinoY){
+
+        if (player->delta_y>=0) /*if downward momentum*/
+        {
+            player->delta_y++;
+        }
+        else{
+            player->delta_y = 0;
+        }
+        
+        player->delta_y++;
+    }
 }
 void land(DinoPlayer *player){
     player->delta_y = 0;
@@ -83,5 +104,9 @@ void updateScore(HighScore *highScore, Score *score){
 
 void startScroll(ScrollSpeed *scrollSpeed){
     scrollSpeed->delta_x = 5;
+}
+
+void stopScroll(ScrollSpeed *scrollSpeed){
+    scrollSpeed->delta_x = 0;
 }
 
