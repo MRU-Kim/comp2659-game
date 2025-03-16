@@ -20,6 +20,8 @@ scrolling
 
 /*tester libs*/
 #include <stdio.h>
+/*random num gen*/
+#include <time.h>
 
 /*------dino behaviors------*/
 /*function: dinoJump
@@ -92,13 +94,23 @@ void medCactusScroll(CactusMed *cactusMed, ScrollSpeed scrollSpeed)
 
 /*------score behaviors------*/
 /* Increments the player's score */
-void scoreIncrement(Score *score)
+void scoreIncrement(Score *score, ScrollSpeed scrollspeed)
 {
-    score->value++;
+    score->value += scrollspeed.delta_x;
+}
+
+void scoreReset(Score *score)
+{
+    score->value = 0;
 }
 
 /*------high score behaviors------*/
-/* Updates the high school if the current score is higher */
+/*function scoreUpdate
+    Updates the high school if the current score is higher
+    inputs:
+    highScore: current highscore
+    score: current score
+    */
 void scoreUpdate(HighScore *highScore, Score *score)
 {
     if (score->value > highScore->value)
@@ -106,6 +118,8 @@ void scoreUpdate(HighScore *highScore, Score *score)
         highScore->value = score->value;
     }
 }
+
+/*scroll behaviors*/
 
 void scrollStart(ScrollSpeed *scrollSpeed)
 {
@@ -115,4 +129,12 @@ void scrollStart(ScrollSpeed *scrollSpeed)
 void scrollStop(ScrollSpeed *scrollSpeed)
 {
     scrollSpeed->delta_x = 0;
+}
+
+/*model randomness behaviors*/
+/*function: getSeed
+    uses systemclock to get a 16 bit num from systemclock*/
+void getSeed(Model *model)
+{
+    model->ranNum = time(NULL);
 }

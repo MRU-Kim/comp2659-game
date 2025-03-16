@@ -10,7 +10,7 @@ Professor     	Steve Kalmar
 #include "events.h"
 #include "model.h"
 #include "../stage-2/const.h"
-#include <time.h>
+
 #include <osbind.h>
 #include <stdio.h>
 
@@ -38,13 +38,17 @@ int main()
 
         /*show status of objects*/
 
-        printf("player x=%d, y=%d, dy=%d, isCrch=%d, isAlive=%d\n",
+        printf("player x,y=%d,%d, dy=%d, isCrch=%d, isAlive=%d\n",
                gameModel.player.x, gameModel.player.y, gameModel.player.delta_y,
                gameModel.player.isCrouched, gameModel.player.isAlive);
         printf("medCactus1 x,y=%d,%d medCactus2 x,y=%d,%d medCactus3 x,y=%d,%d\n",
                gameModel.cactiMed[0].x, gameModel.cactiMed[0].y,
                gameModel.cactiMed[1].x, gameModel.cactiMed[1].y,
                gameModel.cactiMed[2].x, gameModel.cactiMed[2].y, );
+        printf("random num = %d, cactus spawn timer =%d\n",
+                gameModel.ranNum,gameModel.cacSpawnTimer);
+        printf("score = %d",gameModel.score.value);
+
         /*reset input*/
         input = 0;
 
@@ -63,7 +67,7 @@ int main()
         }
         else
         {
-            noInput(&gameModel.player);
+            evNoInput(&gameModel.player);
         }
         evModelUpdate(&gameModel);
         /*

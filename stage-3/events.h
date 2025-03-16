@@ -26,13 +26,14 @@ void evModelUpdate(Model *model);
 void evInitializeModel(Model *model);
 
 /*cascade events*/
-void noInput(DinoPlayer *player);
+void evNoInput(DinoPlayer *player);
 void evDeath(Model *model);
 void evMilestone(ScrollSpeed *scrollspeed);
 void evUpdateHighscore(Score score, HighScore highscore);
-void evResetAfterDeath(Model *model, Model startconditions);
+void evResetAfterDeath(Model *model);
+void resetCacSpawnTimer(Model *model);
 
 /*helper functions*/
 int abs(int num);
-int lfsr(int seed);
+int lfsr16(int seed);
 #endif

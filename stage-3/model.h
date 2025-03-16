@@ -55,19 +55,10 @@ typedef struct {
     Score score;
     HighScore highScore;
     ScrollSpeed scrollSpeed;
+    UINT16 ranNum;
+    int cacSpawnTimer;
+    int lastMilestone;
 } Model;
-/*init ex:
-    Model gameModel = {
-    .player = {319,GroundY-16, 0, false, true},
-    .cactiMed = {{360,GroundY-16},{-20,GroundY-16},{-20,GroundY-16}},
-    .ground = {GroundY},
-    .player = {319,200, 0, 0},
-    .cactiMed = {{360,200},{-20,200},{-20,200}},
-    .ground = {200},
-    .highScore = {0},
-    .scrollSpeed = {5}
-    };
-*/
 
 
 /*dino behaviors*/
@@ -87,7 +78,8 @@ void medCactusSpawn(CactusMed *cactusMed);
 void medCactusScroll(CactusMed *cactusMed,ScrollSpeed scrollSpeed);
 
 /*score behaviors*/
-void scoreIncrement(Score *score);
+void scoreIncrement(Score *score, ScrollSpeed scrollspeed);
+void scoreReset(Score *score);
 
 /*high score behaviors*/
 void scoreUpdate(HighScore *highScore, Score *score);
@@ -97,5 +89,6 @@ void scrollStart(ScrollSpeed *scrollSpeed);
 void scrollStop(ScrollSpeed *scrollSpeed);
 
 /*model behaviors*/
+void getSeed(Model *model);
 
 #endif

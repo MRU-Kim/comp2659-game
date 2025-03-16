@@ -14,7 +14,6 @@ Professor       Steve Kalmar
 /*tester libs*/
 #include <stdio.h>
 
-
 /*ASYNC EVENTS*/
 void evJump(DinoPlayer *player)
 {
@@ -23,8 +22,9 @@ void evJump(DinoPlayer *player)
     { /* on the ground or below maxjump and hasn't decelerated yet*/
         dinoJump(player);
     }
-    else{
-        printf("illegal jump %d \n",player->delta_y);
+    else
+    {
+        printf("illegal jump %d \n", player->delta_y);
         dinoFall(player);
     }
 }
@@ -35,15 +35,14 @@ void evCrouch(DinoPlayer *player)
     {
         dinoCrouch(player);
     }
-    else{
+    else
+    {
         dinoAirCrouch(player);
     }
-    
-    
 }
 
 /* function startGame
-    on jump input start game
+    on jump input start scroll and set up cactusspawn timer
     */
 void startGame(Model *model)
 {
@@ -54,7 +53,8 @@ void startGame(Model *model)
 
 /* function: evScroll
     scrolls all scrollable objects to the left
-    so far this is only cactusMed
+    and checks if new location
+    adds score aswell
     inputs:
     model - pointer to model
 
@@ -65,7 +65,7 @@ void evScroll(Model *model)
     int i;
     int ydiff;
     int xdiff;
-    
+
     for (i = 2; i >= 0; i--)
     {
         medCactusScroll(&model->cactiMed[i], model->scrollSpeed);
@@ -75,6 +75,9 @@ void evScroll(Model *model)
         if (ydiff < DinoHeight && xdiff < DinoWidth)
         {
             evDeath(model);
+        }
+        else{
+            scoreIncrement(&model->score, model->scrollSpeed);
         }
     }
 }
@@ -95,23 +98,39 @@ void evPlayerUpdate(DinoPlayer *player)
 }
 /* function: evCactusSpawn
     chooses what obsticles to spawn based on some randomeness
-    ideally spawning them every 1 to 2 seconds
+    spawning them every 1 to 2 seconds
     inputs:
     model - pointer to the whole model
 */
 void evCactusSpawn(Model *model)
 {
-
+    int i;
+    if (model->cacSpawnTimer <= 0)
+    {
+        for (i = 2; i > 0; i--)
+        /*check if a cactus is in play and spawn if not*/
+        {
+            if (model->cactiMed[i].x < -15)
+            {
+                medCactusSpawn(&model->cactiMed[i]);
+            }
+        }
+        resetCacSpawnTimer(model);
+    }
+    else
+    {
+        model->cacSpawnTimer--;
+    }
 }
 /* funtion: evModelUpdate
-    runs player update, performs hit detection, runs cactus spawn management 
+    runs player update, performs hit detection, runs cactus spawn management
 */
-void evModelUpdate(Model *model){
-   /*update player*/
+void evModelUpdate(Model *model)
+{
+    /*update player*/
     evPlayerUpdate(&model->player);
-    evScroll(model);/*move cactus and check if dino needs to die*/
-    
-    
+    evScroll(model); /*move cactus and check if dino needs to die*/
+    evCactusSpawn(model);
 }
 
 /* fucntion: evInitializeModel
@@ -146,17 +165,22 @@ void evInitializeModel(Model *model)
     model->highScore.value = 0;
 
     model->scrollSpeed.delta_x = 0;
+
+    getSeed(model);
+    model->cacSpawnTimer = model->ranNum % 70 + 70; /*70 ticks in a second*/
+    model->lastMilestone = 0;
 }
 /*Cascade Events*/
 
-/* function noInput
+/* function evNoInput
     accelerate downwards if player is in air with jump input
     otherwise make dino stand*/
-    void noInput(DinoPlayer *player){
-        dinoFall(player);
-        dinoStand(player);
-    }
-    
+void evNoInput(DinoPlayer *player)
+{
+    dinoFall(player);
+    dinoStand(player);
+}
+
 /* function: evMilestone
     after 1000 points increase the speed of the evScroll
     inputs:
@@ -169,7 +193,7 @@ void evMilestone(ScrollSpeed *scrollspeed)
     triggers on the dino hitbox intersects with a cactus hitbox
         stops evScroll, dino dies, sets new high score, places game into new run after next jump input
 */
-void evDeath( Model *model)
+void evDeath(Model *model)
 {
     dinoDie(&model->player);
     scrollStop(&model->scrollSpeed);
@@ -177,13 +201,21 @@ void evDeath( Model *model)
 
 void evUpdateHighscore(Score score, HighScore highscore)
 {
-
 }
 /* function: evResetAfterDeath
     a death reset everything into new run except high score
 */
-void evResetAfterDeath(Model *model, Model startconditions)
+void evResetAfterDeath(Model *model)
 {
+    scoreReset(&model->score);
+}
+
+/*function: resetCacSpawnTimer
+    after spawning a cactus this is called to reset to 1-2 seconds*/
+void resetCacSpawnTimer(Model *model)
+{
+    model->ranNum = lfsr16(model->ranNum);
+    model->cacSpawnTimer = model->ranNum % 70 + 70; /*70 ticks in a second*/
 }
 /*helper functions*/
 /*function: abs
@@ -191,13 +223,26 @@ void evResetAfterDeath(Model *model, Model startconditions)
     inputs:
     num - number to be returned in absolute value
 */
-int abs(int num){
+int abs(int num)
+{
     if (num < 0)
     {
         num = -num;
     }
     return num;
 }
-int lfsr(int seed){
-    
+/*function lfsr16
+    a 16 bit linear feedback shift register that uses maximal lenth taps
+    intended to be fed a number out put that number then be given it again
+    when randomness is needed
+    inputs: seed 16 bit number that isn't 0
+    lfsr info https://en.wikipedia.org/wiki/Linear-feedback_shift_register*/
+int lfsr16(int seed)
+{
+    UINT16 lfsr = seed;
+    UINT16 feedback;
+    /*taps are at bits 0 9 10 13 15*/
+    feedback = (lfsr >> 0) ^ (lfsr >> 2) ^ (lfsr >> 5) ^ (lfsr >> 0) & 1;
+    lfsr = (lfsr >> 1) | (feedback << 15);
+    return lfsr;
 }
