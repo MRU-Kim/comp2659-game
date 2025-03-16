@@ -38,7 +38,6 @@ typedef int bool;
 #define HighScoreY ScoreY
 
 /* stage 7 - sounds */
-
 #define OFF                 0
 #define ON                  1
 
