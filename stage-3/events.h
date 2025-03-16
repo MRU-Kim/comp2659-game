@@ -15,20 +15,25 @@ Professor       Steve Kalmar
 /*async events*/
 void evJump(DinoPlayer *player);
 void evCrouch(DinoPlayer *player);
-void evAircrouch(DinoPlayer *player);
 void startGame(Model *model);
 
 /*sync events*/
-void evScroll(CactusMed *cacti[], ScrollSpeed scrollspeed);
+void evScroll(Model *model);
 void evPlayerUpdate(DinoPlayer *player);
-void evSpawnMedCactus(CactusMed *CactusMed);
-void evDinoFall(DinoPlayer *evDinoDeath);
+void evCactusSpawn(Model *model);
+void evModelUpdate(Model *model);
 
 void evInitializeModel(Model *model);
 
 /*cascade events*/
-void evDinoDeath(DinoPlayer *player);
+void evNoInput(DinoPlayer *player);
+void evDeath(Model *model);
 void evMilestone(ScrollSpeed *scrollspeed);
 void evUpdateHighscore(Score score, HighScore highscore);
-void evResetAfterDeath(Model *model, Model startconditions);
+void evResetAfterDeath(Model *model);
+void resetCacSpawnTimer(Model *model);
+
+/*helper functions*/
+int abs(int num);
+int lfsr16(int seed);
 #endif

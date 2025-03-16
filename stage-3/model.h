@@ -55,47 +55,40 @@ typedef struct {
     Score score;
     HighScore highScore;
     ScrollSpeed scrollSpeed;
+    UINT16 ranNum;
+    int cacSpawnTimer;
+    int lastMilestone;
 } Model;
-/*init ex:
-    Model gameModel = {
-    .player = {319,GroundY-16, 0, false, true},
-    .cactiMed = {{360,GroundY-16},{-20,GroundY-16},{-20,GroundY-16}},
-    .ground = {GroundY},
-    .player = {319,200, 0, 0},
-    .cactiMed = {{360,200},{-20,200},{-20,200}},
-    .ground = {200},
-    .highScore = {0},
-    .scrollSpeed = {5}
-    };
-*/
 
 
 /*dino behaviors*/
-void jump(DinoPlayer *player);
-void fall(DinoPlayer *player);
-void aircrouch(DinoPlayer *player);
-void land(DinoPlayer *player);
+void dinoJump(DinoPlayer *player);
+void dinoFall(DinoPlayer *player);
+void dinoAirCrouch(DinoPlayer *player);
+void dinoLand(DinoPlayer *player);
 
-void crouch(DinoPlayer *player);
-void stand(DinoPlayer *player);
-void die(DinoPlayer *player);
+void dinoCrouch(DinoPlayer *player);
+void dinoStand(DinoPlayer *player);
+void dinoDie(DinoPlayer *player);
 
 
 /*cactus behaviors*/
 /*med cactus*/
-void evSpawnMedCactus(CactusMed *cactusMed);
-void scrollMedCactus(CactusMed *cactusMed,ScrollSpeed scrollSpeed);
+void medCactusSpawn(CactusMed *cactusMed);
+void medCactusScroll(CactusMed *cactusMed,ScrollSpeed scrollSpeed);
 
 /*score behaviors*/
-void increment(Score *score);
+void scoreIncrement(Score *score, ScrollSpeed scrollspeed);
+void scoreReset(Score *score);
 
 /*high score behaviors*/
-void updateScore(HighScore *highScore, Score *score);
+void scoreUpdate(HighScore *highScore, Score *score);
 
-/*evScroll speed behaviors*/
-void startScroll(ScrollSpeed *scrollSpeed);
-void stopScroll(ScrollSpeed *scrollSpeed);
+/*Scroll speed behaviors*/
+void scrollStart(ScrollSpeed *scrollSpeed);
+void scrollStop(ScrollSpeed *scrollSpeed);
 
 /*model behaviors*/
+void getSeed(Model *model);
 
 #endif

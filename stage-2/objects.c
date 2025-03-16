@@ -11,7 +11,7 @@ Professor     	Steve Kalmar
 #include "CONST.H"
 
 UINT16 Dino[]={
-    0x0000, 
+    0x0078, 
     0x0078, 
     0x00ff, 
     0x00df, 
