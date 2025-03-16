@@ -21,6 +21,7 @@ void startGame(Model *model);
 void evScroll(Model *model);
 void evPlayerUpdate(DinoPlayer *player);
 void evCactusSpawn(Model *model);
+void evModelUpdate(Model *model);
 
 void evInitializeModel(Model *model);
 
@@ -30,4 +31,8 @@ void evDeath(Model *model);
 void evMilestone(ScrollSpeed *scrollspeed);
 void evUpdateHighscore(Score score, HighScore highscore);
 void evResetAfterDeath(Model *model, Model startconditions);
+
+/*helper functions*/
+int abs(int num);
+int lfsr(int seed);
 #endif

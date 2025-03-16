@@ -1,14 +1,15 @@
 Stage 3
-- tester
-- hit detection
-- score logic
-- make random cactus spawning
+- tester yep
+- hit detection yep
+- score logic 
+- make random cactus spawning via lsfr
 
 stage 4
 - renderer
--
 stage 5
 stage 6
 stage 7
 stage 8
 stage 9
+
+

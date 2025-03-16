@@ -65,10 +65,13 @@ int main()
         {
             noInput(&gameModel.player);
         }
+        evModelUpdate(&gameModel);
+        /*
         printf("scroll\n");
         evScroll(&gameModel);
         printf("update player\n");
         evPlayerUpdate(&gameModel.player);
+        */
     }
 
     return 0;

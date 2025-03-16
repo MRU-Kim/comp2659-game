@@ -56,22 +56,32 @@ void startGame(Model *model)
     scrolls all scrollable objects to the left
     so far this is only cactusMed
     inputs:
-    CactusMed - array of cactusMed
-    ScrollSpeed - ScrollSpeed speed to be forced on all side scrolling objects
+    model - pointer to model
 
 */
 void evScroll(Model *model)
 {
+    DinoPlayer *player = &model->player;
     int i;
+    int ydiff;
+    int xdiff;
+    
     for (i = 2; i >= 0; i--)
     {
         medCactusScroll(&model->cactiMed[i], model->scrollSpeed);
+        /*check if new pos would kill player*/
+        ydiff = abs(model->cactiMed[i].y - player->y);
+        xdiff = abs(model->cactiMed[i].x - player->x);
+        if (ydiff < DinoHeight && xdiff < DinoWidth)
+        {
+            evDeath(model);
+        }
     }
 }
 
 /* function: evPlayerUpdate
     on update change dino Y according to delta_y
-    don't place dino above MaxJump, or dinoY
+    don't allow dino to clip below ground
 */
 void evPlayerUpdate(DinoPlayer *player)
 {
@@ -82,12 +92,6 @@ void evPlayerUpdate(DinoPlayer *player)
         player->y = DinoY;
         player->delta_y = 0;
     }
-    else if (player->y < MaxJump) /*dino above bounds*/
-    {
-        player->y = MaxJump;
-        player->delta_y++;
-    }
-    /*hit registration*/
 }
 /* function: evCactusSpawn
     chooses what obsticles to spawn based on some randomeness
@@ -99,7 +103,16 @@ void evCactusSpawn(Model *model)
 {
 
 }
-
+/* funtion: evModelUpdate
+    runs player update, performs hit detection, runs cactus spawn management 
+*/
+void evModelUpdate(Model *model){
+   /*update player*/
+    evPlayerUpdate(&model->player);
+    evScroll(model);/*move cactus and check if dino needs to die*/
+    
+    
+}
 
 /* fucntion: evInitializeModel
     initializes model to start conditions
@@ -171,4 +184,20 @@ void evUpdateHighscore(Score score, HighScore highscore)
 */
 void evResetAfterDeath(Model *model, Model startconditions)
 {
+}
+/*helper functions*/
+/*function: abs
+    gets absolute value of inputed num
+    inputs:
+    num - number to be returned in absolute value
+*/
+int abs(int num){
+    if (num < 0)
+    {
+        num = -num;
+    }
+    return num;
+}
+int lfsr(int seed){
+    
 }

@@ -79,12 +79,12 @@ void dinoDie(DinoPlayer *player)
     cactusMed - pointer to cactus to be spawned*/
 void medCactusSpawn(CactusMed *cactusMed)
 {
-    cactusMed->x = 639 + 16;
-    cactusMed->y = GroundY;
+    cactusMed->x = DinoX + 32;
+    cactusMed->y = CactMedY;
 }
 void medCactusScroll(CactusMed *cactusMed, ScrollSpeed scrollSpeed)
 {
-    if (cactusMed->x > -16)
+    if (cactusMed->x > -CactMedWidth)
     { /*if the cactus is on screen */
         cactusMed->x -= scrollSpeed.delta_x;
     }
