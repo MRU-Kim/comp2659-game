@@ -18,21 +18,25 @@ Professor       Steve Kalmar
 /*ASYNC EVENTS*/
 void evJump(DinoPlayer *player)
 {
-    if (player->y == DinoY &&
-        player->delta_y < MaxJump)
-    { /* on the ground and below maxjump*/
+    if (player->y == DinoY ||
+        player->y >= MaxJump && player->delta_y == JumpSpeed)
+    { /* on the ground or below maxjump and hasn't decelerated yet*/
         dinoJump(player);
+    }
+    else{
+        printf("illegal jump %d \n",player->delta_y);
+        dinoFall(player);
     }
 }
 
 void evCrouch(DinoPlayer *player)
 {
-    if (player->delta_y == DinoY)
+    if (player->y == DinoY)
     {
-        dinoCrouch(&player);
+        dinoCrouch(player);
     }
     else{
-        dinoAirCrouch(&player);
+        dinoAirCrouch(player);
     }
     
     
@@ -72,6 +76,7 @@ void evScroll(Model *model)
 */
 void evPlayerUpdate(DinoPlayer *player)
 {
+    /*update player position*/
     player->y += player->delta_y;
     if (player->y > DinoY) /*dino below bounds*/
     {
@@ -83,10 +88,7 @@ void evPlayerUpdate(DinoPlayer *player)
         player->y = MaxJump;
         player->delta_y++;
     }
-    else if (player->delta_y >= 0 && player->y < DinoY) /*if dino descendinf or dino in air*/
-    {
-        dinoFall(player);
-    }
+    /*hit registration*/
 }
 /* function: evCactusSpawn
     chooses what obsticles to spawn based on some randomeness
@@ -108,7 +110,7 @@ void evCactusSpawn(Model *model)
 void evInitializeModel(Model *model)
 {
     int i;
-    model->player.x = 100; /*init player*/
+    model->player.x = DinoX; /*init player*/
     model->player.y = DinoY;
     model->player.delta_y = 0;
     model->player.isAlive = true;
@@ -135,9 +137,11 @@ void evInitializeModel(Model *model)
 /*Cascade Events*/
 
 /* function noInput
-    accelerate downwards if player is in air with jump input*/
+    accelerate downwards if player is in air with jump input
+    otherwise make dino stand*/
     void noInput(DinoPlayer *player){
-        dinoFall(&player)
+        dinoFall(player);
+        dinoStand(player);
     }
     
 /* function: evMilestone

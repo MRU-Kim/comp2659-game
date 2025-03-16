@@ -30,12 +30,18 @@ typedef int bool;
 /*Model location  constants*/
 #define GroundY 200
 #define DinoY GroundY-DinoHeight
-#define MaxJump DinoY-30
+#define DinoX 100
 #define CactMedY GroundY-CactMedHeight
 #define ScoreX 639-5*8
 #define ScoreY 10
 #define HighScoreX ScoreX-40
 #define HighScoreY ScoreY
+
+/*Model game logic constants*/
+#define MaxJump DinoY-30
+#define airCrouchSpeed 10
+#define JumpSpeed -5
+
 
 /* stage 7 - sounds */
 
