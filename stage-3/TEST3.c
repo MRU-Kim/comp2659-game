@@ -47,20 +47,24 @@ int main()
                gameModel.cactiMed[2].x, gameModel.cactiMed[2].y, );
         /*reset input*/
         input = 0;
-        while (input != ' '&&input != '`')
+        while (input != ' ' && input != '`')
         {
             printf("choose input then press space to advance\n");
             input = Cnecin();
-            switch (input)
+
+            if (input == 'w')
             {
-                if (input == 'w')
-                {
-                    evJump(&gameModel.player);
-                }
-                else if (input == 's')
-                {
-                    evCrouch(&gameModel.player);
-                }
+                printf("jump!\n");
+                evJump(&gameModel.player);
+            }
+            else if (input == 's')
+            {
+                printf("crouch!\n");
+                evCrouch(&gameModel.player);
+            }
+            else
+            {
+                noInput(&gameModel.player);
             }
         }
         printf("scroll\n");

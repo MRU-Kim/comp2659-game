@@ -22,12 +22,15 @@ scrolling
 #include <stdio.h>
 
 /*------dino behaviors------*/
-/* Makes Dino jump by setting its vertical velocity only if it
-    does'nt have any downward momentum*/
+/*function: dinoJump
+    Makes Dino jump by setting its vertical velocity only if it
+    does'nt have any downward momentum and is below hight limit
+    player - pointer to player*/
 void dinoJump(DinoPlayer *player){
-    if (player->delta_y<=0)
+    int jumpSpeed = -5;
+    if (player->delta_y)
     {
-        player->delta_y = -10;
+        player->delta_y = jumpSpeed;
     }
 }
 
@@ -79,7 +82,9 @@ void dinoDie(DinoPlayer *player){
 
 
 /*------cactus behaviors------*/
-/* Spawns a cactus at a fixed starting position */
+/*fucntion: medCactusSpawn
+    Spawns a cactus at a fixed starting position 
+    cactusMed - pointer to cactus to be spawned*/
 void medCactusSpawn(CactusMed *cactusMed){
     cactusMed->x = 639+16;
     cactusMed->y = GroundY;

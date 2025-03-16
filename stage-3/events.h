@@ -15,7 +15,6 @@ Professor       Steve Kalmar
 /*async events*/
 void evJump(DinoPlayer *player);
 void evCrouch(DinoPlayer *player);
-void evAircrouch(DinoPlayer *player);
 void startGame(Model *model);
 
 /*sync events*/
@@ -26,6 +25,7 @@ void evCactusSpawn(Model *model);
 void evInitializeModel(Model *model);
 
 /*cascade events*/
+void noInput(DinoPlayer *player);
 void evDinoDeath(DinoPlayer *player);
 void evMilestone(ScrollSpeed *scrollspeed);
 void evUpdateHighscore(Score score, HighScore highscore);

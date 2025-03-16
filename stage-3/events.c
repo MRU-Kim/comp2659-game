@@ -18,7 +18,7 @@ Professor       Steve Kalmar
 /*ASYNC EVENTS*/
 void evJump(DinoPlayer *player)
 {
-    if (player->y == GroundY + DinoHeight &&
+    if (player->y == DinoY &&
         player->delta_y < MaxJump)
     { /* on the ground and below maxjump*/
         dinoJump(player);
@@ -27,12 +27,15 @@ void evJump(DinoPlayer *player)
 
 void evCrouch(DinoPlayer *player)
 {
-    dinoCrouch(player);
-}
-
-void evAircrouch(DinoPlayer *player)
-{
-    dinoAirCrouch(player);
+    if (player->delta_y == DinoY)
+    {
+        dinoCrouch(&player);
+    }
+    else{
+        dinoAirCrouch(&player);
+    }
+    
+    
 }
 
 /* function startGame
@@ -73,12 +76,14 @@ void evPlayerUpdate(DinoPlayer *player)
     if (player->y > DinoY) /*dino below bounds*/
     {
         player->y = DinoY;
+        player->delta_y = 0;
     }
     else if (player->y < MaxJump) /*dino above bounds*/
     {
         player->y = MaxJump;
+        player->delta_y++;
     }
-    else if (player->delta_y >= 0 && player->y < DinoY) /*dino in air and  */
+    else if (player->delta_y >= 0 && player->y < DinoY) /*if dino descendinf or dino in air*/
     {
         dinoFall(player);
     }
@@ -87,7 +92,7 @@ void evPlayerUpdate(DinoPlayer *player)
     chooses what obsticles to spawn based on some randomeness
     ideally spawning them every 1 to 2 seconds
     inputs:
-    - 
+    model - pointer to the whole model
 */
 void evCactusSpawn(Model *model)
 {
@@ -97,7 +102,7 @@ void evCactusSpawn(Model *model)
 /* fucntion: evInitializeModel
     initializes model to start conditions
     inputs:
-    Model- model to be initialized
+    model - model to be to be initialized
 
 */
 void evInitializeModel(Model *model)
@@ -127,8 +132,14 @@ void evInitializeModel(Model *model)
 
     model->scrollSpeed.delta_x = 0;
 }
-/*cascade events*/
+/*Cascade Events*/
 
+/* function noInput
+    accelerate downwards if player is in air with jump input*/
+    void noInput(DinoPlayer *player){
+        dinoFall(&player)
+    }
+    
 /* function: evMilestone
     after 1000 points increase the speed of the evScroll
     inputs:
