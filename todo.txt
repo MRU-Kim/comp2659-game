@@ -1,11 +1,12 @@
 Stage 3
 - tester
-- dino updater
-- make random sead generator
+- hit detection
+- score logic
+- make random cactus spawning
 
 stage 4
 - renderer
-- 
+-
 stage 5
 stage 6
 stage 7

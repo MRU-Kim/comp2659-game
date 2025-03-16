@@ -14,7 +14,6 @@ Professor     	Steve Kalmar
 #include <osbind.h>
 #include <stdio.h>
 
-unsigned int ticks70;
 char input;
 
 int main()
@@ -31,6 +30,7 @@ int main()
     }
 
     startGame(&gameModel);
+    medCactusSpawn(&gameModel.cactiMed[0]);
 
     while (input != '`')
     {

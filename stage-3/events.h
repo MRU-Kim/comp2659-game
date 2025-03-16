@@ -26,7 +26,7 @@ void evInitializeModel(Model *model);
 
 /*cascade events*/
 void noInput(DinoPlayer *player);
-void evDinoDeath(DinoPlayer *player);
+void evDeath(Model *model);
 void evMilestone(ScrollSpeed *scrollspeed);
 void evUpdateHighscore(Score score, HighScore highscore);
 void evResetAfterDeath(Model *model, Model startconditions);

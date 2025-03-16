@@ -72,7 +72,6 @@ void evScroll(Model *model)
 /* function: evPlayerUpdate
     on update change dino Y according to delta_y
     don't place dino above MaxJump, or dinoY
-    check if dino is hitting cactus, if so, call death
 */
 void evPlayerUpdate(DinoPlayer *player)
 {
@@ -98,6 +97,7 @@ void evPlayerUpdate(DinoPlayer *player)
 */
 void evCactusSpawn(Model *model)
 {
+
 }
 
 
@@ -156,15 +156,15 @@ void evMilestone(ScrollSpeed *scrollspeed)
     triggers on the dino hitbox intersects with a cactus hitbox
         stops evScroll, dino dies, sets new high score, places game into new run after next jump input
 */
-void evDinoDeath(DinoPlayer *player)
+void evDeath( Model *model)
 {
-    player->x = -5; /* start position */
-    player->y = 0;
-    player->delta_y = 0;
+    dinoDie(&model->player);
+    scrollStop(&model->scrollSpeed);
 }
 
 void evUpdateHighscore(Score score, HighScore highscore)
 {
+
 }
 /* function: evResetAfterDeath
     a death reset everything into new run except high score
