@@ -218,32 +218,4 @@ void resetCacSpawnTimer(Model *model)
     model->ranNum = lfsr16(model->ranNum);
     model->cacSpawnTimer = model->ranNum % 70 + 70; /*70 ticks in a second*/
 }
-/*helper functions*/
-/*function: abs
-    gets absolute value of inputed num
-    inputs:
-    num - number to be returned in absolute value
-*/
-int abs(int num)
-{
-    if (num < 0)
-    {
-        num = -num;
-    }
-    return num;
-}
-/*function lfsr16
-    a 16 bit linear feedback shift register that uses maximal lenth taps
-    intended to be fed a number out put that number then be given it again
-    when randomness is needed
-    inputs: seed 16 bit number that isn't 0
-    lfsr info https://en.wikipedia.org/wiki/Linear-feedback_shift_register*/
-int lfsr16(int seed)
-{
-    UINT16 lfsr = seed;
-    UINT16 feedback;
-    /*taps are at bits 0 9 10 13 15*/
-    feedback = (lfsr >> 0) ^ (lfsr >> 2) ^ (lfsr >> 5) ^ (lfsr >> 0) & 1;
-    lfsr = (lfsr >> 1) | (feedback << 15);
-    return lfsr;
-}
+
