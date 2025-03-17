@@ -131,6 +131,44 @@ void scrollStop(ScrollSpeed *scrollSpeed)
 }
 
 /*model behaviors*/
+/* function: modelInitialize
+    initializes model to start conditions
+    inputs:
+    model - model to be to be initialized
+
+*/
+void modelInitialize(Model *model)
+{
+    int i;
+    model->player.x = DinoX; /*init player*/
+    model->player.y = DinoY;
+    model->player.delta_y = 0;
+    model->player.isAlive = true;
+    model->player.isCrouched = false;
+
+    /*init cacti*/
+    for (i = 0; i < 3; i++)
+    {
+        model->cactiMed[i].x = -16;
+        model->cactiMed[i].y = CactMedY;
+    }
+    model->ground.y = GroundY;
+
+    model->score.x = ScoreX;
+    model->score.y = ScoreY;
+    model->score.value = 0;
+
+    model->highScore.x = HighScoreX;
+    model->highScore.y = HighScoreY;
+    model->highScore.value = 0;
+
+    model->scrollSpeed.delta_x = 0;
+
+    modelGetSeed(model);
+    model->cacSpawnTimer = model->ranNum % 70 + 70; /*70 ticks in a second*/
+    model->lastMilestone = 0;
+    model->runTicksPassed = 0;
+}
 
 /*function: modelGetSeed
     uses systemclock to get a 16 bit num from systemclock*/
@@ -155,3 +193,4 @@ void modelTicksPassedReset(Model *model)
 {
     model->runTicksPassed = 0;
 }
+

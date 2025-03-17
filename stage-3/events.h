@@ -36,6 +36,4 @@ void resetCacSpawnTimer(Model *model);
 /*helper functions*/
 int abs(int num);
 int lfsr16(int seed);
-void InitializeModel(Model *model);
-
 #endif

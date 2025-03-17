@@ -19,19 +19,25 @@ char input;
 int main()
 {
     Model gameModel;
-    InitializeModel(&gameModel);
+    modelInitialize(&gameModel);
 
-    input = 0;
+    input = NULL;
 
-    while (input != ' ')
-    {
-        printf("start? press space%c\n", input);
-        input = Cnecin();
-    }
+
 
     evStartGame(&gameModel);
     while (input != '`')
     {
+
+        if (gameModel.player.isAlive == false) /*player dies*/
+        {
+            while (input != ' ')
+            {
+                printf("start? press space%c\n", input);
+                input = Cnecin();
+            }
+        }
+        
         printf("main loop\n");
 
         /*show status of objects*/
