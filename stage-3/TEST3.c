@@ -19,7 +19,7 @@ char input;
 int main()
 {
     Model gameModel;
-    evInitializeModel(&gameModel);
+    InitializeModel(&gameModel);
 
     input = 0;
 
@@ -29,9 +29,7 @@ int main()
         input = Cnecin();
     }
 
-    startGame(&gameModel);
-    medCactusSpawn(&gameModel.cactiMed[0]);
-
+    evStartGame(&gameModel);
     while (input != '`')
     {
         printf("main loop\n");

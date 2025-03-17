@@ -58,6 +58,7 @@ typedef struct {
     UINT16 ranNum;
     int cacSpawnTimer;
     int lastMilestone;
+    UINT16 runTicksPassed;
 } Model;
 
 
@@ -78,7 +79,7 @@ void medCactusSpawn(CactusMed *cactusMed);
 void medCactusScroll(CactusMed *cactusMed,ScrollSpeed scrollSpeed);
 
 /*score behaviors*/
-void scoreIncrement(Score *score, ScrollSpeed scrollspeed);
+void scoreIncrement(Model *model);
 void scoreReset(Score *score);
 
 /*high score behaviors*/
@@ -89,6 +90,7 @@ void scrollStart(ScrollSpeed *scrollSpeed);
 void scrollStop(ScrollSpeed *scrollSpeed);
 
 /*model behaviors*/
-void getSeed(Model *model);
-
+void modelGetSeed(Model *model);
+void modelIncrmentTick(Model *model);
+void modelTicksPassedReset(Model *model);
 #endif

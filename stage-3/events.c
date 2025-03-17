@@ -41,12 +41,13 @@ void evCrouch(DinoPlayer *player)
     }
 }
 
-/* function startGame
-    on jump input start scroll and set up cactusspawn timer
+/* function evStartGame
+    on jump input start scroll and set up
     */
-void startGame(Model *model)
+void evStartGame(Model *model)
 {
     scrollStart(&model->scrollSpeed);
+    scoreReset(&model->score);
 }
 
 /*SYNC EVENTS*/
@@ -76,9 +77,6 @@ void evScroll(Model *model)
         {
             evDeath(model);
         }
-        else{
-            scoreIncrement(&model->score, model->scrollSpeed);
-        }
     }
 }
 
@@ -107,12 +105,14 @@ void evCactusSpawn(Model *model)
     int i;
     if (model->cacSpawnTimer <= 0)
     {
-        for (i = 2; i > 0; i--)
+        bool cactusSpawned = false;
+        for (i = 2; i >= 0; i--)
         /*check if a cactus is in play and spawn if not*/
         {
-            if (model->cactiMed[i].x < -15)
+            if (model->cactiMed[i].x < -15 && cactusSpawned == false)
             {
                 medCactusSpawn(&model->cactiMed[i]);
+                cactusSpawned = true;
             }
         }
         resetCacSpawnTimer(model);
@@ -131,45 +131,26 @@ void evModelUpdate(Model *model)
     evPlayerUpdate(&model->player);
     evScroll(model); /*move cactus and check if dino needs to die*/
     evCactusSpawn(model);
+    evScoreIncrement(model);
+
+    modelIncrmentTick(model);
 }
 
-/* fucntion: evInitializeModel
-    initializes model to start conditions
-    inputs:
-    model - model to be to be initialized
-
+/*function: evScoreIncrement
+    if tick is evenly divisible by 10 increment score by speed
+    input: 
+    model - pointer to model
 */
-void evInitializeModel(Model *model)
-{
-    int i;
-    model->player.x = DinoX; /*init player*/
-    model->player.y = DinoY;
-    model->player.delta_y = 0;
-    model->player.isAlive = true;
-    model->player.isCrouched = false;
-
-    /*init cacti*/
-    for (i = 0; i < 3; i++)
+void evScoreIncrement(Model *model){
+    if (model->runTicksPassed %10 == 0)
     {
-        model->cactiMed[i].x = -16;
-        model->cactiMed[i].y = CactMedY;
+        model->score.value += model->scrollSpeed.delta_x;
     }
-    model->ground.y = GroundY;
-
-    model->score.x = ScoreX;
-    model->score.y = ScoreY;
-    model->score.value = 0;
-
-    model->highScore.x = HighScoreX;
-    model->highScore.y = HighScoreY;
-    model->highScore.value = 0;
-
-    model->scrollSpeed.delta_x = 0;
-
-    getSeed(model);
-    model->cacSpawnTimer = model->ranNum % 70 + 70; /*70 ticks in a second*/
-    model->lastMilestone = 0;
+    
 }
+
+
+
 /*Cascade Events*/
 
 /* function evNoInput
@@ -245,4 +226,43 @@ int lfsr16(int seed)
     feedback = (lfsr >> 0) ^ (lfsr >> 2) ^ (lfsr >> 5) ^ (lfsr >> 0) & 1;
     lfsr = (lfsr >> 1) | (feedback << 15);
     return lfsr;
+}
+
+/* function: InitializeModel
+    initializes model to start conditions
+    inputs:
+    model - model to be to be initialized
+
+*/
+void InitializeModel(Model *model)
+{
+    int i;
+    model->player.x = DinoX; /*init player*/
+    model->player.y = DinoY;
+    model->player.delta_y = 0;
+    model->player.isAlive = true;
+    model->player.isCrouched = false;
+
+    /*init cacti*/
+    for (i = 0; i < 3; i++)
+    {
+        model->cactiMed[i].x = -16;
+        model->cactiMed[i].y = CactMedY;
+    }
+    model->ground.y = GroundY;
+
+    model->score.x = ScoreX;
+    model->score.y = ScoreY;
+    model->score.value = 0;
+
+    model->highScore.x = HighScoreX;
+    model->highScore.y = HighScoreY;
+    model->highScore.value = 0;
+
+    model->scrollSpeed.delta_x = 0;
+
+    modelGetSeed(model);
+    model->cacSpawnTimer = model->ranNum % 70 + 70; /*70 ticks in a second*/
+    model->lastMilestone = 0;
+    model->runTicksPassed = 0;
 }

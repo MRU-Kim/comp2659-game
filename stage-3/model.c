@@ -81,7 +81,7 @@ void dinoDie(DinoPlayer *player)
     cactusMed - pointer to cactus to be spawned*/
 void medCactusSpawn(CactusMed *cactusMed)
 {
-    cactusMed->x = DinoX + 32;
+    cactusMed->x = ScreenWidth-1+CactMedWidth;
     cactusMed->y = CactMedY;
 }
 void medCactusScroll(CactusMed *cactusMed, ScrollSpeed scrollSpeed)
@@ -93,12 +93,11 @@ void medCactusScroll(CactusMed *cactusMed, ScrollSpeed scrollSpeed)
 }
 
 /*------score behaviors------*/
-/* Increments the player's score */
-void scoreIncrement(Score *score, ScrollSpeed scrollspeed)
-{
-    score->value += scrollspeed.delta_x;
-}
 
+
+/*funtion: scoreReset
+resets score to 0
+inputs: */
 void scoreReset(Score *score)
 {
     score->value = 0;
@@ -131,10 +130,28 @@ void scrollStop(ScrollSpeed *scrollSpeed)
     scrollSpeed->delta_x = 0;
 }
 
-/*model randomness behaviors*/
-/*function: getSeed
+/*model behaviors*/
+
+/*function: modelGetSeed
     uses systemclock to get a 16 bit num from systemclock*/
-void getSeed(Model *model)
+void modelGetSeed(Model *model)
 {
     model->ranNum = time(NULL);
+}
+
+/*function modelIncrmentTick
+    increments run ticks
+    inputs:
+    model - pointer to model*/
+void modelIncrmentTick(Model *model)
+{
+    model->runTicksPassed++;
+}
+/*function modelIncrmentTick
+    resets run ticks to 0
+    inputs:
+    model - pointer to model*/
+void modelTicksPassedReset(Model *model)
+{
+    model->runTicksPassed = 0;
 }
