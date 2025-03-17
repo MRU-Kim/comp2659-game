@@ -11,7 +11,6 @@ Professor       Steve Kalmar
 #include "../stage-2/const.h"
 #include "model.h"
 
-
 /*tester libs*/
 #include <stdio.h>
 
@@ -42,12 +41,13 @@ void evCrouch(DinoPlayer *player)
     }
 }
 
-/* function startGame
-    on jump input start scroll and set up cactusspawn timer
-*/
-void startGame(Model *model)
+/* function evStartGame
+    on jump input start scroll and set up
+    */
+void evStartGame(Model *model)
 {
     scrollStart(&model->scrollSpeed);
+    scoreReset(&model->score);
 }
 
 /*SYNC EVENTS*/
@@ -77,9 +77,6 @@ void evScroll(Model *model)
         {
             evDeath(model);
         }
-        else{
-            scoreIncrement(&model->score, model->scrollSpeed);
-        }
     }
 }
 
@@ -108,15 +105,17 @@ void evCactusSpawn(Model *model)
     int i;
     if (model->cacSpawnTimer <= 0)
     {
-        for (i = 2; i > 0; i--)
+        bool cactusSpawned = false;
+        for (i = 2; i >= 0; i--)
         /*check if a cactus is in play and spawn if not*/
         {
-            if (model->cactiMed[i].x < -15)
+            if (model->cactiMed[i].x < -15 && cactusSpawned == false)
             {
                 medCactusSpawn(&model->cactiMed[i]);
+                cactusSpawned = true;
             }
         }
-        resetCacSpawnTimer(model);
+        evResetCacSpawnTimer(model);
     }
     else
     {
@@ -132,46 +131,26 @@ void evModelUpdate(Model *model)
     evPlayerUpdate(&model->player);
     evScroll(model); /*move cactus and check if dino needs to die*/
     evCactusSpawn(model);
+    evScoreIncrement(model);
+    modelIncrmentTick(model);
 }
 
-/* fucntion: evInitializeModel
-    initializes model to start conditions
-    inputs:
-    model - model to be to be initialized
-
+/*function: evScoreIncrement
+    if tick is evenly divisible by 10 increment score by speed
+    input: 
+    model - pointer to model
 */
-void evInitializeModel(Model *model)
-{
-    int i;
-    model->player.x = DinoX; /*init player*/
-    model->player.y = DinoY;
-    model->player.delta_y = 0;
-    model->player.isAlive = true;
-    model->player.isCrouched = false;
-
-    /*init cacti*/
-    for (i = 0; i < 3; i++)
+void evScoreIncrement(Model *model){
+    if (model->runTicksPassed %10 == 0)
     {
-        model->cactiMed[i].x = -16;
-        model->cactiMed[i].y = CactMedY;
+        model->score.value += model->scrollSpeed.delta_x;
     }
-    model->ground.y = GroundY;
-
-    model->score.x = ScoreX;
-    model->score.y = ScoreY;
-    model->score.value = 0;
-
-    model->highScore.x = HighScoreX;
-    model->highScore.y = HighScoreY;
-    model->highScore.value = 0;
-
-    model->scrollSpeed.delta_x = 0;
-
-    getSeed(model);
-    model->cacSpawnTimer = model->ranNum % 70 + 70; /*70 ticks in a second*/
-    model->lastMilestone = 0;
+    
 }
-/*Cascade Events*/
+
+
+
+/*CASCADE EVENTS*/
 
 /* function evNoInput
     accelerate downwards if player is in air with jump input
@@ -185,37 +164,40 @@ void evNoInput(DinoPlayer *player)
 /* function: evMilestone
     after 1000 points increase the speed of the evScroll
     inputs:
-    scrollspeed - object that controls speed of scrolling objects
+    model - pointer to model
 */
-void evMilestone(ScrollSpeed *scrollspeed)
+void evMilestone(Model *model)
 {
+    if (model->lastMilestone < model->score.value-1000 == 0){
+        model->scrollSpeed.delta_x++;
+    }
+
 }
-/*function: evDinoDeath
-    triggers on the dino hitbox intersects with a cactus hitbox
+/*function: evDeath
+    to be triggered when the dino intersects with a cactus hitbox
         stops evScroll, dino dies, sets new high score, places game into new run after next jump input
 */
 void evDeath(Model *model)
 {
     dinoDie(&model->player);
     scrollStop(&model->scrollSpeed);
+    evUpdateHighscore(model);
 }
 
-void evUpdateHighscore(Score score, HighScore highscore)
+void evUpdateHighscore(Model *model)
 {
-}
-/* function: evResetAfterDeath
-    a death reset everything into new run except high score
-*/
-void evResetAfterDeath(Model *model)
-{
-    scoreReset(&model->score);
+    if (model->score.value > model->highScore.value)
+    {
+        model->highScore.value = model->score.value;
+    }
+    
 }
 
-/*function: resetCacSpawnTimer
+
+/*function: evResetCacSpawnTimer
     after spawning a cactus this is called to reset to 1-2 seconds*/
-void resetCacSpawnTimer(Model *model)
+void evResetCacSpawnTimer(Model *model)
 {
     model->ranNum = lfsr16(model->ranNum);
     model->cacSpawnTimer = model->ranNum % 70 + 70; /*70 ticks in a second*/
 }
-

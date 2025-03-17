@@ -100,108 +100,18 @@ int lfsr16(int seed);
 # 18 "model.c" 2
 # 1 "./../stage-2/CONST.H" 1
 # 19 "model.c" 2
-# 1 "C:/c68/include/stdio.h" 1
-# 1 "C:/c68/include/compiler.h" 1
-# 11 "C:/c68/include/stdio.h" 2
-# 20 "C:/c68/include/stdio.h"
-typedef unsigned long  size_t;
-# 69 "C:/c68/include/stdio.h"
-typedef	struct
-	{
-	long		_cnt;
-	unsigned char	*_ptr;
-	unsigned char	*_base;
-	unsigned int	_flag;
-	int		_file;
-	long		_bsiz;
-	unsigned char	_ch;
-	}
-	FILE;
-
-
-typedef unsigned long fpos_t;
-# 92 "C:/c68/include/stdio.h"
-extern	FILE	_iob[];
-# 108 "C:/c68/include/stdio.h"
- char *	ctermid	(char *) ;
-
-
-
-
- int	remove	(const char *) ;
- int	rename	(const char *, const char *) ;
- char *	tmpnam	(char *) ;
- FILE *	tmpfile	(void) ;
-
- int	fclose	(FILE *) ;
- int	fflush	(FILE *) ;
-
- FILE *	fopen	(const char *, const char *) ;
- FILE *	freopen	(const char *, const char *, FILE *) ;
-
- void	setbuf	(FILE *, char *) ;
- int	setvbuf	(FILE *, char *, int, size_t) ;
-# 132 "C:/c68/include/stdio.h"
- int  fscanf  (FILE *, const char *, ...) ;
- int  scanf   (const char *, ...) ;
- int  sscanf  (const char *, const char *, ...) ;
-
-
- int	fprintf	(FILE *, const char *, ...) ;
- int	printf	(const char *, ...) ;
- int	sprintf	(char *, const char *, ...) ;
-
- int 	vfprintf (FILE *, const char *, char * ) ;
- int 	vprintf	 (const char *, char * ) ;
- int 	vsprintf (char *, const char *, char * ) ;
-
- int	vscanf  (const char *, char * ) ;
- int	vfscanf (FILE *, const char *, char * ) ;
- int	vsscanf	(const char *, const char *, char * ) ;
-
-
- int	fgetc	(FILE *) ;
- char	*fgets	(char *, int, FILE *) ;
- char	*gets	(char *) ;
- int	fputc	(int c, FILE *) ;
- int	fputs	(const char *, FILE *) ;
- int	puts	(const char *) ;
-
- size_t	fread	(void *, size_t, size_t, FILE *) ;
- size_t	fwrite	(const void *, size_t, size_t, FILE *) ;
-
- int	fgetpos	(FILE *, fpos_t *) ;
- int	fsetpos	(FILE *, fpos_t *) ;
-
- int	fseek	(FILE *, long, int) ;
- long	ftell	(FILE *) ;
- void	rewind	(FILE *) ;
-
- void	perror	(const char *) ;
-
-
- FILE	*fdopen	(int, const char *) ;
-
-
- FILE *	fopenp	(const char *, const char *) ;
- int 	fungetc	(int, FILE *) ;
- int	pclose	(FILE *) ;
- FILE *	popen	(const char *, const char *) ;
- void	setlinebuf	(FILE *) ;
-
- void	_binmode	(int) ;
- long 	getl	(FILE *) ;
- long 	putl	(long, FILE *) ;
- short 	getw	(FILE *) ;
- short 	putw	(short, FILE *) ;
- void	_getbuf	(FILE *fp) ;
-# 192 "C:/c68/include/stdio.h"
- int	_filbuf	(FILE *) ;
-# 22 "model.c" 2
 # 1 "C:/c68/include/time.h" 1
+# 1 "C:/c68/include/compiler.h" 1
+# 10 "C:/c68/include/time.h" 2
 # 26 "C:/c68/include/time.h"
 typedef long 		time_t;
-# 34 "C:/c68/include/time.h"
+
+
+
+
+typedef unsigned long 		size_t;
+
+
 typedef unsigned long	clock_t;
 
 struct tm
@@ -255,13 +165,13 @@ typedef unsigned long  fd_set;
 
 
  int	select	(int, fd_set *, fd_set *, fd_set *,					struct timeval *) ;
-# 24 "model.c" 2
-# 31 "model.c"
+# 25 "model.c" 2
+# 32 "model.c"
 void dinoJump(DinoPlayer *player)
 {
     player->delta_y = -5 ;
 }
-# 41 "model.c"
+# 42 "model.c"
 void dinoFall(DinoPlayer *player)
 {
     if (player->y < 200 -16 )
@@ -315,12 +225,12 @@ void medCactusScroll(CactusMed *cactusMed, ScrollSpeed scrollSpeed)
         cactusMed->x -= scrollSpeed.delta_x;
     }
 }
-# 101 "model.c"
+# 102 "model.c"
 void scoreReset(Score *score)
 {
     score->value = 0;
 }
-# 113 "model.c"
+# 114 "model.c"
 void scoreUpdate(HighScore *highScore, Score *score)
 {
     if (score->value > highScore->value)
@@ -340,7 +250,7 @@ void scrollStop(ScrollSpeed *scrollSpeed)
 {
     scrollSpeed->delta_x = 0;
 }
-# 140 "model.c"
+# 141 "model.c"
 void modelInitialize(Model *model)
 {
     int i;
@@ -424,7 +334,7 @@ void modelTicksPassedReset(Model *model)
 {
     model->runTicksPassed = 0;
 }
-# 230 "model.c"
+# 231 "model.c"
 int abs(int num)
 {
     if (num < 0)
@@ -433,7 +343,7 @@ int abs(int num)
     }
     return num;
 }
-# 244 "model.c"
+# 245 "model.c"
 int lfsr16(int seed)
 {
     UINT16 lfsr = seed;

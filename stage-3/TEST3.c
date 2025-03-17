@@ -36,7 +36,7 @@ int main()
         {
             while (input != ' ')
             {
-                printf("You died, press w to try again\n", input);
+                printf("You died, press space to try again\n", input);
                 input = Cnecin();
             }
             modelResetAfterDeath(&gameModel);
