@@ -81,7 +81,7 @@ void dinoDie(DinoPlayer *player)
     cactusMed - pointer to cactus to be spawned*/
 void medCactusSpawn(CactusMed *cactusMed)
 {
-    cactusMed->x = DinoX + 32;
+    cactusMed->x = ScreenWidth-1+CactMedWidth;
     cactusMed->y = CactMedY;
 }
 void medCactusScroll(CactusMed *cactusMed, ScrollSpeed scrollSpeed)
@@ -93,12 +93,11 @@ void medCactusScroll(CactusMed *cactusMed, ScrollSpeed scrollSpeed)
 }
 
 /*------score behaviors------*/
-/* Increments the player's score */
-void scoreIncrement(Score *score, ScrollSpeed scrollspeed)
-{
-    score->value += scrollspeed.delta_x;
-}
 
+
+/*funtion: scoreReset
+resets score to 0
+inputs: */
 void scoreReset(Score *score)
 {
     score->value = 0;
@@ -131,10 +130,125 @@ void scrollStop(ScrollSpeed *scrollSpeed)
     scrollSpeed->delta_x = 0;
 }
 
-/*model randomness behaviors*/
-/*function: getSeed
+/*model behaviors*/
+/* function: modelInitialize
+    initializes model to start conditions
+    inputs:
+    model - model to be to be initialized
+
+*/
+void modelInitialize(Model *model)
+{
+    int i;
+    model->player.x = DinoX; /*init player*/
+    model->player.y = DinoY;
+    model->player.delta_y = 0;
+    model->player.isAlive = true;
+    model->player.isCrouched = false;
+
+    /*init cacti*/
+    for (i = 0; i < 3; i++)
+    {
+        model->cactiMed[i].x = -16;
+        model->cactiMed[i].y = CactMedY;
+    }
+    model->ground.y = GroundY;
+
+    model->score.x = ScoreX;
+    model->score.y = ScoreY;
+    model->score.value = 0;
+
+    model->highScore.x = HighScoreX;
+    model->highScore.y = HighScoreY;
+    model->highScore.value = 0;
+
+    model->scrollSpeed.delta_x = 0;
+
+    modelGetSeed(model);
+    model->cacSpawnTimer =  lfsr16(model->ranNum)%70 + 70; /*70 ticks in a second*/
+    model->lastMilestone = 0;
+    model->runTicksPassed = 0;
+}
+
+/* function: modelResetAfterDeath
+    a death reset everything into new run except high score
+*/
+void modelResetAfterDeath(Model *model)
+{
+    int i;
+    model->player.x = DinoX; /*reset player*/
+    model->player.y = DinoY;
+    model->player.delta_y = 0;
+    model->player.isAlive = true;
+    model->player.isCrouched = false;
+
+    /*reset cacti*/
+    for (i = 0; i < 3; i++)
+    {
+        model->cactiMed[i].x = -16;
+        model->cactiMed[i].y = CactMedY;
+    }
+    /*reset score*/
+    model->score.value = 0;
+
+    /*reset model logic*/
+    model->cacSpawnTimer =  lfsr16(model->ranNum)%70 + 70; /*70 ticks in a second*/
+    model->lastMilestone = 0;
+    model->runTicksPassed = 0;
+}
+
+/*function: modelGetSeed
     uses systemclock to get a 16 bit num from systemclock*/
-void getSeed(Model *model)
+void modelGetSeed(Model *model)
 {
     model->ranNum = time(NULL);
 }
+
+/*function modelIncrmentTick
+    increments run ticks
+    inputs:
+    model - pointer to model*/
+void modelIncrmentTick(Model *model)
+{
+    model->runTicksPassed++;
+}
+/*function modelIncrmentTick
+    resets run ticks to 0
+    inputs:
+    model - pointer to model*/
+void modelTicksPassedReset(Model *model)
+{
+    model->runTicksPassed = 0;
+}
+
+/*helper functions*/
+/*function: abs
+    gets absolute value of inputed num
+    inputs:
+    num - number to be returned in absolute value
+*/
+int abs(int num)
+{
+    if (num < 0)
+    {
+        num = -num;
+    }
+    return num;
+}
+/*function lfsr16
+    a 16 bit linear feedback shift register that uses maximal lenth taps
+    intended to be fed a number out put that number then be given it again
+    when randomness is needed
+    inputs: seed 16 bit number that isn't 0
+    lfsr info https://en.wikipedia.org/wiki/Linear-feedback_shift_register*/
+int lfsr16(int seed)
+{
+    UINT16 lfsr = seed;
+    UINT16 feedback;
+    /*taps are at bits 0 9 10 13 15*/
+    feedback = (lfsr >> 0) ^ (lfsr >> 2) ^ (lfsr >> 5) ^ (lfsr >> 0) & 1;
+    lfsr = (lfsr >> 1) | (feedback << 15);
+    return lfsr;
+}
+
+
