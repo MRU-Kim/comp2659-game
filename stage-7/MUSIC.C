@@ -23,6 +23,18 @@ const time[27]={1,1,2,1,2,4,4,4,4,2,1,2,2,1,2,2,2,4,4,4,4,2,2,2,2,1,2};
 /*this is the time the tempo needs to be divided by*/
 song theSong;
 
+/*
+-------------------------------------------------------------------
+    function: helpInitialize
+    initialize theSong structure by setting up theMysic and time arrays 
+    into theActualMusic array.
+
+    input:
+        None.
+    output:
+        Void.
+-------------------------------------------------------------------
+*/
 void helpInitialize( ){
     int i;
   
@@ -34,6 +46,18 @@ void helpInitialize( ){
     theSong.index=0;
 }
 
+/*
+-------------------------------------------------------------------
+    function: start_music
+    plays the current note for a specific duration based on the
+    time value. 
+
+    input:
+        None.
+    output:
+        Void.
+-------------------------------------------------------------------
+*/
 void start_music(){
     long nowTime, elapsedTime;
     int theTone = theSong.theActualMusic[theSong.index].value;
@@ -57,6 +81,18 @@ void start_music(){
     stop_sound();
 }
 
+/*
+-------------------------------------------------------------------
+    function: update_music
+    updates the song by playing the next note. Checks if the note
+    is a pause and only plays the non-pause notes.
+
+    input:
+        None.
+    output:
+        Void.
+-------------------------------------------------------------------
+*/
 void update_music(){
     long  nowTime, elapsedTime;
     int time_divide = theSong.theActualMusic[theSong.index].time;
@@ -80,6 +116,18 @@ void update_music(){
     stop_sound();
 }
 
+/*
+-------------------------------------------------------------------
+    function: get_time
+    retrieves the current system time by reading the timer. Uses
+    Super() to access system-level memory
+
+    input:
+        None.
+    output:
+        timeNow - current system's time
+-------------------------------------------------------------------
+*/
 long get_time() {
     long timeNow;
     long *timer = (long *)0x462;

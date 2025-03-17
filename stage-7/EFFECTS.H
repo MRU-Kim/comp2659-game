@@ -12,7 +12,7 @@ Professor       Steve Kalmar
 #ifndef EFFECTS_H
 #define EFFECTS_H
 
-void jump_sound();
-void death_sound();
+void set_noise(int tuning);
+void set_envelope(int shape, unsigned int sustain);
 
 #endif

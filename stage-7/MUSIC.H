@@ -12,17 +12,6 @@ Professor       Steve Kalmar
 #include "../stage-2/CONST.H"
 #include "PSG.H"
 
-/* MUSIC HEADER FILE */
-#define C5 0x06B
-#define D5 0x0BE
-#define E5 0x0AA
-#define F5_Sharp 0x097
-#define G5 0x08F
-#define C4 0x0D6
-#define D5_Sharp 0x0B4
-#define F5 0x0A0
-#define Pause 0
-
 typedef struct{
   int value;
   int time;

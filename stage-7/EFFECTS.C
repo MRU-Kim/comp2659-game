@@ -13,3 +13,11 @@ Professor       Steve Kalmar
 #include "EFFECTS.H"
 #include "../stage-2/CONST.H"
 
+void set_noise(int tuning){
+
+}
+
+void set_envelope(int shape, unsigned int sustain){
+    
+}
+
