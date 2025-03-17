@@ -43,7 +43,7 @@ void clearScreen(UINT8 *base){
 
     inputs:
         base    - pointer to starting address of framebuffer
-        bitmap  - pointer to start of 8px wide bit map
+        bitmap  - pointer to start of 8/16/32px wide bit map
         y       - vertical cord to be cleared
         x       - horizontal cord to be cleared
         height - height of bitmap
@@ -177,7 +177,7 @@ void clear32Bitmap(UINT8 *base, UINT32* bitmap, int x, int y, int height){
     on the screen. It uses an OR operation.
 
     inputs:
-        base   - pointed on the starting address of the bitmap
+        base   - pointer to starting address of frame buffer
         bitmap -
         y - vertical cord to be cleared
         x - horizontal cord to be cleared
@@ -310,7 +310,7 @@ void plot32Bitmap(UINT8 *base, UINT32* bitmap, int x, int y, int height) {
     at a specified y-coordinate.
 
     inputs:
-        base   - pointed on the starting address of the bitmap
+        base   - pointer on the starting address of frame buffer
         row    - row to plot line in
     output:
         Void.
