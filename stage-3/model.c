@@ -19,7 +19,7 @@ scrolling
 #include "../stage-2/CONST.H"
 
 /*tester libs*/
-#include <stdio.h>
+/*#include <stdio.h>*/
 /*random num gen*/
 #include <time.h>
 
