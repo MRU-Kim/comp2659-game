@@ -88,9 +88,15 @@ void scrollStart(ScrollSpeed *scrollSpeed);
 void scrollStop(ScrollSpeed *scrollSpeed);
 
 
+void modelInitialize(Model *model);
+void modelResetAfterDeath(Model *model);
 void modelGetSeed(Model *model);
 void modelIncrmentTick(Model *model);
 void modelTicksPassedReset(Model *model);
+
+
+int abs(int num);
+int lfsr16(int seed);
 # 18 "model.c" 2
 # 1 "./../stage-2/CONST.H" 1
 # 19 "model.c" 2
@@ -334,8 +340,66 @@ void scrollStop(ScrollSpeed *scrollSpeed)
 {
     scrollSpeed->delta_x = 0;
 }
+# 140 "model.c"
+void modelInitialize(Model *model)
+{
+    int i;
+    model->player.x = 100 ;
+    model->player.y = 200 -16 ;
+    model->player.delta_y = 0;
+    model->player.isAlive = 1 ;
+    model->player.isCrouched = 0 ;
 
 
+    for (i = 0; i < 3; i++)
+    {
+        model->cactiMed[i].x = -16;
+        model->cactiMed[i].y = 200 -16 ;
+    }
+    model->ground.y = 200 ;
+
+    model->score.x = 639-5*8 ;
+    model->score.y = 10 ;
+    model->score.value = 0;
+
+    model->highScore.x = 639-5*8 -40 ;
+    model->highScore.y = 10 ;
+    model->highScore.value = 0;
+
+    model->scrollSpeed.delta_x = 0;
+
+    modelGetSeed(model);
+    model->cacSpawnTimer =  lfsr16(model->ranNum)%70 + 70;
+    model->lastMilestone = 0;
+    model->runTicksPassed = 0;
+}
+
+
+
+
+void modelResetAfterDeath(Model *model)
+{
+    int i;
+    model->player.x = 100 ;
+    model->player.y = 200 -16 ;
+    model->player.delta_y = 0;
+    model->player.isAlive = 1 ;
+    model->player.isCrouched = 0 ;
+
+
+    for (i = 0; i < 3; i++)
+    {
+        model->cactiMed[i].x = -16;
+        model->cactiMed[i].y = 200 -16 ;
+    }
+
+    model->score.value = 0;
+
+
+    model->cacSpawnTimer =  lfsr16(model->ranNum)%70 + 70;
+    model->lastMilestone = 0;
+    model->runTicksPassed = 0;
+}
 
 
 
@@ -359,4 +423,23 @@ void modelIncrmentTick(Model *model)
 void modelTicksPassedReset(Model *model)
 {
     model->runTicksPassed = 0;
+}
+# 230 "model.c"
+int abs(int num)
+{
+    if (num < 0)
+    {
+        num = -num;
+    }
+    return num;
+}
+# 244 "model.c"
+int lfsr16(int seed)
+{
+    UINT16 lfsr = seed;
+    UINT16 feedback;
+
+    feedback = (lfsr >> 0) ^ (lfsr >> 2) ^ (lfsr >> 5) ^ (lfsr >> 0) & 1;
+    lfsr = (lfsr >> 1) | (feedback << 15);
+    return lfsr;
 }

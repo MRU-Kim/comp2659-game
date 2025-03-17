@@ -115,7 +115,7 @@ void evCactusSpawn(Model *model)
                 cactusSpawned = true;
             }
         }
-        resetCacSpawnTimer(model);
+        evResetCacSpawnTimer(model);
     }
     else
     {
@@ -132,7 +132,6 @@ void evModelUpdate(Model *model)
     evScroll(model); /*move cactus and check if dino needs to die*/
     evCactusSpawn(model);
     evScoreIncrement(model);
-
     modelIncrmentTick(model);
 }
 
@@ -151,7 +150,7 @@ void evScoreIncrement(Model *model){
 
 
 
-/*Cascade Events*/
+/*CASCADE EVENTS*/
 
 /* function evNoInput
     accelerate downwards if player is in air with jump input
@@ -165,65 +164,40 @@ void evNoInput(DinoPlayer *player)
 /* function: evMilestone
     after 1000 points increase the speed of the evScroll
     inputs:
-    scrollspeed - object that controls speed of scrolling objects
+    model - pointer to model
 */
-void evMilestone(ScrollSpeed *scrollspeed)
+void evMilestone(Model *model)
 {
+    if (model->lastMilestone < model->score.value-1000 == 0){
+        model->scrollSpeed.delta_x++;
+    }
+
 }
-/*function: evDinoDeath
-    triggers on the dino hitbox intersects with a cactus hitbox
+/*function: evDeath
+    to be triggered when the dino intersects with a cactus hitbox
         stops evScroll, dino dies, sets new high score, places game into new run after next jump input
 */
 void evDeath(Model *model)
 {
     dinoDie(&model->player);
     scrollStop(&model->scrollSpeed);
+    evUpdateHighscore(model);
 }
 
-void evUpdateHighscore(Score score, HighScore highscore)
+void evUpdateHighscore(Model *model)
 {
-}
-/* function: evResetAfterDeath
-    a death reset everything into new run except high score
-*/
-void evResetAfterDeath(Model *model)
-{
-    scoreReset(&model->score);
+    if (model->score.value > model->highScore.value)
+    {
+        model->highScore.value = model->score.value;
+    }
+    
 }
 
-/*function: resetCacSpawnTimer
+
+/*function: evResetCacSpawnTimer
     after spawning a cactus this is called to reset to 1-2 seconds*/
-void resetCacSpawnTimer(Model *model)
+void evResetCacSpawnTimer(Model *model)
 {
     model->ranNum = lfsr16(model->ranNum);
     model->cacSpawnTimer = model->ranNum % 70 + 70; /*70 ticks in a second*/
-}
-/*helper functions*/
-/*function: abs
-    gets absolute value of inputed num
-    inputs:
-    num - number to be returned in absolute value
-*/
-int abs(int num)
-{
-    if (num < 0)
-    {
-        num = -num;
-    }
-    return num;
-}
-/*function lfsr16
-    a 16 bit linear feedback shift register that uses maximal lenth taps
-    intended to be fed a number out put that number then be given it again
-    when randomness is needed
-    inputs: seed 16 bit number that isn't 0
-    lfsr info https://en.wikipedia.org/wiki/Linear-feedback_shift_register*/
-int lfsr16(int seed)
-{
-    UINT16 lfsr = seed;
-    UINT16 feedback;
-    /*taps are at bits 0 9 10 13 15*/
-    feedback = (lfsr >> 0) ^ (lfsr >> 2) ^ (lfsr >> 5) ^ (lfsr >> 0) & 1;
-    lfsr = (lfsr >> 1) | (feedback << 15);
-    return lfsr;
 }

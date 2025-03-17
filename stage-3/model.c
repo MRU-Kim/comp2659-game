@@ -165,7 +165,34 @@ void modelInitialize(Model *model)
     model->scrollSpeed.delta_x = 0;
 
     modelGetSeed(model);
-    model->cacSpawnTimer = model->ranNum % 70 + 70; /*70 ticks in a second*/
+    model->cacSpawnTimer =  lfsr16(model->ranNum)%70 + 70; /*70 ticks in a second*/
+    model->lastMilestone = 0;
+    model->runTicksPassed = 0;
+}
+
+/* function: modelResetAfterDeath
+    a death reset everything into new run except high score
+*/
+void modelResetAfterDeath(Model *model)
+{
+    int i;
+    model->player.x = DinoX; /*reset player*/
+    model->player.y = DinoY;
+    model->player.delta_y = 0;
+    model->player.isAlive = true;
+    model->player.isCrouched = false;
+
+    /*reset cacti*/
+    for (i = 0; i < 3; i++)
+    {
+        model->cactiMed[i].x = -16;
+        model->cactiMed[i].y = CactMedY;
+    }
+    /*reset score*/
+    model->score.value = 0;
+
+    /*reset model logic*/
+    model->cacSpawnTimer =  lfsr16(model->ranNum)%70 + 70; /*70 ticks in a second*/
     model->lastMilestone = 0;
     model->runTicksPassed = 0;
 }
@@ -193,4 +220,35 @@ void modelTicksPassedReset(Model *model)
 {
     model->runTicksPassed = 0;
 }
+
+/*helper functions*/
+/*function: abs
+    gets absolute value of inputed num
+    inputs:
+    num - number to be returned in absolute value
+*/
+int abs(int num)
+{
+    if (num < 0)
+    {
+        num = -num;
+    }
+    return num;
+}
+/*function lfsr16
+    a 16 bit linear feedback shift register that uses maximal lenth taps
+    intended to be fed a number out put that number then be given it again
+    when randomness is needed
+    inputs: seed 16 bit number that isn't 0
+    lfsr info https://en.wikipedia.org/wiki/Linear-feedback_shift_register*/
+int lfsr16(int seed)
+{
+    UINT16 lfsr = seed;
+    UINT16 feedback;
+    /*taps are at bits 0 9 10 13 15*/
+    feedback = (lfsr >> 0) ^ (lfsr >> 2) ^ (lfsr >> 5) ^ (lfsr >> 0) & 1;
+    lfsr = (lfsr >> 1) | (feedback << 15);
+    return lfsr;
+}
+
 
