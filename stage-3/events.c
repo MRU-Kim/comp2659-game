@@ -201,3 +201,4 @@ void evResetCacSpawnTimer(Model *model)
     model->ranNum = lfsr16(model->ranNum);
     model->cacSpawnTimer = model->ranNum % 70 + 70; /*70 ticks in a second*/
 }
+
