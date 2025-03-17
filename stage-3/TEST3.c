@@ -40,6 +40,7 @@ int main()
                 input = Cnecin();
             }
             modelResetAfterDeath(&gameModel);
+            evStartGame(gameModel);
         }
 
         /*show status of model*/
