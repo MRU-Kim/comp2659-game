@@ -20,6 +20,7 @@ scrolling
 
 /*tester libs*/
 /*#include <stdio.h>*/
+
 /*random num gen*/
 #include <time.h>
 
@@ -171,7 +172,7 @@ void modelInitialize(Model *model)
 }
 
 /* function: modelResetAfterDeath
-    a death reset everything into new run except high score
+    a death reset everything into new run except high score and rand num
 */
 void modelResetAfterDeath(Model *model)
 {
