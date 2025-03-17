@@ -51,9 +51,9 @@ int main()
                gameModel.cactiMed[0].x, gameModel.cactiMed[0].y,
                gameModel.cactiMed[1].x, gameModel.cactiMed[1].y,
                gameModel.cactiMed[2].x, gameModel.cactiMed[2].y, );
-        printf("random num = %d, cactus spawn timer =%d\n",
+        printf("random num = %d, cactus spawn timer =%d ticks\n",
                gameModel.ranNum, gameModel.cacSpawnTimer);
-        printf("score = %d", gameModel.score.value);
+        printf("score = %d highscore = %d\n", gameModel.score.value, gameModel.highScore.value);
 
         printf("choose input\n");
         input = Cnecin();
