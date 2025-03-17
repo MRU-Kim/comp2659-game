@@ -50,7 +50,7 @@ void clearScreen(UINT8 *base){
     output:
         Void.
 */
-void clear8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height){
+void clear8Bitmap(UINT8 *base, UINT8 bitmap[], int x, int y, int height){
     int i;
     
     int offset = x&7; /*x%8* how far on horizontal plane the x is from being byte alligned*/
@@ -103,7 +103,7 @@ void clear8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height){
     }
 }
 
-void clear16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height){    
+void clear16Bitmap(UINT8 *base, UINT16 bitmap[], int x, int y, int height){    
     int i;
 
     int offset = x&15; /*x%16* how far on horizontal plane the x is from being word alligned*/
@@ -158,7 +158,7 @@ void clear16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height){
     }
 }
 
-void clear32Bitmap(UINT8 *base, UINT32* bitmap, int x, int y, int height){
+void clear32Bitmap(UINT8 *base, UINT32 bitmap[], int x, int y, int height){
     int i;
     UINT32* clearArea = (UINT32 *)base + (y * 20) + (x >> 5); 
 
@@ -186,7 +186,7 @@ void clear32Bitmap(UINT8 *base, UINT32* bitmap, int x, int y, int height){
         Void.
 */
 
-void plot8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height) {
+void plot8Bitmap(UINT8 *base, UINT8 bitmap[], int x, int y, int height) {
     int i;
     
     int offset = x&7; /*x%8* how far on horizontal plane the x is from being byte alligned*/
@@ -239,7 +239,7 @@ void plot8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height) {
     }
 }
 
-void plot16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height) {
+void plot16Bitmap(UINT8 *base, UINT16 bitmap[], int x, int y, int height) {
     int i;
     
     int offset = x&15; /*x%16* how far on horizontal plane the x is from being word alligned*/
@@ -291,7 +291,7 @@ void plot16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height) {
     }
 }
 
-void plot32Bitmap(UINT8 *base, UINT32* bitmap, int x, int y, int height) {
+void plot32Bitmap(UINT8 *base, UINT32 bitmap[], int x, int y, int height) {
     int i;
 
     UINT32 *plotLocation = (UINT32 *)base + (y * 20) + (x >> 5);
