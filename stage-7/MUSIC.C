@@ -14,12 +14,12 @@ Professor       Steve Kalmar
 #include "../stage-2/CONST.H"
 
 const int theMusic[27] = {
-    G5,G5,F5_Charp,G5,Pause,
-    G5,G5,F5_Charp,G5,D5_Sharp,C4,Pause,
-    G5,G5,F5_Charp,G5,Pause,
+    G5,G5,F5_Sharp,G5,Pause,
+    G5,G5,F5_Sharp,G5,D5_Sharp,C4,Pause,
+    G5,G5,F5_Sharp,G5,Pause,
     D5_Sharp,F5,G5,D5_Sharp,F5,D5,D5_Sharp,C4,D5,C4
 };
-const time[27]={2,1,2,2,2,2,1,2,2,2,2,2,2,1,2,2,2,4,4,2,2,2,2,2,2,1,2}; 
+const time[27]={1,1,2,1,2,4,4,4,4,2,1,2,2,1,2,2,2,4,4,4,4,2,2,2,2,1,2}; 
 /*this is the time the tempo needs to be divided by*/
 song theSong;
 
