@@ -14,7 +14,6 @@ Professor     	Steve Kalmar
 
 extern UINT16 Dino[];
 
-
 extern UINT16 DinoCrouch[];
 
 extern UINT16 CactusMed[];

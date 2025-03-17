@@ -43,7 +43,7 @@ void evCrouch(DinoPlayer *player)
 
 /* function startGame
     on jump input start scroll and set up cactusspawn timer
-    */
+*/
 void startGame(Model *model)
 {
     scrollStart(&model->scrollSpeed);
