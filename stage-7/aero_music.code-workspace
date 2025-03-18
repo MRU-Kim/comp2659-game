@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"RASTER.C": "cpp",
+			"EFFECTS.C": "cpp",
+			"PSG.C": "cpp",
+			"MUSIC.C": "cpp",
+			"TST_RAST.C": "cpp"
+		}
+	}
+}

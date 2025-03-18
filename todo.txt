@@ -7,8 +7,11 @@ Stage 3
 stage 4
 - renderer
 stage 5
+- input
+- clock
 stage 6
 stage 7
+- effects
 stage 8
 stage 9
 
