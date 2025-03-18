@@ -50,33 +50,33 @@ typedef int bool;
 #define C5 0x06B
 #define D5 0x0BE
 #define E5 0x0AA
-#define F5_Sharp 0x097
+#define F5Sharp 0x097
 #define G5 0x08F
 #define C4 0x0D6
-#define D5_Sharp 0x0B4
+#define D5Sharp 0x0B4
 #define F5 0x0A0
 #define Pause 0
 
 #define OFF                 0
 #define ON                  1
 
-#define CHANNEL_A           0
-#define CHANNEL_B           1
-#define CHANNEL_C           2
+#define ChannelA            0
+#define ChannelB            1
+#define ChannelC            2
 
 /* fine and coarse registers of each channels */
-#define A_FINE              CHANNEL_A
-#define A_COARSE            CHANNEL_A + 1
-#define B_FINE              CHANNEL_B + 1
-#define B_COARSE            CHANNEL_B + 2
-#define C_FINE              CHANNEL_C + 2
-#define C_COARSE            CHANNEL_C + 3
-#define NOISE_REG           6
-#define GOTO_VOLUME         8
+#define AFine               ChannelA
+#define ACoarse             ChannelA + 1
+#define BFine               ChannelB + 1
+#define BCoarse             ChannelB + 2
+#define CFine               ChannelC + 2
+#define CCoarse             ChannelC + 3
+#define NoiseReg            6
+#define GotoVolume          8
 
-#define MIXER               7
+#define Mixer               7
 
-#define PSG_SELECT_ADDRESS  0xFF8800
-#define PSG_WRITE_ADDRESS   0xFF8802
+#define PSGSelectAddress    0xFF8800
+#define PSGWriteAddress     0xFF8802
 
 #endif

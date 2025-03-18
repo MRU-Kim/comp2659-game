@@ -23,7 +23,7 @@ typedef struct{
   long previousTime;
 } song;
 
-void start_music();
-void update_music();
+void startMusic();
+void updateMusic();
 void helpInitialize();
-long get_time();
+long getTime();

@@ -6,13 +6,13 @@ int main() {
 int i;
 
 helpInitialize();
-start_music();
+startMusic();
 while(!Cconis()){
     for(i=0; i <26;i++){
-        update_music();
+        updateMusic();
     }
     helpInitialize();
-    start_music();
+    startMusic();
 }
 
    /**   set_noise(1) ;

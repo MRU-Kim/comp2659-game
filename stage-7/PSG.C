@@ -13,7 +13,7 @@ Professor       Steve Kalmar
 
 /*
 -------------------------------------------------------------------
-    function: write_psg
+    function: writePsg
 
     Writes to the given PSG registers with the given value.
 
@@ -26,23 +26,23 @@ Professor       Steve Kalmar
 */
 UINT8 value = 0x3F;
 
-void write_psg(int reg, UINT8 val) {
-    volatile char *reg_select = PSG_SELECT_ADDRESS;
-    volatile char *reg_write = PSG_WRITE_ADDRESS;
-    long old_ssp = Super(0);
+void writePsg(int reg, UINT8 val) {
+    volatile char *regSelect = PSGSelectAddress;
+    volatile char *regWrite = PSGWriteAddress;
+    long oldSsp = Super(0);
 
     if (reg >= 0 && reg <= 15) {
-        *reg_select = reg;
-        *reg_write = val; 
+        *regSelect = reg;
+        *regWrite = val; 
     }
     
-    Super(old_ssp);
+    Super(oldSsp);
     
     return;
 }
 /*
 -------------------------------------------------------------------
-    function: read_psg
+    function: readPsg
     -
     input:
         reg  -  value of PSG register.
@@ -50,14 +50,14 @@ void write_psg(int reg, UINT8 val) {
         Void.
 -------------------------------------------------------------------
 */
-UINT8 read_psg(int reg) {
+UINT8 readPsg(int reg) {
     /* optional */
     return reg;
 }
 
 /*
 -------------------------------------------------------------------
-    function: set_tone
+    function: setTone
 
     Sets the given channel's tone with the given tuning value.
 
@@ -68,20 +68,20 @@ UINT8 read_psg(int reg) {
         Void.
 -------------------------------------------------------------------
 */
-void set_tone(int channel, int tuning) {
-    int fine_tune, coarse_tune, fine_reg, coarse_reg;
-    int fine_registers[] = {A_FINE, B_FINE, C_FINE};
-    int coarse_registers[] = {A_COARSE, B_COARSE, C_COARSE};
+void setTone(int channel, int tuning) {
+    int fineTune, coarseTune, fineReg, coarseReg;
+    int fineRegisters[] = {AFine, BFine, CFine};
+    int coarseRegisters[] = {ACoarse, BCoarse, CCoarse};
 
-    if (channel >= CHANNEL_A && channel <= CHANNEL_C) {
-        fine_reg = fine_registers[channel];
-        coarse_reg = coarse_registers[channel];
+    if (channel >= ChannelA && channel <= ChannelC) {
+        fineReg = fineRegisters[channel];
+        coarseReg = coarseRegisters[channel];
 
-        fine_tune = tuning & 0x0FF;
-        coarse_tune = tuning >> 8;
+        fineTune = tuning & 0x0FF;
+        coarseTune = tuning >> 8;
 
-        write_psg(fine_reg, fine_tune);
-        write_psg(coarse_reg, coarse_tune);
+        writePsg(fineReg, fineTune);
+        writePsg(coarseReg, coarseTune);
     }
     
     return;
@@ -89,7 +89,7 @@ void set_tone(int channel, int tuning) {
 
 /*
 -------------------------------------------------------------------
-    function: set_noise
+    function: setNoise
 
     Initializes the game's Plane struct with starting properties 
 
@@ -99,10 +99,10 @@ void set_tone(int channel, int tuning) {
         Void.
 -------------------------------------------------------------------
 */
-void set_noise(int tuning) {
-    write_psg(NOISE_REG, tuning);
+void setNoise(int tuning) {
+    writePsg(NoiseReg, tuning);
     
-    printf("set_noise\n");
+    printf("setNoise\n");
 
     return;
 }
@@ -122,9 +122,9 @@ void set_noise(int tuning) {
         Void.
 -------------------------------------------------------------------
 */
-void set_volume(int channel, int volume) {
+void setVolume(int channel, int volume) {
     
-    write_psg(channel+ GOTO_VOLUME, volume);
+    writePsg(channel+ GotoVolume, volume);
 
    /**printf("set_volume\n");*/
 
@@ -145,10 +145,10 @@ void set_volume(int channel, int volume) {
         Void.
 -------------------------------------------------------------------
 */
-void set_envelope(int shape, unsigned int sustain) {
-    write_psg(1, 1);
+void setEnvelope(int shape, unsigned int sustain) {
+    writePsg(1, 1);
 
-    printf("set_envelope\n");
+    printf("setEnvelope\n");
 
     return;
 }
@@ -169,24 +169,24 @@ void set_envelope(int shape, unsigned int sustain) {
         Void.
 -------------------------------------------------------------------
 */
-void enable_channel(int channel, int tone_on, int noise_on) {
+void enableChannel(int channel, int toneOn, int noiseOn) {
     /* UINT8 value = 0x3F; */
-    if (tone_on == ON) {
+    if (toneOn == ON) {
         value = value & ~(1 << channel);
     }
 
-    if (noise_on == ON) {
+    if (noiseOn == ON) {
         value = value & ~(1 << channel + 3);
     }
 
-    write_psg(MIXER, value);
+    writePsg(Mixer, value);
 
     return;
 }
 
 /*
 -------------------------------------------------------------------
-    function: stop_sound
+    function: stopSound
 
     End the sound.
 
@@ -196,6 +196,6 @@ void enable_channel(int channel, int tone_on, int noise_on) {
         Void.
 -------------------------------------------------------------------
 */
-void stop_sound(){
-    write_psg(MIXER,0x3F);
+void stopSound(){
+    writePsg(Mixer,0x3F);
 }
