@@ -43,6 +43,7 @@ typedef int bool;
 #define MaxJump DinoY-30
 #define airCrouchSpeed 10
 #define JumpSpeed -5
+#define HitErrorMargin 1
 
 
 /* stage 7 - sounds */

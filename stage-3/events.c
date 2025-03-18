@@ -70,10 +70,10 @@ void evScroll(Model *model)
     for (i = 2; i >= 0; i--)
     {
         medCactusScroll(&model->cactiMed[i], model->scrollSpeed);
-        /*check if new pos would kill player*/
+        /*check if new pos would kill player with a small margin of error*/
         ydiff = abs(model->cactiMed[i].y - player->y);
         xdiff = abs(model->cactiMed[i].x - player->x);
-        if (ydiff < DinoHeight && xdiff < DinoWidth)
+        if (ydiff < DinoHeight-HitErrorMargin && xdiff < DinoWidth-HitErrorMargin)
         {
             evDeath(model);
         }
