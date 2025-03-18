@@ -12,6 +12,7 @@ Professor     	Steve Kalmar
 #include "objects.h"
 #include "CONST.H"
 
+char input;
 int main()
 {
 	UINT8 *base = Physbase();  /* 8-bit */
@@ -20,30 +21,32 @@ int main()
 	Cnecin();
 	clearScreen(base); /* set screen to all white */
 	Cnecin();
-	plot16Bitmap(base,Dino,320,385,DinoHeight);
+	plot16Bitmap(base,DinoStand,320,385,DinoHeight);
 	Cnecin();
 
 	for(i = 383; i < ScreenHeight-1; i++){
 
-		plot16Bitmap(base,Dino,i,i,DinoHeight);
+		plot16Bitmap(base,DinoStand,i,i,DinoHeight);
 		Cnecin();
-		clear16Bitmap(base, Dino,i,i,DinoHeight);
+		clear16Bitmap(base, DinoStand,i,i,DinoHeight);
 	}
 
 	plotHorizontalLine(base, 200+DinoHeight);
 	Cnecin();
 	
 	
-	while( i<600-16){
-		Cnecin();
-
-		i++;
+	while( i<600-16 && input!='q'){
 		plot16Bitmap(base,CactusMed,(600-16)-i,200,CactMedHeight);
+		input = Cnecin();
+		clear16Bitmap(base, CactusMed,(600-16)-i,200,CactMedHeight);
+		
+		i++;
+		
 	}
 
 	plot16Bitmap(base,DinoCrouch,320,200,DinoHeight);
 	Cnecin();
-	clear16Bitmap(base,Dino,320,200,DinoHeight);
+	clear16Bitmap(base,DinoStand,320,200,DinoHeight);
 	clearScreen(base); /* set screen to all white */
 	Cnecin();
 	return 0;

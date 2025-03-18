@@ -246,8 +246,8 @@ int lfsr16(int seed)
 {
     UINT16 lfsr = seed;
     UINT16 feedback;
-    /*taps are at bits 0 9 10 13 15*/
-    feedback = (lfsr >> 0) ^ (lfsr >> 2) ^ (lfsr >> 5) ^ (lfsr >> 0) & 1;
+    /*taps are at bits 0 2 3 5*/
+    feedback = (lfsr >> 0) ^ (lfsr >> 2) ^ (lfsr >> 3) ^ (lfsr >> 5) & 1;
     lfsr = (lfsr >> 1) | (feedback << 15);
     return lfsr;
 }

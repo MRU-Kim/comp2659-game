@@ -46,6 +46,17 @@ typedef int bool;
 
 
 /* stage 7 - sounds */
+/* notes */
+#define C5 0x06B
+#define D5 0x0BE
+#define E5 0x0AA
+#define F5_Sharp 0x097
+#define G5 0x08F
+#define C4 0x0D6
+#define D5_Sharp 0x0B4
+#define F5 0x0A0
+#define Pause 0
+
 #define OFF                 0
 #define ON                  1
 

@@ -5,21 +5,20 @@ int main() {
    
 int i;
 
- helpInitialize();
- start_music();
- while(!Cconis())
- {
- for(i=0; i <26;i++)
- {
-    update_music();
- }
- helpInitialize();
- start_music();
- }
+helpInitialize();
+start_music();
+while(!Cconis()){
+    for(i=0; i <26;i++){
+        update_music();
+    }
+    helpInitialize();
+    start_music();
+}
+
    /**   set_noise(1) ;
 
     set_tone(CHANNEL_A, 0x1AC);
-   set_tone(CHANNEL_B, 0x153);
+    set_tone(CHANNEL_B, 0x153);
     set_tone(CHANNEL_C, 0x11D);
 
 

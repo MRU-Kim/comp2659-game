@@ -10,7 +10,26 @@ Professor     	Steve Kalmar
 #include "objects.h"
 #include "CONST.H"
 
-UINT16 Dino[]={
+UINT16 DinoStand[]={
+    0x0000, 
+    0x0078, 
+    0x00ff, 
+    0x00df, 
+    0x00ff, 
+    0x80f8, 
+    0x81fe, 
+    0xc3f8, 
+    0xe7f8, 
+    0x7ffe, 
+    0x7ff0, 
+    0x3fe0, 
+    0x1fe0, 
+    0x0e60, 
+    0x0640, 
+    0x0360
+};
+
+UINT16 DinoMove1[]={
     0x0078, 
     0x0078, 
     0x00ff, 
@@ -28,6 +47,7 @@ UINT16 Dino[]={
     0x0640, 
     0x0360
 };
+
 UINT16 DinoCrouch[]={
     0x0000,
     0x0000, 

@@ -43,14 +43,14 @@ void clearScreen(UINT8 *base){
 
     inputs:
         base    - pointer to starting address of framebuffer
-        bitmap  - pointer to start of 8px wide bit map
+        bitmap  - pointer to start of 8/16/32px wide bit map
         y       - vertical cord to be cleared
         x       - horizontal cord to be cleared
         height - height of bitmap
     output:
         Void.
 */
-void clear8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height){
+void clear8Bitmap(UINT8 *base, UINT8 bitmap[], int x, int y, int height){
     int i;
     
     int offset = x&7; /*x%8* how far on horizontal plane the x is from being byte alligned*/
@@ -103,7 +103,7 @@ void clear8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height){
     }
 }
 
-void clear16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height){    
+void clear16Bitmap(UINT8 *base, UINT16 bitmap[], int x, int y, int height){    
     int i;
 
     int offset = x&15; /*x%16* how far on horizontal plane the x is from being word alligned*/
@@ -158,7 +158,7 @@ void clear16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height){
     }
 }
 
-void clear32Bitmap(UINT8 *base, UINT32* bitmap, int x, int y, int height){
+void clear32Bitmap(UINT8 *base, UINT32 bitmap[], int x, int y, int height){
     int i;
     UINT32* clearArea = (UINT32 *)base + (y * 20) + (x >> 5); 
 
@@ -177,7 +177,7 @@ void clear32Bitmap(UINT8 *base, UINT32* bitmap, int x, int y, int height){
     on the screen. It uses an OR operation.
 
     inputs:
-        base   - pointed on the starting address of the bitmap
+        base   - pointer to starting address of frame buffer
         bitmap -
         y - vertical cord to be cleared
         x - horizontal cord to be cleared
@@ -186,7 +186,7 @@ void clear32Bitmap(UINT8 *base, UINT32* bitmap, int x, int y, int height){
         Void.
 */
 
-void plot8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height) {
+void plot8Bitmap(UINT8 *base, UINT8 bitmap[], int x, int y, int height) {
     int i;
     
     int offset = x&7; /*x%8* how far on horizontal plane the x is from being byte alligned*/
@@ -239,7 +239,7 @@ void plot8Bitmap(UINT8 *base, UINT8* bitmap, int x, int y, int height) {
     }
 }
 
-void plot16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height) {
+void plot16Bitmap(UINT8 *base, UINT16 bitmap[], int x, int y, int height) {
     int i;
     
     int offset = x&15; /*x%16* how far on horizontal plane the x is from being word alligned*/
@@ -291,7 +291,7 @@ void plot16Bitmap(UINT8 *base, UINT16* bitmap, int x, int y, int height) {
     }
 }
 
-void plot32Bitmap(UINT8 *base, UINT32* bitmap, int x, int y, int height) {
+void plot32Bitmap(UINT8 *base, UINT32 bitmap[], int x, int y, int height) {
     int i;
 
     UINT32 *plotLocation = (UINT32 *)base + (y * 20) + (x >> 5);
@@ -310,7 +310,7 @@ void plot32Bitmap(UINT8 *base, UINT32* bitmap, int x, int y, int height) {
     at a specified y-coordinate.
 
     inputs:
-        base   - pointed on the starting address of the bitmap
+        base   - pointer on the starting address of frame buffer
         row    - row to plot line in
     output:
         Void.
