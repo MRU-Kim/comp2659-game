@@ -47,6 +47,12 @@ typedef int bool;
 
 
 /* stage 7 - sounds */
+#define OFF                 0
+#define ON                  1
+#define Mixer               7
+#define PSGSelectAddress    0xFF8800
+#define PSGWriteAddress     0xFF8802
+
 /* notes */
 #define C5 0x06B
 #define D5 0x0BE
@@ -58,9 +64,7 @@ typedef int bool;
 #define F5 0x0A0
 #define Pause 0
 
-#define OFF                 0
-#define ON                  1
-
+/* Channels */
 #define ChannelA            0
 #define ChannelB            1
 #define ChannelC            2
@@ -74,10 +78,5 @@ typedef int bool;
 #define CCoarse             ChannelC + 3
 #define NoiseReg            6
 #define GotoVolume          8
-
-#define Mixer               7
-
-#define PSGSelectAddress    0xFF8800
-#define PSGWriteAddress     0xFF8802
 
 #endif

@@ -63,7 +63,22 @@ void playJumpSound() {
 }
 
 void playDeathSound() {
- 
+    long startTime, nowTime;
+    int jumpTone = F5;
+
+    startTime=getTime();
+    nowTime=getTime();
+
+    setEnvelope(0x09,0x5000);
+
+    while ((nowTime-startTime) < (64/2)) {
+        setTone(ChannelA, jumpTone);
+        enableChannel(ChannelA, ON, OFF); 
+        setVolume(ChannelA, 12);  
+        nowTime = getTime();
+    }
+    printf("DEAD\n");
+    stopSound();
 }
 
 
