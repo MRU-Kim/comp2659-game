@@ -1,8 +1,10 @@
 Stage 3
 - tester yep
 - hit detection yep
-- score logic 
-- make random cactus spawning via lsfr
+- score logic yep
+- make random cactus spawning via lsfr yep
+-use abs in cacTime calc
+- make scores uint
 
 stage 4
 - renderer
