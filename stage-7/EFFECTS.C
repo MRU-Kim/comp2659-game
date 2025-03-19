@@ -13,13 +13,27 @@ Professor       Steve Kalmar
 #include "EFFECTS.H"
 #include "../stage-2/CONST.H"
 
-void set_noise(int tuning){
-    writePsg(6,tuning);
+#define JUMP_TONE 0x300  // Adjust for desired jump sound pitch
+#define DEATH_TONE 0x100 // Adjust for desired death sound pitch
+#define JUMP_NOISE 0x05  // Noise level for jump effect
+#define DEATH_NOISE 0x07 // Noise level for death effect
+#define JUMP_VOLUME 0x0F // Max volume
+#define DEATH_VOLUME 0x08 // Lower volume for death effect
+#define ENVELOPE_SHAPE 0x09 // Example envelope shape
+
+void playJumpSound() {
+    setTone(ChannelA, JUMP_TONE);
+    setNoise(JUMP_NOISE);
+    setVolume(ChannelA, JUMP_VOLUME);
+    enableChannel(ChannelA, ON, OFF);
+    setEnvelope(ENVELOPE_SHAPE, 0xFFFF);
 }
 
-void set_envelope(int shape, unsigned int sustain){
-    writePsg(11,sustain & 0xFF);
-    writePsg(12,(sustain>>8) & 0xFF);
-    writePsg(13,shape);
+void playDeathSound() {
+    setTone(ChannelB, DEATH_TONE);
+    setNoise(DEATH_NOISE);
+    setVolume(ChannelB, DEATH_VOLUME);
+    enableChannel(ChannelB, ON, OFF);
+    setEnvelope(ENVELOPE_SHAPE, 0x7FFF);
 }
 

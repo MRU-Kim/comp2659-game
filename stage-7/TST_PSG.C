@@ -2,6 +2,9 @@
 #include "music.h"
 
 int main() {
+
+    playJumpSound();
+    playDeathSound();
    
     int i;
 
@@ -14,6 +17,7 @@ int main() {
         helpInitialize();
         startMusic();
     }
+
 
    /*   set_noise(1) ;
 
