@@ -34,16 +34,17 @@ void clearScreen(UINT8 *base){
 }
 
 /* 
-    functions: clear8Bitmap, clear16Bitmap, clear32Bitmap
+    functions: clear8Bitmap, clear16Bitmap
 
-    Clears an 8/16/32 px bitmap. Used clear pixles activated 
-    by the plot8Bitmap()/clear16Bitmap/clear32Bitmap function. 
+    Clears an 8/16 px bitmap. Used clear pixles activated 
+    by the plot8Bitmap/clear16Bitmap function. 
     Toggles each pixel as to only clear the prev plotted bitmap, 
-    given that the same (x,y).
+    given that the same (x,y).Can clear bitmaps plotted partially off screen. In the case that the cordinates would clear 
+    the bitmap entirely off of the screen nothing is cleared. 
 
     inputs:
         base    - pointer to starting address of framebuffer
-        bitmap  - pointer to start of 8/16/32px wide bit map
+        bitmap  - pointer to start of 8/16px wide bit map
         y       - vertical cord to be cleared
         x       - horizontal cord to be cleared
         height - height of bitmap
@@ -57,8 +58,11 @@ void clear8Bitmap(UINT8 *base, UINT8 bitmap[], int x, int y, int height){
     UINT8 *plotLocation;
     int usedHeight = height;
     
-    if (y < 0 && y > -height){
+    if (y < 0){ /*if above screen by n amount, advance bit map n times, remove used height*/
+        if(y<height); /*if not entirely off screen*/
+        {
         bitmap += -y;
+        }
         usedHeight += y;
         y = 0;
     }   else if (y > 399-height){
@@ -110,8 +114,11 @@ void clear16Bitmap(UINT8 *base, UINT16 bitmap[], int x, int y, int height){
     UINT16 *location;
     int usedHeight = height;
     
-    if (y < 0 && y > -height){
+    if (y < 0){ /*if above screen by n amount, advance bit map n times, remove used height*/
+        if(y<height); /*if not entirely off screen*/
+        {
         bitmap += -y;
+        }
         usedHeight += y;
         y = 0;
     }
@@ -158,23 +165,14 @@ void clear16Bitmap(UINT8 *base, UINT16 bitmap[], int x, int y, int height){
     }
 }
 
-void clear32Bitmap(UINT8 *base, UINT32 bitmap[], int x, int y, int height){
-    int i;
-    UINT32* clearArea = (UINT32 *)base + (y * 20) + (x >> 5); 
-
-    for(i=0;i<height;i++){
-        *clearArea |= *(bitmap++); 
-        *clearArea = 0x00;
-        clearArea += 20;
-    }
-}
-
 /* 
-    functions: plot8Bitmap, plot16Bitmap, plot32Bitmap
+    functions: plot8Bitmap, plot16Bitmap
 
-    Plots an 8/16/32 px wide bitmap onto the screen. The function renders 
-    an 8/16/32 px wide bitmap at a specified (x,y) coordinate position
-    on the screen. It uses an OR operation.
+    Plots an 8/16 px wide bitmap onto the screen. The function renders 
+    an 8/16 px wide bitmap at a specified (x,y) coordinate position
+    on the screen or slightly off the screen. In the case that the cordinates would plot 
+    the bitmap entirely off of the screen nothing is plotted. 
+    It uses an OR operation.
 
     inputs:
         base   - pointer to starting address of frame buffer
@@ -193,8 +191,11 @@ void plot8Bitmap(UINT8 *base, UINT8 bitmap[], int x, int y, int height) {
     UINT8 *plotLocation;
     int usedHeight = height;
     
-    if (y < 0 && y > -height){
+    if (y < 0){ /*if above screen by n amount, advance bit map n times, remove used height*/
+        if(y<height); /*if not entirely off screen*/
+        {
         bitmap += -y;
+        }
         usedHeight += y;
         y = 0;
     }   else if (y > 399-height){
@@ -246,8 +247,11 @@ void plot16Bitmap(UINT8 *base, UINT16 bitmap[], int x, int y, int height) {
     UINT16 *plotLocation;
     int usedHeight = height;
     
-    if (y < 0 && y > -height){ /*if above screen by n amount, but still in screen advance bit map n times, remove used height*/
+    if (y < 0){ /*if above screen by n amount, advance bit map n times, remove used height*/
+        if(y<height); /*if not entirely off screen*/
+        {
         bitmap += -y;
+        }
         usedHeight += y;
         y = 0;
     }   else if (y > 399-height){/*if bit map would be printed below screen by n amount remove usedHight be n amount*/
@@ -288,16 +292,6 @@ void plot16Bitmap(UINT8 *base, UINT16 bitmap[], int x, int y, int height) {
                 bitmap++;
             }
         }
-    }
-}
-
-void plot32Bitmap(UINT8 *base, UINT32 bitmap[], int x, int y, int height) {
-    int i;
-
-    UINT32 *plotLocation = (UINT32 *)base + (y * 20) + (x >> 5);
-    for(i=0;i<height;i++) {
-        *plotLocation |= *(bitmap++);
-        plotLocation += 20;
     }
 }
 
