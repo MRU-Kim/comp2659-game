@@ -12,6 +12,7 @@ Professor       Steve Kalmar
 #ifndef EFFECTS_H
 #define EFFECTS_H
 
+void initPsg();
 void playJumpSound();
 void playDeathSound();
 

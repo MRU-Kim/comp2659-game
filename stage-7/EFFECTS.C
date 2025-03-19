@@ -11,29 +11,59 @@ Professor       Steve Kalmar
 
 #include "PSG.H"
 #include "EFFECTS.H"
+#include "MUSIC.H" /* getTime() function */
 #include "../stage-2/CONST.H"
 
-#define JUMP_TONE 0x300  // Adjust for desired jump sound pitch
-#define DEATH_TONE 0x100 // Adjust for desired death sound pitch
-#define JUMP_NOISE 0x05  // Noise level for jump effect
-#define DEATH_NOISE 0x07 // Noise level for death effect
-#define JUMP_VOLUME 0x0F // Max volume
-#define DEATH_VOLUME 0x08 // Lower volume for death effect
-#define ENVELOPE_SHAPE 0x09 // Example envelope shape
+void initPsg() {
+    int i;
+
+    for(i=0; i<16; i++) {
+        writePsg(i,0x00);
+        printf("reset register\n");
+    }
+
+    enableChannel(ChannelA, OFF, OFF);
+    printf("enable\n");
+    enableChannel(ChannelB, OFF, OFF);
+    printf("enable\n");
+    enableChannel(ChannelC, OFF, OFF);
+    printf("enable\n");
+
+    setVolume(ChannelA,0x00);
+    printf("volume\n");
+    setVolume(ChannelB,0x00);
+    printf("volume\n");
+    setVolume(ChannelC,0x00);
+    printf("volume\n");
+
+    setNoise(0x00);
+    printf("noise\n");
+
+    printf("PSG initialized\n");
+
+}
 
 void playJumpSound() {
-    setTone(ChannelA, JUMP_TONE);
-    setNoise(JUMP_NOISE);
-    setVolume(ChannelA, JUMP_VOLUME);
-    enableChannel(ChannelA, ON, OFF);
-    setEnvelope(ENVELOPE_SHAPE, 0xFFFF);
+    long startTime, nowTime;
+    int jumpTone = G5;
+
+    startTime=getTime();
+    nowTime=getTime();
+
+    setEnvelope(0x09,0x5000);
+
+    while ((nowTime-startTime) < (64/2)) {
+        setTone(ChannelA, jumpTone);
+        enableChannel(ChannelA, ON, OFF); 
+        setVolume(ChannelA, 12);  
+        nowTime = getTime();
+    }
+    printf("JUMP\n");
+    stopSound();
 }
 
 void playDeathSound() {
-    setTone(ChannelB, DEATH_TONE);
-    setNoise(DEATH_NOISE);
-    setVolume(ChannelB, DEATH_VOLUME);
-    enableChannel(ChannelB, ON, OFF);
-    setEnvelope(ENVELOPE_SHAPE, 0x7FFF);
+ 
 }
+
 

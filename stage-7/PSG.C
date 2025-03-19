@@ -15,7 +15,7 @@ Professor       Steve Kalmar
 -------------------------------------------------------------------
     function: writePsg
 
-    Writes to the given PSG registers with the given value.
+    Loads the given PSG registers with the given value.
 
     input:
         reg  -  value of PSG register.
@@ -126,7 +126,7 @@ void setVolume(int channel, int volume) {
     
     writePsg(channel+ GotoVolume, volume);
 
-   /**printf("set_volume\n");*/
+    printf("set_volume\n");
 
     return;
 }
@@ -180,6 +180,8 @@ void enableChannel(int channel, int toneOn, int noiseOn) {
     }
 
     writePsg(Mixer, value);
+
+    printf("enableChannel\n");
 
     return;
 }
