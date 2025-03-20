@@ -23,5 +23,6 @@ int main() {
 
     initPsg();
     playJumpSound();
+    playDeathSound();
     return 0;
 }
