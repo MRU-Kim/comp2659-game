@@ -7,9 +7,9 @@ File name       events.c
 Professor       Steve Kalmar
 */
 
-#include "events.h"
 #include "../stage-2/const.h"
 #include "model.h"
+#include "events.h"
 
 /*tester libs*/
 #include <stdio.h>
@@ -42,23 +42,23 @@ void evCrouch(DinoPlayer *player)
 }
 
 /* function evStartGame
-    on jump input start scroll and set up
+    on jump input, set model to after death sate, start scroll, reset score
     */
 void evStartGame(Model *model)
 {
+    modelResetAfterDeath(model);
     scrollStart(&model->scrollSpeed);
     scoreReset(&model->score);
+
 }
 
 /*SYNC EVENTS*/
 
 /* function: evScroll
     scrolls all scrollable objects to the left
-    and checks if new location
-    adds score aswell
+    and checks if new location would cause player death, if so, kills
     inputs:
     model - pointer to model
-
 */
 void evScroll(Model *model)
 {
@@ -76,6 +76,7 @@ void evScroll(Model *model)
         if (ydiff < DinoHeight-HitErrorMargin && xdiff < DinoWidth-HitErrorMargin)
         {
             evDeath(model);
+            return;
         }
     }
 }
@@ -127,7 +128,22 @@ void evCactusSpawn(Model *model)
 */
 void evModelUpdate(Model *model)
 {
-    /*update player*/
+    /*save old states*/
+    model->prevPlayer.isAlive = model->player.isAlive;
+    model->prevPlayer.isCrouched = model->player.isCrouched;
+    model->prevPlayer.x = model->player.x; 
+    model->prevPlayer.y = model->player.y;
+
+    int i;
+    for (size_t i = 0; i < 2; i++)
+    {
+        model->prevCactiMed[i]->x = model->cactiMed[i]->x;
+        model->prevCactiMed[i]->y = model->cactiMed[i]->y;
+    }
+    
+
+
+    /*update to new state*/
     evPlayerUpdate(&model->player);
     evScroll(model); /*move cactus and check if dino needs to die*/
     evCactusSpawn(model);

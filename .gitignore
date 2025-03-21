@@ -13,3 +13,7 @@ stage-3/A.OUT
 stage-3/TEST3
 stage-7/PSG.O
 stage-7/TST_PSG.O
+stage-7/EFFECTS.O
+.gitignore
+stage-7/MUSIC.O
+stage-7/TST_PSG

@@ -251,5 +251,3 @@ int lfsr16(int seed)
     lfsr = (lfsr >> 1) | (feedback << 15);
     return lfsr;
 }
-
-

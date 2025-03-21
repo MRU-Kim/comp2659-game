@@ -59,7 +59,17 @@ typedef struct {
     int cacSpawnTimer;
     int lastMilestone;
     UINT16 runTicksPassed;
+    
+    /*previous state tracking for rendering logic sprites*/
+    DinoPlayer prevPlayer;
+    CactusMed prevCactiMed[3];
+    Ground prevGround;
+    Score prevScore;
+    HighScore prevHighScore;
+
 } Model;
+
+
 
 
 /*dino behaviors*/

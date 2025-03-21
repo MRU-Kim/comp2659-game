@@ -1,13 +1,23 @@
-Stage 3
-- tester yep
-- hit detection yep
-- score logic yep
-- make random cactus spawning via lsfr yep
--use abs in cacTime calc
+Stage 2
+- update move bitmaps
+
+Stage 3 model, events
+- add prevstate tracker
 - make scores uint
+- add run sprite state to dino
+- add run sprite event change to events
+
+
 
 stage 4
 - renderer
+- add ability to model to say wether an object has been updated
+- decide if tracking through model is good idea
+- maybe just save to model old positions but only if there is an update
+- fix makefile
+- fix missmatch
+- add new documentation for new stage 2 functions
+
 stage 5
 - input
 - clock

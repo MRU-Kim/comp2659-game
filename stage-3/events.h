@@ -21,6 +21,7 @@ void evStartGame(Model *model);
 void evScroll(Model *model);
 void evPlayerUpdate(DinoPlayer *player);
 void evCactusSpawn(Model *model);
+void evSaveModel(Model *model);
 void evModelUpdate(Model *model);
 void evScoreIncrement(Model *model);
 
