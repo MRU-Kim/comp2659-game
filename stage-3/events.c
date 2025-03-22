@@ -15,6 +15,24 @@ Professor       Steve Kalmar
 #include <stdio.h>
 
 /*ASYNC EVENTS*/
+
+/*  function: evKBInput*/
+void evKBInput(DinoPlayer *player, char input)
+{
+    if (input == 'w')
+    {
+        evJump(&gameModel.player);
+    }
+    else if (input == 's')
+    {
+        evCrouch(&gameModel.player);
+    }
+    else
+    {
+        evNoInput(&gameModel.player);
+    }
+}
+
 void evJump(DinoPlayer *player)
 {
     if (player->y == DinoY ||
@@ -49,7 +67,6 @@ void evStartGame(Model *model)
     modelResetAfterDeath(model);
     scrollStart(&model->scrollSpeed);
     scoreReset(&model->score);
-
 }
 
 /*SYNC EVENTS*/
@@ -73,7 +90,7 @@ void evScroll(Model *model)
         /*check if new pos would kill player with a small margin of error*/
         ydiff = abs(model->cactiMed[i].y - player->y);
         xdiff = abs(model->cactiMed[i].x - player->x);
-        if (ydiff < DinoHeight-HitErrorMargin && xdiff < DinoWidth-HitErrorMargin)
+        if (ydiff < DinoHeight - HitErrorMargin && xdiff < DinoWidth - HitErrorMargin)
         {
             evDeath(model);
             return;
@@ -131,7 +148,7 @@ void evModelUpdate(Model *model)
     /*save old states*/
     model->prevPlayer.isAlive = model->player.isAlive;
     model->prevPlayer.isCrouched = model->player.isCrouched;
-    model->prevPlayer.x = model->player.x; 
+    model->prevPlayer.x = model->player.x;
     model->prevPlayer.y = model->player.y;
 
     int i;
@@ -140,8 +157,6 @@ void evModelUpdate(Model *model)
         model->prevCactiMed[i]->x = model->cactiMed[i]->x;
         model->prevCactiMed[i]->y = model->cactiMed[i]->y;
     }
-    
-
 
     /*update to new state*/
     evPlayerUpdate(&model->player);
@@ -153,18 +168,16 @@ void evModelUpdate(Model *model)
 
 /*function: evScoreIncrement
     if tick is evenly divisible by 10 increment score by speed
-    input: 
+    input:
     model - pointer to model
 */
-void evScoreIncrement(Model *model){
-    if (model->runTicksPassed %10 == 0)
+void evScoreIncrement(Model *model)
+{
+    if (model->runTicksPassed % 10 == 0)
     {
         model->score.value += model->scrollSpeed.delta_x;
     }
-    
 }
-
-
 
 /*CASCADE EVENTS*/
 
@@ -184,10 +197,10 @@ void evNoInput(DinoPlayer *player)
 */
 void evMilestone(Model *model)
 {
-    if (model->lastMilestone < model->score.value-1000 == 0){
+    if (model->lastMilestone < model->score.value - 1000 == 0)
+    {
         model->scrollSpeed.delta_x++;
     }
-
 }
 /*function: evDeath
     to be triggered when the dino intersects with a cactus hitbox
@@ -206,9 +219,7 @@ void evUpdateHighscore(Model *model)
     {
         model->highScore.value = model->score.value;
     }
-    
 }
-
 
 /*function: evResetCacSpawnTimer
     after spawning a cactus this is called to reset to 1-2 seconds*/

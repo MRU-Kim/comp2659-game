@@ -13,6 +13,7 @@ Professor       Steve Kalmar
 #include "model.h"
 
 /*async events*/
+void evKBInput(DinoPlayer *player);
 void evJump(DinoPlayer *player);
 void evCrouch(DinoPlayer *player);
 void evStartGame(Model *model);
