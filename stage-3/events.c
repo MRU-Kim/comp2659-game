@@ -16,20 +16,24 @@ Professor       Steve Kalmar
 
 /*ASYNC EVENTS*/
 
-/*  function: evKBInput*/
-void evKBInput(DinoPlayer *player, char input)
+/*  function: evKBInput
+    manages async event calling
+    inputs:
+    model - model object*/
+void evKBInput(Model *model, char input)
 {
+    DinoPlayer *player = *model->player;
     if (input == 'w')
     {
-        evJump(&gameModel.player);
+        evJump(player);
     }
     else if (input == 's')
     {
-        evCrouch(&gameModel.player);
+        evCrouch(player);
     }
     else
     {
-        evNoInput(&gameModel.player);
+        evNoInput(player);
     }
 }
 
@@ -98,11 +102,11 @@ void evScroll(Model *model)
     }
 }
 
-/* function: evPlayerUpdate
+/* function: evPlayerPosUpdate
     on update change dino Y according to delta_y
     don't allow dino to clip below ground
 */
-void evPlayerUpdate(DinoPlayer *player)
+void evPlayerPosUpdate(DinoPlayer *player)
 {
     /*update player position*/
     player->y += player->delta_y;
@@ -141,29 +145,33 @@ void evCactusSpawn(Model *model)
     }
 }
 /* funtion: evModelUpdate
-    runs player update, performs hit detection, runs cactus spawn management
+    saves prev stateruns player update, performs hit detection, runs cactus spawn management
 */
 void evModelUpdate(Model *model)
 {
-    /*save old states*/
+    /*update to new state*/
+    evPlayerPosUpdate(&model->player);
+    evScroll(model); /*move cactus and check if dino needs to die*/
+    evCactusSpawn(model);
+    evScoreIncrement(model);
+    modelIncrmentTick(model);
+}
+
+
+void evModelSave(Model *model)
+{
+    int i;
+    /*save old states for sprite redraw*/
     model->prevPlayer.isAlive = model->player.isAlive;
     model->prevPlayer.isCrouched = model->player.isCrouched;
     model->prevPlayer.x = model->player.x;
     model->prevPlayer.y = model->player.y;
 
-    int i;
-    for (size_t i = 0; i < 2; i++)
+    for (i = 0; i < 2; i++)
     {
-        model->prevCactiMed[i]->x = model->cactiMed[i]->x;
-        model->prevCactiMed[i]->y = model->cactiMed[i]->y;
+        model->prevCactiMed[i].x = model->cactiMed[i].x;
+        model->prevCactiMed[i].y = model->cactiMed[i].y;
     }
-
-    /*update to new state*/
-    evPlayerUpdate(&model->player);
-    evScroll(model); /*move cactus and check if dino needs to die*/
-    evCactusSpawn(model);
-    evScoreIncrement(model);
-    modelIncrmentTick(model);
 }
 
 /*function: evScoreIncrement

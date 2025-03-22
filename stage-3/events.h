@@ -13,17 +13,18 @@ Professor       Steve Kalmar
 #include "model.h"
 
 /*async events*/
-void evKBInput(DinoPlayer *player);
+void evKBInput(DinoPlayer *player, char input);
 void evJump(DinoPlayer *player);
 void evCrouch(DinoPlayer *player);
 void evStartGame(Model *model);
 
 /*sync events*/
 void evScroll(Model *model);
-void evPlayerUpdate(DinoPlayer *player);
+void evPlayerPosUpdate(DinoPlayer *player);
 void evCactusSpawn(Model *model);
 void evSaveModel(Model *model);
 void evModelUpdate(Model *model);
+void evModelSave(Model *model);
 void evScoreIncrement(Model *model);
 
 

@@ -13,7 +13,7 @@ Professor     	Steve Kalmar
 #include "../stage-3/model.h"
 #include "../stage-2/const.h"
 
-void render(const Model *model, UINT8 *base);
+void redraw(const Model *model, UINT8 *base);
 void redrawDino(const DinoPlayer *dino, UINT8 *base);
 void redrawObticles(const CactusSmall *cactusSmall, UINT8 *base);
 void redrawGround(const Ground *ground, UINT8 *base);

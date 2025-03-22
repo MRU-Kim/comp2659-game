@@ -18,7 +18,7 @@ Contains rendering functions
 #include "../stage-3/model.h"
 
 
-void render(const Model *model, UINT8 *base){
+void redraw(const Model *model, UINT8 *base){
     /*check what objects have changed render state. to clear previous state, previous state must be stored  */
 
     redrawDino(&model-> player, (UINT16*) base);

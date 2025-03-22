@@ -7,9 +7,11 @@ File name       tstRnd.c
 Professor     	Steve Kalmar
 */
 
-#include "events.h"
-#include "model.h"
 #include "../stage-2/const.h"
+#include "../stage-3/events.h"
+#include "../stage-3/model.h"
+#include "render.h"
+
 
 #include <osbind.h>
 #include <stdio.h>
@@ -25,43 +27,28 @@ int main()
 
     while (input != ' ')
     {
-        printf("start? press space%c\n", input);
         input = Cnecin();
     }
     evStartGame(&gameModel);
 
     while (input != '`')
     {
-        if (gameModel.player.isAlive == false) /*player dies previous tick*/
+        evModelSave(&gameModel);
+        if (!gameModel.player.isAlive) /*player dies previous tick*/
         {
             while (input != ' ')
             {
-                printf("You died, press space to try again\n", input);
                 input = Cnecin();
             }
             evStartGame(&gameModel);
         }
 
         input = Cnecin();
-
-        if (input == 'w')
-        {
-            printf("jump!\n");
-            evJump(&gameModel.player);
-        }
-        else if (input == 's')
-        {
-            printf("crouch!\n");
-            evCrouch(&gameModel.player);
-        }
-        else
-        {
-            evNoInput(&gameModel.player);
-        }
-        evModelUpdate(&gameModel);
-        /*reset input*/
+        evKBInput(&gameModel.player, input);
         input = NULL;
-    }
 
+        evModelUpdate(&gameModel);
+        redraw(gameModel, )
+    }
     return 0;
 }

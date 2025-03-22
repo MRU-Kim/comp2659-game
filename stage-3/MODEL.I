@@ -57,7 +57,17 @@ typedef struct {
     int cacSpawnTimer;
     int lastMilestone;
     UINT16 runTicksPassed;
+
+
+    DinoPlayer prevPlayer;
+    CactusMed prevCactiMed[3];
+    Ground prevGround;
+    Score prevScore;
+    HighScore prevHighScore;
+
 } Model;
+
+
 
 
 
