@@ -34,20 +34,12 @@ int main()
     while (input != '`')
     {
         evModelSave(&gameModel);
-        if (!gameModel.player.isAlive) /*player dies previous tick*/
-        {
-            while (input != ' ')
-            {
-                input = Cnecin();
-            }
-            evStartGame(&gameModel);
-        }
-
         input = Cnecin();
-        evKBInput(&gameModel.player, input);
+        evKBInputHandle(&gameModel.player, input);
         input = NULL;
 
         evModelUpdate(&gameModel);
+        
         redraw(gameModel, )
     }
     return 0;

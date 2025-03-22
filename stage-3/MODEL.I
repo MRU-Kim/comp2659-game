@@ -54,7 +54,7 @@ typedef struct {
     HighScore highScore;
     ScrollSpeed scrollSpeed;
     UINT16 ranNum;
-    int cacSpawnTimer;
+    UINT16 cacSpawnTimer;
     int lastMilestone;
     UINT16 runTicksPassed;
 
@@ -103,6 +103,7 @@ void modelResetAfterDeath(Model *model);
 void modelGetSeed(Model *model);
 void modelIncrmentTick(Model *model);
 void modelTicksPassedReset(Model *model);
+void modelResetCacSpawnTimer(Model *model);
 
 
 int abs(int num);
@@ -289,7 +290,7 @@ void modelInitialize(Model *model)
     model->scrollSpeed.delta_x = 0;
 
     modelGetSeed(model);
-    model->cacSpawnTimer =  lfsr16(model->ranNum)%70 + 70;
+    modelResetCacSpawnTimer(model);
     model->lastMilestone = 0;
     model->runTicksPassed = 0;
 }
@@ -316,7 +317,7 @@ void modelResetAfterDeath(Model *model)
     model->score.value = 0;
 
 
-    model->cacSpawnTimer =  lfsr16(model->ranNum)%70 + 70;
+    model->cacSpawnTimer =  ;
     model->lastMilestone = 0;
     model->runTicksPassed = 0;
 }
@@ -344,7 +345,15 @@ void modelTicksPassedReset(Model *model)
 {
     model->runTicksPassed = 0;
 }
-# 231 "model.c"
+
+
+
+    void modelResetCacSpawnTimer(Model *model)
+    {
+        model->ranNum = lfsr16(model->ranNum);
+        model->cacSpawnTimer = abs(model->ranNum % 70) + 70;
+    }
+# 239 "model.c"
 int abs(int num)
 {
     if (num < 0)
@@ -353,7 +362,7 @@ int abs(int num)
     }
     return num;
 }
-# 245 "model.c"
+# 253 "model.c"
 int lfsr16(int seed)
 {
     UINT16 lfsr = seed;

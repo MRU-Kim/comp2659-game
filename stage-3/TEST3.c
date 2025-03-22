@@ -32,17 +32,6 @@ int main()
 
     while (input != '`')
     {
-        if (gameModel.player.isAlive == false) /*player dies previous tick*/
-        {
-            while (input != ' ')
-            {
-                printf("You died, press space to try again\n", input);
-                input = Cnecin();
-            }
-            modelResetAfterDeath(&gameModel);
-            evStartGame(&gameModel);
-        }
-
         /*show status of model*/
         printf("player x,y=%d,%d, dy=%d, isCrch=%d, isAlive=%d\n",
                gameModel.player.x, gameModel.player.y, gameModel.player.delta_y,
@@ -57,22 +46,8 @@ int main()
 
         printf("choose input\n");
         input = Cnecin();
-
-        if (input == 'w')
-        {
-            printf("jump!\n");
-            evJump(&gameModel.player);
-        }
-        else if (input == 's')
-        {
-            printf("crouch!\n");
-            evCrouch(&gameModel.player);
-        }
-        else
-        {
-            evNoInput(&gameModel.player);
-        }
-
+        evKBInputHandle(&gameModel, input);
+        input = NULL;
         evModelUpdate(&gameModel);
 
         /*reset input*/

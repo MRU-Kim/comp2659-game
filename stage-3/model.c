@@ -166,7 +166,7 @@ void modelInitialize(Model *model)
     model->scrollSpeed.delta_x = 0;
 
     modelGetSeed(model);
-    model->cacSpawnTimer =  lfsr16(model->ranNum)%70 + 70; /*70 ticks in a second*/
+    modelResetCacSpawnTimer(model); /*70 ticks in a second*/
     model->lastMilestone = 0;
     model->runTicksPassed = 0;
 }
@@ -193,7 +193,7 @@ void modelResetAfterDeath(Model *model)
     model->score.value = 0;
 
     /*reset model logic*/
-    model->cacSpawnTimer =  lfsr16(model->ranNum)%70 + 70; /*70 ticks in a second*/
+    model->cacSpawnTimer =  ; /*70 ticks in a second*/
     model->lastMilestone = 0;
     model->runTicksPassed = 0;
 }
@@ -221,6 +221,14 @@ void modelTicksPassedReset(Model *model)
 {
     model->runTicksPassed = 0;
 }
+
+/*function: modelResetCacSpawnTimer
+    after spawning a cactus this is called to reset to 1-2 seconds*/
+    void modelResetCacSpawnTimer(Model *model)
+    {
+        model->ranNum = lfsr16(model->ranNum);
+        model->cacSpawnTimer = abs(model->ranNum % 70) + 70; /*70 ticks in a second*/
+    }
 
 /*helper functions*/
 /*function: abs

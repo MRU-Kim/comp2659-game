@@ -13,7 +13,7 @@ Professor       Steve Kalmar
 #include "model.h"
 
 /*async events*/
-void evKBInput(DinoPlayer *player, char input);
+void evKBInputHandle(Model *model, char input);
 void evJump(DinoPlayer *player);
 void evCrouch(DinoPlayer *player);
 void evStartGame(Model *model);
@@ -33,5 +33,4 @@ void evNoInput(DinoPlayer *player);
 void evDeath(Model *model);
 void evMilestone( Model *model);
 void evUpdateHighscore(Model *model);
-void evResetCacSpawnTimer(Model *model);
 #endif

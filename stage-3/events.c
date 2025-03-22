@@ -16,24 +16,33 @@ Professor       Steve Kalmar
 
 /*ASYNC EVENTS*/
 
-/*  function: evKBInput
-    manages async event calling
+/*  function: evKBInputHandle
+    manages async event calling including restarting game after death
+    and soon, starting the game
     inputs:
     model - model object*/
-void evKBInput(Model *model, char input)
+void evKBInputHandle(Model *model, char input)
 {
-    DinoPlayer *player = *model->player;
-    if (input == 'w')
+    DinoPlayer *player = &(model->player);
+    if (model->player.isAlive)
     {
-        evJump(player);
+
+        if (input == 'w')
+        {
+            evJump(player);
+        }
+        else if (input == 's')
+        {
+            evCrouch(player);
+        }
+        else
+        {
+            evNoInput(player);
+        }
     }
-    else if (input == 's')
+    else if (input == 'w')
     {
-        evCrouch(player);
-    }
-    else
-    {
-        evNoInput(player);
+        evStartGame(model);
     }
 }
 
@@ -137,7 +146,7 @@ void evCactusSpawn(Model *model)
                 cactusSpawned = true;
             }
         }
-        evResetCacSpawnTimer(model);
+        modelResetCacSpawnTimer(model);
     }
     else
     {
@@ -150,13 +159,18 @@ void evCactusSpawn(Model *model)
 void evModelUpdate(Model *model)
 {
     /*update to new state*/
-    evPlayerPosUpdate(&model->player);
-    evScroll(model); /*move cactus and check if dino needs to die*/
-    evCactusSpawn(model);
-    evScoreIncrement(model);
-    modelIncrmentTick(model);
+    if (model->player.isAlive)
+    {
+        evPlayerPosUpdate(&model->player);
+        evScroll(model); /*move cactus and check if dino needs to die*/
+        evCactusSpawn(model);
+        evScoreIncrement(model);
+        modelIncrmentTick(model);
+    }
+    else
+    {
+    }
 }
-
 
 void evModelSave(Model *model)
 {
@@ -227,12 +241,4 @@ void evUpdateHighscore(Model *model)
     {
         model->highScore.value = model->score.value;
     }
-}
-
-/*function: evResetCacSpawnTimer
-    after spawning a cactus this is called to reset to 1-2 seconds*/
-void evResetCacSpawnTimer(Model *model)
-{
-    model->ranNum = lfsr16(model->ranNum);
-    model->cacSpawnTimer = model->ranNum % 70 + 70; /*70 ticks in a second*/
 }

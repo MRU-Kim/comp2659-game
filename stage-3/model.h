@@ -56,10 +56,10 @@ typedef struct {
     HighScore highScore;
     ScrollSpeed scrollSpeed;
     UINT16 ranNum;
-    int cacSpawnTimer;
+    UINT16 cacSpawnTimer;
     int lastMilestone;
     UINT16 runTicksPassed;
-    
+
     /*previous state tracking for rendering logic sprites*/
     DinoPlayer prevPlayer;
     CactusMed prevCactiMed[3];
@@ -105,6 +105,7 @@ void modelResetAfterDeath(Model *model);
 void modelGetSeed(Model *model);
 void modelIncrmentTick(Model *model);
 void modelTicksPassedReset(Model *model);
+void modelResetCacSpawnTimer(Model *model);
 
 /*helper functions*/
 int abs(int num);
