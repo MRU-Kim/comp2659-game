@@ -16,6 +16,7 @@ typedef struct {
     int x, y, delta_y;
     bool isCrouched;
     bool isAlive;
+    bool walkCycle; /*false for 1st walk sprtie , true for second walk sprite*/
 } DinoPlayer;
 
 typedef struct
@@ -61,12 +62,11 @@ typedef struct {
     UINT16 runTicksPassed;
 
     /*previous state tracking for rendering logic sprites*/
-    DinoPlayer prevPlayer;
-    CactusMed prevCactiMed[3];
-    Ground prevGround;
-    Score prevScore;
-    HighScore prevHighScore;
-
+    DinoPlayer lastDrawnPlayer;
+    CactusMed lastDrawnCactiMed[3];
+    Ground lastDrawnGround;
+    Score lastDrawnScore;
+    HighScore lastDrawnHighScore;
 } Model;
 
 
@@ -77,10 +77,11 @@ void dinoJump(DinoPlayer *player);
 void dinoFall(DinoPlayer *player);
 void dinoAirCrouch(DinoPlayer *player);
 void dinoLand(DinoPlayer *player);
-
 void dinoCrouch(DinoPlayer *player);
 void dinoStand(DinoPlayer *player);
 void dinoDie(DinoPlayer *player);
+void dinoRunCycle(DinoPlayer *player);
+
 
 
 /*cactus behaviors*/

@@ -14,6 +14,8 @@ Professor     	Steve Kalmar
 #include "../stage-2/const.h"
 
 void redraw(const Model *model, UINT8 *base);
+void forceRedraw(Model *model);
+
 void redrawDino(const DinoPlayer *dino, UINT8 *base);
 void redrawObticles(const CactusSmall *cactusSmall, UINT8 *base);
 void redrawGround(const Ground *ground, UINT8 *base);

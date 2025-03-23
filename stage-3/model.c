@@ -47,33 +47,65 @@ void dinoFall(DinoPlayer *player)
         player->delta_y++;
     }
 }
+/*  function: dinoLand
+    resets dino velocity
+    inputs:
+    player - pointer to player*/
 void dinoLand(DinoPlayer *player)
 {
     player->delta_y = 0;
 }
-/* Allows Dino to crouch mid-air */
+/*  function: dinoAirCrouch
+    sets dinos velocity to AirCrouchSpeed
+    inputs:
+    player - pointer to player*/
 void dinoAirCrouch(DinoPlayer *player)
 {
-    player->delta_y = airCrouchSpeed;
+    player->delta_y = AirCrouchSpeed;
 }
-void updateY(DinoPlayer *player)
+
+/* function: updateDinoY
+    changes Dino's y by it's velocity on an update
+    inputs:
+    player - pointer to player*/
+void updateDinoY(DinoPlayer *player)
 {
     player->y += player->delta_y;
 }
 
-/* Makes Dino crouch by decreasing its y-position */
+/*  function: dinoCrouch
+    Makes Dino crouch, used purely for sprite draw purposes
+    inputs:
+    player - pointer to player*/
 void dinoCrouch(DinoPlayer *player)
 {
     player->isCrouched = 1;
 }
+
+/*  function: dinoStand
+    Makes Dino stand, used purely for sprite draw purposes
+    inputs:
+    player - pointer to player*/
 void dinoStand(DinoPlayer *player)
 {
     player->isCrouched = 0;
 }
 
+/*  function: dinoDie
+    Makes Dino die
+    inputs:
+    player - pointer to player*/
 void dinoDie(DinoPlayer *player)
 {
     player->isAlive = 0;
+}
+/*  function: dinoRunCycle
+    Toggles run sprite flag for animation
+    inputs:
+    player - pointer to player*/
+void dinoRunCycle(DinoPlayer *player)
+{
+    player->walkCycle = !player->walkCycle;
 }
 
 /*------cactus behaviors------*/
@@ -82,7 +114,7 @@ void dinoDie(DinoPlayer *player)
     cactusMed - pointer to cactus to be spawned*/
 void medCactusSpawn(CactusMed *cactusMed)
 {
-    cactusMed->x = ScreenWidth-1+CactMedWidth;
+    cactusMed->x = ScreenWidth - 1 + CactMedWidth;
     cactusMed->y = CactMedY;
 }
 void medCactusScroll(CactusMed *cactusMed, ScrollSpeed scrollSpeed)
@@ -94,7 +126,6 @@ void medCactusScroll(CactusMed *cactusMed, ScrollSpeed scrollSpeed)
 }
 
 /*------score behaviors------*/
-
 
 /*funtion: scoreReset
 resets score to 0
@@ -193,7 +224,7 @@ void modelResetAfterDeath(Model *model)
     model->score.value = 0;
 
     /*reset model logic*/
-    model->cacSpawnTimer =  ; /*70 ticks in a second*/
+    model->cacSpawnTimer = ; /*70 ticks in a second*/
     model->lastMilestone = 0;
     model->runTicksPassed = 0;
 }
@@ -224,11 +255,11 @@ void modelTicksPassedReset(Model *model)
 
 /*function: modelResetCacSpawnTimer
     after spawning a cactus this is called to reset to 1-2 seconds*/
-    void modelResetCacSpawnTimer(Model *model)
-    {
-        model->ranNum = lfsr16(model->ranNum);
-        model->cacSpawnTimer = abs(model->ranNum % 70) + 70; /*70 ticks in a second*/
-    }
+void modelResetCacSpawnTimer(Model *model)
+{
+    model->ranNum = lfsr16(model->ranNum);
+    model->cacSpawnTimer = abs(model->ranNum % 70) + 70; /*70 ticks in a second*/
+}
 
 /*helper functions*/
 /*function: abs

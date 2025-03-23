@@ -16,6 +16,8 @@ Professor     	Steve Kalmar
 
 char input;
 
+void modelState(*Model model);
+
 int main()
 {
     Model gameModel;
@@ -33,17 +35,7 @@ int main()
     while (input != '`')
     {
         /*show status of model*/
-        printf("player x,y=%d,%d, dy=%d, isCrch=%d, isAlive=%d\n",
-               gameModel.player.x, gameModel.player.y, gameModel.player.delta_y,
-               gameModel.player.isCrouched, gameModel.player.isAlive);
-        printf("medCactus1 x,y=%d,%d medCactus2 x,y=%d,%d medCactus3 x,y=%d,%d\n",
-               gameModel.cactiMed[0].x, gameModel.cactiMed[0].y,
-               gameModel.cactiMed[1].x, gameModel.cactiMed[1].y,
-               gameModel.cactiMed[2].x, gameModel.cactiMed[2].y, );
-        printf("random num = %d, cactus spawn timer =%d ticks\n",
-               gameModel.ranNum, gameModel.cacSpawnTimer);
-        printf("score = %d highscore = %d\n", gameModel.score.value, gameModel.highScore.value);
-
+        modelState(*gameModel);
         printf("choose input\n");
         input = Cnecin();
         evKBInputHandle(&gameModel, input);
@@ -55,4 +47,18 @@ int main()
     }
 
     return 0;
+}
+
+void modelState(const Model gameModel)
+{
+    printf("player x,y=%d,%d, dy=%d, isCrch=%d, isAlive=%d\n",
+           gameModel->Lplayer.x, gameModel->player.y, gameModel->player.delta_y,
+           gameModel->player.isCrouched, gameModel->player.isAlive);
+    printf("medCactus1 x,y=%d,%d medCactus2 x,y=%d,%d medCactus3 x,y=%d,%d\n",
+           gameModel->cactiMed[0].x, gameModel->cactiMed[0].y,
+           gameModel->cactiMed[1].x, gameModel->cactiMed[1].y,
+           gameModel->cactiMed[2].x, gameModel->cactiMed[2].y, );
+    printf("random num = %d, cactus spawn timer =%d ticks\n",
+           gameModel->ranNum, gameModel->cacSpawnTimer);
+    printf("score = %d highscore = %d\n", gameModel->score.value, gameModel->highScore.value);
 }

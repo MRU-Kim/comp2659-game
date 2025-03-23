@@ -14,6 +14,7 @@ typedef struct {
     int x, y, delta_y;
     bool isCrouched;
     bool isAlive;
+    bool walkCycle;
 } DinoPlayer;
 
 typedef struct
@@ -59,12 +60,11 @@ typedef struct {
     UINT16 runTicksPassed;
 
 
-    DinoPlayer prevPlayer;
-    CactusMed prevCactiMed[3];
-    Ground prevGround;
-    Score prevScore;
-    HighScore prevHighScore;
-
+    DinoPlayer lastDrawnPlayer;
+    CactusMed lastDrawnCactiMed[3];
+    Ground lastDrawnGround;
+    Score lastDrawnScore;
+    HighScore lastDrawnHighScore;
 } Model;
 
 
@@ -75,10 +75,11 @@ void dinoJump(DinoPlayer *player);
 void dinoFall(DinoPlayer *player);
 void dinoAirCrouch(DinoPlayer *player);
 void dinoLand(DinoPlayer *player);
-
 void dinoCrouch(DinoPlayer *player);
 void dinoStand(DinoPlayer *player);
 void dinoDie(DinoPlayer *player);
+void dinoRunCycle(DinoPlayer *player);
+
 
 
 
@@ -191,29 +192,53 @@ void dinoFall(DinoPlayer *player)
         player->delta_y++;
     }
 }
+
+
+
+
 void dinoLand(DinoPlayer *player)
 {
     player->delta_y = 0;
 }
 
+
+
+
 void dinoAirCrouch(DinoPlayer *player)
 {
-    player->delta_y = 10 ;
+    player->delta_y = AirCrouchSpeed;
 }
-void updateY(DinoPlayer *player)
+
+
+
+
+
+void updateDinoY(DinoPlayer *player)
 {
     player->y += player->delta_y;
 }
+
+
+
 
 
 void dinoCrouch(DinoPlayer *player)
 {
     player->isCrouched = 1;
 }
+
+
+
+
+
 void dinoStand(DinoPlayer *player)
 {
     player->isCrouched = 0;
 }
+
+
+
+
 
 void dinoDie(DinoPlayer *player)
 {
@@ -223,10 +248,18 @@ void dinoDie(DinoPlayer *player)
 
 
 
+void dinoRunCycle(DinoPlayer *player)
+{
+    player->walkCycle = !player->walkCycle;
+}
+
+
+
+
 
 void medCactusSpawn(CactusMed *cactusMed)
 {
-    cactusMed->x = 640 -1+16 ;
+    cactusMed->x = 640  - 1 + 16 ;
     cactusMed->y = 200 -16 ;
 }
 void medCactusScroll(CactusMed *cactusMed, ScrollSpeed scrollSpeed)
@@ -236,12 +269,12 @@ void medCactusScroll(CactusMed *cactusMed, ScrollSpeed scrollSpeed)
         cactusMed->x -= scrollSpeed.delta_x;
     }
 }
-# 102 "model.c"
+# 133 "model.c"
 void scoreReset(Score *score)
 {
     score->value = 0;
 }
-# 114 "model.c"
+# 145 "model.c"
 void scoreUpdate(HighScore *highScore, Score *score)
 {
     if (score->value > highScore->value)
@@ -261,7 +294,7 @@ void scrollStop(ScrollSpeed *scrollSpeed)
 {
     scrollSpeed->delta_x = 0;
 }
-# 141 "model.c"
+# 172 "model.c"
 void modelInitialize(Model *model)
 {
     int i;
@@ -317,7 +350,7 @@ void modelResetAfterDeath(Model *model)
     model->score.value = 0;
 
 
-    model->cacSpawnTimer =  ;
+    model->cacSpawnTimer = ;
     model->lastMilestone = 0;
     model->runTicksPassed = 0;
 }
@@ -348,12 +381,12 @@ void modelTicksPassedReset(Model *model)
 
 
 
-    void modelResetCacSpawnTimer(Model *model)
-    {
-        model->ranNum = lfsr16(model->ranNum);
-        model->cacSpawnTimer = abs(model->ranNum % 70) + 70;
-    }
-# 239 "model.c"
+void modelResetCacSpawnTimer(Model *model)
+{
+    model->ranNum = lfsr16(model->ranNum);
+    model->cacSpawnTimer = abs(model->ranNum % 70) + 70;
+}
+# 270 "model.c"
 int abs(int num)
 {
     if (num < 0)
@@ -362,7 +395,7 @@ int abs(int num)
     }
     return num;
 }
-# 253 "model.c"
+# 284 "model.c"
 int lfsr16(int seed)
 {
     UINT16 lfsr = seed;

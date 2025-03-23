@@ -22,6 +22,8 @@ typedef int bool;
 #define ScreenWidth 640
 #define ScreenHeight 400
 #define BytesPerScreen 32000
+#define ScreenCentreX 319
+#define ScreenCentreY 199
 
 /* object */
 #define DinoHeight 16

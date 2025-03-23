@@ -20,11 +20,10 @@ void evStartGame(Model *model);
 
 /*sync events*/
 void evScroll(Model *model);
-void evPlayerPosUpdate(DinoPlayer *player);
+void evPlayerUpdate(Model *model);
 void evCactusSpawn(Model *model);
 void evSaveModel(Model *model);
 void evModelUpdate(Model *model);
-void evModelSave(Model *model);
 void evScoreIncrement(Model *model);
 
 

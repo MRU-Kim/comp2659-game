@@ -12,6 +12,7 @@ Professor     	Steve Kalmar
 
 #include "RASTER.H"
 #include "CONST.H"
+#include "font.h"
 
 /*
     function: clearScreen
@@ -387,12 +388,11 @@ void plotHorizontalLine(UINT8 *base, int y)
 void clearHorizontalLine(UINT8 *base, int x, int y)
 {
     int i;
-    int counter = LENGTH >> 3;
-
-    UINT8 *clearLine = base + (y * 80) + (x >> 3);
-    for (i = 0; i < counter; i++)
+    UINT32 *plotLocation = (UINT32 *)base + (y * 20);
+    for (i = 0; i < 20; i++)
     {
-        *(clearLine++) &= 0x00;
+        *plotLocation &= 0;
+        plotLocation++;
     }
 }
 
@@ -400,7 +400,7 @@ void printChar(UINT8 *base, int x, int y, char ch)
 {
     int i;
 
-    UINT8 *charHexCode = GLYPH_START(ch);
+    UINT8 *charHexCode =(UINT8 *) GLYPH_START(ch);
     for (i = 0; i < 8; i++, charHexCode++)
     {
         *(base + (y + i) * 80 + (x >> 3)) = *charHexCode;

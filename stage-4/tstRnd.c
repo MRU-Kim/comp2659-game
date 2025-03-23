@@ -21,6 +21,7 @@ char input;
 int main()
 {
     Model gameModel;
+    UINT8 *base = Physbase(); /* 8-bit */
     modelInitialize(&gameModel);
 
     input = NULL;
@@ -33,14 +34,14 @@ int main()
 
     while (input != '`')
     {
-        evModelSave(&gameModel);
+        forceRedraw(&gameModel);
         input = Cnecin();
         evKBInputHandle(&gameModel.player, input);
         input = NULL;
 
         evModelUpdate(&gameModel);
         
-        redraw(gameModel, )
+        redraw(gameModel, base)
     }
     return 0;
 }

@@ -45,7 +45,12 @@ void evKBInputHandle(Model *model, char input)
         evStartGame(model);
     }
 }
-
+/*function: evJump
+    gives dino upward velocity if they are on the ground
+    if they are in the air and havent reached the jump limit they keep their velocity
+    otherwise they begin to fall
+    input:
+    player - pointer to player*/
 void evJump(DinoPlayer *player)
 {
     if (player->y == DinoY ||
@@ -55,11 +60,15 @@ void evJump(DinoPlayer *player)
     }
     else
     {
-        printf("illegal jump %d \n", player->delta_y);
         dinoFall(player);
     }
 }
 
+/*function: evCrouch
+    if dino is on ground activate dino's crouch flag
+    else makes dino go down even faster
+    input:
+    player - pointer to player*/
 void evCrouch(DinoPlayer *player)
 {
     if (player->y == DinoY)
@@ -73,8 +82,9 @@ void evCrouch(DinoPlayer *player)
 }
 
 /* function evStartGame
-    on jump input, set model to after death sate, start scroll, reset score
-    */
+    reset model to after death sate, start scroll, reset score
+    input:
+    model - pointer to model*/
 void evStartGame(Model *model)
 {
     modelResetAfterDeath(model);
@@ -111,18 +121,25 @@ void evScroll(Model *model)
     }
 }
 
-/* function: evPlayerPosUpdate
-    on update change dino Y according to delta_y
-    don't allow dino to clip below ground
+/* function: evPlayerUpdate
+    on update change dino Y according to delta_y.
+    stops dino from clipping below ground.
+    changes dino's run sprite flag every 35 ticks
 */
-void evPlayerPosUpdate(DinoPlayer *player)
+void evPlayerUpdate(Model *model)
 {
+    DinoPlayer *player = &model->player;
     /*update player position*/
     player->y += player->delta_y;
     if (player->y > DinoY) /*dino below bounds*/
     {
         player->y = DinoY;
         player->delta_y = 0;
+    }
+    /*check if 35 ticks has passed, if so, change run sprite flag*/
+    if (model->runTicksPassed % 35)
+    {
+        dinoRunCycle(player);
     }
 }
 /* function: evCactusSpawn
@@ -161,7 +178,7 @@ void evModelUpdate(Model *model)
     /*update to new state*/
     if (model->player.isAlive)
     {
-        evPlayerPosUpdate(&model->player);
+        evPlayerUpdate(model);
         evScroll(model); /*move cactus and check if dino needs to die*/
         evCactusSpawn(model);
         evScoreIncrement(model);
@@ -169,22 +186,6 @@ void evModelUpdate(Model *model)
     }
     else
     {
-    }
-}
-
-void evModelSave(Model *model)
-{
-    int i;
-    /*save old states for sprite redraw*/
-    model->prevPlayer.isAlive = model->player.isAlive;
-    model->prevPlayer.isCrouched = model->player.isCrouched;
-    model->prevPlayer.x = model->player.x;
-    model->prevPlayer.y = model->player.y;
-
-    for (i = 0; i < 2; i++)
-    {
-        model->prevCactiMed[i].x = model->cactiMed[i].x;
-        model->prevCactiMed[i].y = model->cactiMed[i].y;
     }
 }
 
@@ -205,7 +206,9 @@ void evScoreIncrement(Model *model)
 
 /* function evNoInput
     accelerate downwards if player is in air with jump input
-    otherwise make dino stand*/
+    otherwise make dino stand
+    input:
+    player - pointer to player*/
 void evNoInput(DinoPlayer *player)
 {
     dinoFall(player);
@@ -226,7 +229,9 @@ void evMilestone(Model *model)
 }
 /*function: evDeath
     to be triggered when the dino intersects with a cactus hitbox
-        stops evScroll, dino dies, sets new high score, places game into new run after next jump input
+    stops evScroll, dino dies, sets new high score
+    input:
+    model - pointer to model
 */
 void evDeath(Model *model)
 {
@@ -235,6 +240,12 @@ void evDeath(Model *model)
     evUpdateHighscore(model);
 }
 
+/*  function: evUpdateHighscore
+    sets highscore to current score if current score
+    is larger than current highscore
+    input:
+    model - pointer to model
+    */
 void evUpdateHighscore(Model *model)
 {
     if (model->score.value > model->highScore.value)

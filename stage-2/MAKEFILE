@@ -1,14 +1,24 @@
-tst_rast: tst_rast.o raster.o rast_asm.o objects.o
-	cc68x -g tst_rast.o raster.o rast_asm.o objects.o -o tst_rast
+#https://www.gnu.org/software/make/manual/make.html
+
+DEPANDNACIES = tst_rast.o raster.o rast_asm.o objects.o font.o
+
+tst_rast: $(DEPANDNACIES)
+	cc68x -g $(DEPANDNACIES) -o tst_rast
 
 tst_rast.o: tst_rast.c raster.h objects.h CONST.H
 	cc68x -g -c tst_rast.c
 
-raster.o: raster.c raster.h
-	cc68x -g -c raster.c
+raster.o: raster.c raster.h font.h
+	cc68x -g -c font.o raster.c
 
 rast_asm.o: rast_asm.s
 	gen -D -L2 rast_asm.s
 
 objects.o: objects.c objects.h CONST.H
 	cc68x -g -c objects.c
+font.o: font.c font.h CONST.h
+	cc68x -g -c font.c
+
+clean:
+	run_make.g
+

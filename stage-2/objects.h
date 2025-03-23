@@ -13,6 +13,7 @@ Professor     	Steve Kalmar
 #include "CONST.H"
 
 extern UINT16 DinoStandSprite[];
+extern UINT16 DinoDeadSprite[];
 extern UINT16 DinoMove1Sprite[];
 extern UINT16 DinoMove2Sprite[];
 extern UINT16 DinoCrouchSprite[];
