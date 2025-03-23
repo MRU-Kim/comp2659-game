@@ -21,9 +21,10 @@ char input;
 int main()
 {
     Model gameModel;
+    RenderTracker tracker;
+
     UINT8 *base = Physbase(); /* 8-bit */
     modelInitialize(&gameModel);
-    forceDraw(&gameModel,base);
 
     input = NULL;
 
@@ -40,8 +41,8 @@ int main()
         input = NULL;
 
         evModelUpdate(&gameModel);
-        
-        redraw(&gameModel, base);
+        forceDraw(&gameModel,&tracker,base);
+        redraw(&gameModel, &tracker, base);
     }
     return 0;
 }

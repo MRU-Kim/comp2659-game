@@ -61,12 +61,7 @@ typedef struct {
     int lastMilestone;
     UINT16 runTicksPassed;
 
-    /*previous state tracking for rendering logic sprites*/
-    DinoPlayer lastDrawnPlayer;
-    CactusMed lastDrawnCactiMed[3];
-    Ground lastDrawnGround;
-    Score lastDrawnScore;
-    HighScore lastDrawnHighScore;
+    /*previous state tracking for rendering sprites logic*/
 } Model;
 
 
