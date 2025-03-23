@@ -24,8 +24,8 @@ UINT16 DinoStandSprite[] = {
     0x7ff0,
     0x3fe0,
     0x1fe0,
-    0x0e60,
     0x0640,
+    0x0240,
     0x0360};
 
 UINT16 DinoDeadSprite[] = {
@@ -42,12 +42,12 @@ UINT16 DinoDeadSprite[] = {
     0x7ff0,
     0x3fe0,
     0x1fe0,
-    0x0e60,
     0x0640,
+    0x0240,
     0x0360};
 
 UINT16 DinoMove1Sprite[] = {
-    0x0078,
+    0x0000,
     0x0078,
     0x00ff,
     0x00df,
@@ -60,12 +60,12 @@ UINT16 DinoMove1Sprite[] = {
     0x7ff0,
     0x3fe0,
     0x1fe0,
-    0x0e60,
-    0x0640,
-    0x0360};
+    0x0e40,
+    0x0260,
+    0x0300};
 
 UINT16 DinoMove2Sprite[] = {
-    0x0078,
+    0x0000,
     0x0078,
     0x00ff,
     0x00df,
@@ -79,8 +79,8 @@ UINT16 DinoMove2Sprite[] = {
     0x3fe0,
     0x1fe0,
     0x0e60,
-    0x0640,
-    0x0360};
+    0x0340,
+    0x0060};
 
 UINT16 DinoCrouchSprite[] = {
     0x0000,

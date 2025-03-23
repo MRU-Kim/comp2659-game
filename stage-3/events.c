@@ -137,10 +137,12 @@ void evPlayerUpdate(Model *model)
         player->delta_y = 0;
     }
     /*check if 35 ticks has passed, if so, change run sprite flag*/
-    if (model->runTicksPassed % 35)
+    if (player->runAnimationTimer <= 0)
     {
-        dinoRunCycle(player);
+        dinoRunCycleAdvance(player);
+        player->runAnimationTimer = DinoRunTimerLength;
     }
+    player->runAnimationTimer--;
 }
 /* function: evCactusSpawn
     chooses what obsticles to spawn based on some randomeness

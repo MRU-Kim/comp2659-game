@@ -15,6 +15,7 @@ typedef struct {
     bool isCrouched;
     bool isAlive;
     bool walkCycle;
+    int runAnimationTimer;
 } DinoPlayer;
 
 typedef struct
@@ -56,15 +57,11 @@ typedef struct {
     ScrollSpeed scrollSpeed;
     UINT16 ranNum;
     UINT16 cacSpawnTimer;
+
     int lastMilestone;
     UINT16 runTicksPassed;
 
 
-    DinoPlayer lastDrawnPlayer;
-    CactusMed lastDrawnCactiMed[3];
-    Ground lastDrawnGround;
-    Score lastDrawnScore;
-    HighScore lastDrawnHighScore;
 } Model;
 
 
@@ -78,7 +75,7 @@ void dinoLand(DinoPlayer *player);
 void dinoCrouch(DinoPlayer *player);
 void dinoStand(DinoPlayer *player);
 void dinoDie(DinoPlayer *player);
-void dinoRunCycle(DinoPlayer *player);
+void dinoRunCycleAdvance(DinoPlayer *player);
 
 
 
@@ -105,6 +102,7 @@ void modelGetSeed(Model *model);
 void modelIncrmentTick(Model *model);
 void modelTicksPassedReset(Model *model);
 void modelResetCacSpawnTimer(Model *model);
+
 
 
 int abs(int num);
@@ -248,15 +246,11 @@ void dinoDie(DinoPlayer *player)
 
 
 
-void dinoRunCycle(DinoPlayer *player)
+void dinoRunCycleAdvance(DinoPlayer *player)
 {
     player->walkCycle = !player->walkCycle;
 }
-
-
-
-
-
+# 117 "model.c"
 void medCactusSpawn(CactusMed *cactusMed)
 {
     cactusMed->x = 640  - 1 + 16 ;
@@ -269,12 +263,12 @@ void medCactusScroll(CactusMed *cactusMed, ScrollSpeed scrollSpeed)
         cactusMed->x -= scrollSpeed.delta_x;
     }
 }
-# 133 "model.c"
+# 135 "model.c"
 void scoreReset(Score *score)
 {
     score->value = 0;
 }
-# 145 "model.c"
+# 147 "model.c"
 void scoreUpdate(HighScore *highScore, Score *score)
 {
     if (score->value > highScore->value)
@@ -294,7 +288,7 @@ void scrollStop(ScrollSpeed *scrollSpeed)
 {
     scrollSpeed->delta_x = 0;
 }
-# 172 "model.c"
+# 174 "model.c"
 void modelInitialize(Model *model)
 {
     int i;
@@ -303,6 +297,7 @@ void modelInitialize(Model *model)
     model->player.delta_y = 0;
     model->player.isAlive = 1 ;
     model->player.isCrouched = 0 ;
+    model->player.runAnimationTimer = 35 ;
 
 
     for (i = 0; i < 3; i++)
@@ -386,7 +381,7 @@ void modelResetCacSpawnTimer(Model *model)
     model->ranNum = lfsr16(model->ranNum);
     model->cacSpawnTimer = abs(model->ranNum % 70) + 70;
 }
-# 270 "model.c"
+# 274 "model.c"
 int abs(int num)
 {
     if (num < 0)
@@ -395,7 +390,7 @@ int abs(int num)
     }
     return num;
 }
-# 284 "model.c"
+# 288 "model.c"
 int lfsr16(int seed)
 {
     UINT16 lfsr = seed;

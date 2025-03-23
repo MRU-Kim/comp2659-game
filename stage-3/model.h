@@ -17,6 +17,7 @@ typedef struct {
     bool isCrouched;
     bool isAlive;
     bool walkCycle; /*false for 1st walk sprtie , true for second walk sprite*/
+    int runAnimationTimer;
 } DinoPlayer;
 
 typedef struct
@@ -58,6 +59,7 @@ typedef struct {
     ScrollSpeed scrollSpeed;
     UINT16 ranNum;
     UINT16 cacSpawnTimer;
+
     int lastMilestone;
     UINT16 runTicksPassed;
 
@@ -75,7 +77,7 @@ void dinoLand(DinoPlayer *player);
 void dinoCrouch(DinoPlayer *player);
 void dinoStand(DinoPlayer *player);
 void dinoDie(DinoPlayer *player);
-void dinoRunCycle(DinoPlayer *player);
+void dinoRunCycleAdvance(DinoPlayer *player);
 
 
 
@@ -102,6 +104,7 @@ void modelGetSeed(Model *model);
 void modelIncrmentTick(Model *model);
 void modelTicksPassedReset(Model *model);
 void modelResetCacSpawnTimer(Model *model);
+
 
 /*helper functions*/
 int abs(int num);

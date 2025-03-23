@@ -16,28 +16,39 @@ Contains rendering functions
 #include "../stage-2/objects.h"
 #include "../stage-2/CONST.H"
 #include "../stage-3/model.h"
-
+/*function: redraw
+    runs redraw routines
+    input:
+    base - pointer to frame buffer
+    model - pointer to model
+    tracker - pointer to the dino render tracker*/
 void redraw(const Model *model, RenderTracker *tracker, UINT8 *base)
 {
-    /*check what objects have changed render state. to clear previous state, previous state must be stored
-
-    */
+    redrawDino(model, tracker, base);
+    redrawCacti(model, tracker, base);
+    redrawScoreBox(model, tracker, base);
 }
 
 /*function: force draw
-    clears screen and draws everything at once according to the model */
+    clears screen and draws everything at once according to the model
+    input:
+    base - pointer to frame buffer
+    model - pointer to model
+    tracker - pointer to the dino render tracker*/
 void forceDraw(const Model *model, RenderTracker *tracker, UINT8 *base)
 {
     clearScreen(base);
     drawDino(model, tracker, base);
     drawCacti(model, tracker, base);
+}
 
 /*function: redraw Dino
     checks if Dino has changed since the last render, if so clears old bitmap,
     and draws according to new state
     input:
+    base - pointer to frame buffer
     model - pointer to model
-    base - pointer to framebuffer*/
+    tracker - pointer to the dino render tracker*/
 void redrawDino(const Model *model, RenderTracker *tracker, UINT8 *base)
 {
     const DinoPlayer *player = &model->player;
@@ -47,8 +58,8 @@ void redrawDino(const Model *model, RenderTracker *tracker, UINT8 *base)
         player->walkCycle != trackerDino->walkCycle ||
         player->y != trackerDino->walkCycle)
     {
-        clearDino(model,tracker,base);
-        drawDino(model,tracker,base);
+        clearDino(model, tracker, base);
+        drawDino(model, tracker, base);
     }
 }
 
@@ -57,8 +68,8 @@ void redrawDino(const Model *model, RenderTracker *tracker, UINT8 *base)
     to be called after previous dino is anihilated
     input:
     base - pointer to frame buffer
-    player - pointer to model player
-    trackerDino - pointer to the dino render tracker*/
+    model - pointer to model
+    tracker - pointer to the dino render tracker*/
 void drawDino(const Model *model, RenderTracker *tracker, UINT8 *base)
 {
     const DinoPlayer *player = &model->player;
@@ -76,7 +87,7 @@ void drawDino(const Model *model, RenderTracker *tracker, UINT8 *base)
             {
                 if (player->walkCycle)
                 {
-                    plot16Bitmap(base, DinoMove1Sprite, player->x, player->y, DinoHeight);
+                    plot16Bitmap(base, DinoMove2Sprite, player->x, player->y, DinoHeight);
                     trackerDinoCopy(player, trackerDino);
                 }
                 else
@@ -96,8 +107,9 @@ void drawDino(const Model *model, RenderTracker *tracker, UINT8 *base)
         trackerDinoCopy(player, trackerDino);
     }
 }
-/*function drawDino
-    draws dino according to the the render tracker
+
+/*function clearDino
+    clears dino according to the the render tracker
     to be called if current render is different from model
     input:
     base - pointer to frame buffer
@@ -122,7 +134,7 @@ void clearDino(const Model *model, RenderTracker *tracker, UINT8 *base)
                 }
                 else
                 {
-                    clear16Bitmap(base, DinoMove2Sprite, trackerDino->x, trackerDino->y, DinoHeight);
+                    clear16Bitmap(base, DinoMove1Sprite, trackerDino->x, trackerDino->y, DinoHeight);
                 }
             }
         }
@@ -135,28 +147,53 @@ void clearDino(const Model *model, RenderTracker *tracker, UINT8 *base)
     }
 }
 
-
-
-
-
 /*function: trackerDinoCopy
     copies the current aspects of model dino into the tracker
     should be called everytime the dino render is updated
     input:
     trackerDino, pointer dino render tracker
     dino, pointer to model dino*/
-    void trackerDinoCopy(const DinoPlayer *player, DinoPlayer *trackerDino)
-    {
-        trackerDino->x = player->x;
-        trackerDino->isAlive = player->isAlive;
-        trackerDino->isCrouched = player->isCrouched;
-        trackerDino->walkCycle == player->walkCycle;
-        trackerDino->y == player->y;
-    }
-/* */
-void redrawObticles(const Model *model, RenderTracker *tracker, UINT8 *base)
+void trackerDinoCopy(const DinoPlayer *player, DinoPlayer *trackerDino)
 {
-    return;
+    trackerDino->x = player->x;
+    trackerDino->isAlive = player->isAlive;
+    trackerDino->isCrouched = player->isCrouched;
+    trackerDino->walkCycle = player->walkCycle;
+    trackerDino->y = player->y;
+}
+
+/*  function: redrawCacti
+    checks each cactus to see if it is on screen and has changed
+    if so redraws it*/
+void redrawCacti(const Model *model, RenderTracker *tracker, UINT8 *base)
+{
+    const CactusMed *cactusMed = model->cactiMed;
+    CactusMed *trackerCactusMed = tracker->lastDrawnCactiMed;
+    int i;
+    for (i = 0; i < 3; i++)
+    {
+        if (cactusMed[i].x != trackerCactusMed->x)
+        {
+            clear16Bitmap(base, CactusMedSprite, trackerCactusMed[i].x, trackerCactusMed[i].y, CactMedHeight);
+            plot16Bitmap(base, CactusMedSprite, cactusMed[i].x, cactusMed[i].y, CactMedHeight);
+            trackerCactusMed[i].x = cactusMed->x;
+            trackerCactusMed[i].y = cactusMed->y;
+        }
+    }
+}
+void drawCacti(const Model *model, RenderTracker *tracker, UINT8 *base)
+{
+}
+void clearCacti(const Model *model, RenderTracker *tracker, UINT8 *base)
+{
+}
+
+void drawGround(const Model *model, RenderTracker *tracker, UINT8 *base)
+{
+}
+
+void clearGround(const Model *model, RenderTracker *tracker, UINT8 *base)
+{
 }
 
 void redrawScoreBox(const Model *model, RenderTracker *tracker, UINT8 *base)
@@ -165,9 +202,4 @@ void redrawScoreBox(const Model *model, RenderTracker *tracker, UINT8 *base)
     printNum(base, model->score.x + 50, model->score.y, model->score.value);
     printString(base, model->highScore.x, model->highScore.y, "HI:");
     printNum(base, model->highScore.x + 50, model->highScore.y, model->highScore.value);
-}
-
-void redrawGround(const Model *model, RenderTracker *tracker, UINT8 *base)
-{
-    /* */
 }

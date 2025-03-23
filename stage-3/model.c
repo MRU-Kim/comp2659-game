@@ -99,14 +99,16 @@ void dinoDie(DinoPlayer *player)
 {
     player->isAlive = 0;
 }
-/*  function: dinoRunCycle
+/*  function: dinoRunCycleAdvance
     Toggles run sprite flag for animation
     inputs:
     player - pointer to player*/
-void dinoRunCycle(DinoPlayer *player)
+void dinoRunCycleAdvance(DinoPlayer *player)
 {
     player->walkCycle = !player->walkCycle;
 }
+
+/**/
 
 /*------cactus behaviors------*/
 /*fucntion: medCactusSpawn
@@ -177,6 +179,7 @@ void modelInitialize(Model *model)
     model->player.delta_y = 0;
     model->player.isAlive = true;
     model->player.isCrouched = false;
+    model->player.runAnimationTimer = DinoRunTimerLength;
 
     /*init cacti*/
     for (i = 0; i < 3; i++)
@@ -260,6 +263,7 @@ void modelResetCacSpawnTimer(Model *model)
     model->ranNum = lfsr16(model->ranNum);
     model->cacSpawnTimer = abs(model->ranNum % 70) + 70; /*70 ticks in a second*/
 }
+
 
 /*helper functions*/
 /*function: abs

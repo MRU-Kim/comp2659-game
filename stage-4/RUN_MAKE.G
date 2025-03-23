@@ -8,7 +8,7 @@ foreach i {tst_rnd raster font objects model events render }
 		Rm $i.o
 	endif
 endfor
-
+Rm
 cd ..
 cd stage-2
 

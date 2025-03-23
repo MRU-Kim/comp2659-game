@@ -51,9 +51,10 @@ int main()
 
 void modelState(const Model *gameModel)
 {
-    printf("player x,y=%d,%d, dy=%d, isCrch=%d, isAlive=%d\n",
+    printf("player x,y=%d,%d, dy=%d, isCrch=%d, isAlive=%d, run timer=%d, run state=%d\n",
            gameModel->player.x, gameModel->player.y, gameModel->player.delta_y,
-           gameModel->player.isCrouched, gameModel->player.isAlive);
+           gameModel->player.isCrouched, gameModel->player.isAlive, gameModel->player.runAnimationTimer,
+            gameModel->player.walkCycle );
     printf("medCactus1 x,y=%d,%d medCactus2 x,y=%d,%d medCactus3 x,y=%d,%d\n",
            gameModel->cactiMed[0].x, gameModel->cactiMed[0].y,
            gameModel->cactiMed[1].x, gameModel->cactiMed[1].y,

@@ -23,7 +23,6 @@ typedef struct
 
 void redraw(const Model *model, RenderTracker *tracker, UINT8 *base);
 void forceDraw(const Model *model, RenderTracker *tracker, UINT8 *base);
-void initRenderTracker(RenderTracker *tracker);
 
 void redrawDino(const Model *model, RenderTracker *tracker, UINT8 *base);
 void drawDino(const Model *model, RenderTracker *tracker, UINT8 *base);
@@ -33,12 +32,10 @@ void trackerDinoCopy(const DinoPlayer *player, DinoPlayer *trackerDino);
 void redrawCacti(const Model *model, RenderTracker *tracker, UINT8 *base);
 void drawCacti(const Model *model, RenderTracker *tracker, UINT8 *base);
 void clearCacti(const Model *model, RenderTracker *tracker, UINT8 *base);
-void trackerCactiCopy(const DinoPlayer *player, DinoPlayer *trackerDino);
 
-void redrawGround(const Model *model, RenderTracker *tracker, UINT8 *base);
+
 void drawGround(const Model *model, RenderTracker *tracker, UINT8 *base);
 void clearGround(const Model *model, RenderTracker *tracker, UINT8 *base);
-void trackerGroundCopy(const DinoPlayer *player, DinoPlayer *trackerDino);
 
 
 

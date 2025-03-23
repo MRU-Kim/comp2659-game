@@ -32,7 +32,9 @@ int main()
     {
         input = Cnecin();
     }
+    forceDraw(&gameModel,&tracker,base);
     evStartGame(&gameModel);
+
 
     while (input != '`')
     {
@@ -41,7 +43,7 @@ int main()
         input = NULL;
 
         evModelUpdate(&gameModel);
-        forceDraw(&gameModel,&tracker,base);
+        /*forceDraw(&gameModel,&tracker,base);*/
         redraw(&gameModel, &tracker, base);
     }
     return 0;

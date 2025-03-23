@@ -47,6 +47,9 @@ typedef int bool;
 #define JumpSpeed -5
 #define HitErrorMargin 1
 
+/*Animation logic*/
+#define DinoRunTimerLength 35
+
 
 /* stage 7 - sounds */
 #define OFF                 0
