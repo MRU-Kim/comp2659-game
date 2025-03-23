@@ -18,7 +18,7 @@ typedef struct{
 } note;
 
 typedef struct{
-  note theActualMusic[27];
+  note theMainMusic[30];
   int index;
   long previousTime;
 } song;

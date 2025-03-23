@@ -11,9 +11,22 @@ Professor       Steve Kalmar
 
 #include "PSG.H"
 #include "EFFECTS.H"
-#include "MUSIC.H" /* getTime() function */
+#include "MUSIC.H" 
 #include "../stage-2/CONST.H"
 
+/*
+-------------------------------------------------------------------
+    function: initPsg
+    Resets the register and its value to 0x00; turns all Channels
+    A, B, and C off; sets the Channels' Volume to 0x00; and noise
+    to 0x00. 
+
+    input:
+        None.
+    output:
+        Void.
+-------------------------------------------------------------------
+*/
 void initPsg() {
     int i;
 
@@ -23,26 +36,30 @@ void initPsg() {
     }
 
     enableChannel(ChannelA, OFF, OFF);
-    printf("enable\n");
     enableChannel(ChannelB, OFF, OFF);
-    printf("enable\n");
     enableChannel(ChannelC, OFF, OFF);
-    printf("enable\n");
 
     setVolume(ChannelA,0x00);
-    printf("volume\n");
     setVolume(ChannelB,0x00);
-    printf("volume\n");
     setVolume(ChannelC,0x00);
-    printf("volume\n");
 
     setNoise(0x00);
-    printf("noise\n");
 
     printf("PSG initialized\n");
 
 }
+/*
+-------------------------------------------------------------------
+    function: playJumpSound and playDeathSound
+    Dino's jump/death sound. Using the envelope's 0x09 shape to 0x2000/ 
+    0x7000 duration.
 
+    input:
+        None.
+    output:
+        Void.
+-------------------------------------------------------------------
+*/
 void playJumpSound() {
     long startTime, nowTime;
     int jumpTone = G5;
@@ -50,7 +67,7 @@ void playJumpSound() {
     startTime=getTime();
     nowTime=getTime();
 
-    setEnvelope(0x09,0x5000);
+    setEnvelope(0x09,0x2000);
 
     while ((nowTime-startTime) < (64/2)) {
         setTone(ChannelA, jumpTone);
@@ -69,7 +86,7 @@ void playDeathSound() {
     startTime=getTime();
     nowTime=getTime();
 
-    setEnvelope(0x09,0x5000);
+    setEnvelope(0x09,0x7000);
 
     while ((nowTime-startTime) < (64/2)) {
         setTone(ChannelA, jumpTone);

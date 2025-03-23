@@ -13,21 +13,21 @@ Professor       Steve Kalmar
 #include "MUSIC.H"
 #include "../stage-2/CONST.H"
 
-const int theMusic[27] = {
+const int theMusic[30] = {
     G5,G5,F5Sharp,G5,Pause,
     G5,G5,F5Sharp,G5,D5Sharp,C4,Pause,
     G5,G5,F5Sharp,G5,Pause,
-    D5Sharp,F5,G5,D5Sharp,F5,D5,D5Sharp,C4,D5,C4
+    D5Sharp,F5,G5,D5Sharp,F5,D5,D5Sharp,C4,D5,C4,
+    D5,D5,C4
 };
-const time[27]={1,1,2,1,2,4,4,4,4,2,1,2,2,1,2,2,2,4,4,4,4,2,2,2,2,1,2}; 
-/*this is the time the tempo needs to be divided by*/
+const time[30]={1,1,2,1,2,4,4,4,4,2,1,2,2,1,2,2,2,4,4,4,4,2,2,2,2,1,2,2,1,2}; 
 song theSong;
 
 /*
 -------------------------------------------------------------------
     function: helpInitialize
     initialize theSong structure by setting up theMysic and time arrays 
-    into theActualMusic array.
+    into theMainMusic array.
 
     input:
         None.
@@ -38,9 +38,9 @@ song theSong;
 void helpInitialize(){
     int i;
   
-    for(i=0; i<27; i++){
-        theSong.theActualMusic[i].value= theMusic[i];
-        theSong.theActualMusic[i].time= time[i];
+    for(i=0; i<30; i++){
+        theSong.theMainMusic[i].value= theMusic[i];
+        theSong.theMainMusic[i].time= time[i];
     }
 
     theSong.index=0;
@@ -60,8 +60,8 @@ void helpInitialize(){
 */
 void startMusic(){
     long nowTime, elapsedTime;
-    int theTone = theSong.theActualMusic[theSong.index].value;
-    int timeDivide = theSong.theActualMusic[theSong.index].time;
+    int theTone = theSong.theMainMusic[theSong.index].value;
+    int timeDivide = theSong.theMainMusic[theSong.index].time;
     printf("%X\n",theTone);
 
     theSong.previousTime = getTime();
@@ -95,8 +95,8 @@ void startMusic(){
 */
 void updateMusic(){
     long  nowTime, elapsedTime;
-    int timeDivide = theSong.theActualMusic[theSong.index].time;
-    int theTone= theSong.theActualMusic[theSong.index].value;
+    int timeDivide = theSong.theMainMusic[theSong.index].time;
+    int theTone= theSong.theMainMusic[theSong.index].value;
     nowTime = getTime();
 
     printf("%X\n",theSong.previousTime );
@@ -120,7 +120,7 @@ void updateMusic(){
 -------------------------------------------------------------------
     function: getTime
     retrieves the current system time by reading the timer. Uses
-    Super() to access system-level memory
+    Super() to access system-level memory.
 
     input:
         None.
