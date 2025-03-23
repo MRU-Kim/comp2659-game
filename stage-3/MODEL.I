@@ -206,7 +206,7 @@ void dinoLand(DinoPlayer *player)
 
 void dinoAirCrouch(DinoPlayer *player)
 {
-    player->delta_y = AirCrouchSpeed;
+    player->delta_y = 10 ;
 }
 
 

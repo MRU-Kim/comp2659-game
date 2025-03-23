@@ -1,5 +1,7 @@
-test3: test3.o events.o model.o
-	cc68x -g test3.o events.o  model.o -o test3
+DEPENDNACIES = test3.o events.o model.o
+
+test3: $(DEPENDNACIES)
+	cc68x -g $(DEPENDNACIES) -o test3
 
 test3.o: test3.c events.h model.h
 	cc68x -g -c -I../stage-2 test3.c

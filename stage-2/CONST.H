@@ -43,7 +43,7 @@ typedef int bool;
 
 /*Model game logic constants*/
 #define MaxJump DinoY-30
-#define airCrouchSpeed 10
+#define AirCrouchSpeed 10
 #define JumpSpeed -5
 #define HitErrorMargin 1
 

@@ -5,3 +5,5 @@ foreach i { tst_rast raster rast_asm objects font }
 	endif
 endfor
 make
+
+

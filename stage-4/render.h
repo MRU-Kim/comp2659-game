@@ -13,12 +13,12 @@ Professor     	Steve Kalmar
 #include "../stage-3/model.h"
 #include "../stage-2/const.h"
 
-void redraw(const Model *model, UINT8 *base);
-void forceRedraw(Model *model);
+void redraw(Model *model, UINT8 *base);
+void forceDraw(Model *model, UINT8 *base);
 
-void redrawDino(const DinoPlayer *dino, UINT8 *base);
-void redrawObticles(const CactusSmall *cactusSmall, UINT8 *base);
-void redrawGround(const Ground *ground, UINT8 *base);
-void reDrawScores(const Score* Score, UINT8 *base);
+void redrawDino(Model *model, UINT8 *base);
+void redrawScoreBox(Model *model, UINT8 *base);
+void redrawObticles(Model *model, UINT8 *base);
+void redrawGround(Model *model, UINT8 *base);
 
 #endif

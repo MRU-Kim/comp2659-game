@@ -23,6 +23,7 @@ int main()
     Model gameModel;
     UINT8 *base = Physbase(); /* 8-bit */
     modelInitialize(&gameModel);
+    forceDraw(&gameModel,base);
 
     input = NULL;
 
@@ -34,14 +35,13 @@ int main()
 
     while (input != '`')
     {
-        forceRedraw(&gameModel);
         input = Cnecin();
-        evKBInputHandle(&gameModel.player, input);
+        evKBInputHandle(&gameModel, input);
         input = NULL;
 
         evModelUpdate(&gameModel);
         
-        redraw(gameModel, base)
+        redraw(&gameModel, base);
     }
     return 0;
 }

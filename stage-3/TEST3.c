@@ -16,7 +16,7 @@ Professor     	Steve Kalmar
 
 char input;
 
-void modelState(*Model model);
+void modelState(const Model *model);
 
 int main()
 {
@@ -35,7 +35,7 @@ int main()
     while (input != '`')
     {
         /*show status of model*/
-        modelState(*gameModel);
+        modelState(&gameModel);
         printf("choose input\n");
         input = Cnecin();
         evKBInputHandle(&gameModel, input);
@@ -49,10 +49,10 @@ int main()
     return 0;
 }
 
-void modelState(const Model gameModel)
+void modelState(const Model *gameModel)
 {
     printf("player x,y=%d,%d, dy=%d, isCrch=%d, isAlive=%d\n",
-           gameModel->Lplayer.x, gameModel->player.y, gameModel->player.delta_y,
+           gameModel->player.x, gameModel->player.y, gameModel->player.delta_y,
            gameModel->player.isCrouched, gameModel->player.isAlive);
     printf("medCactus1 x,y=%d,%d medCactus2 x,y=%d,%d medCactus3 x,y=%d,%d\n",
            gameModel->cactiMed[0].x, gameModel->cactiMed[0].y,

@@ -18,3 +18,12 @@ stage-7/EFFECTS.O
 stage-7/MUSIC.O
 stage-7/TST_PSG
 stage-2/FONT.O
+stage-4/EVENTS.O
+stage-4/FONT.O
+stage-4/hm.g
+stage-4/MODEL.O
+.gitignore
+stage-4/OBJECTS.O
+stage-4/RASTER.O
+stage-4/RENDER.O
+stage-4/TST_RND.O

@@ -1,4 +1,4 @@
-foreach i { $< }
+foreach i { test3 events model }
 	if { -f $i.tos }
 		echo Rm $i.tos
 		Rm $i.tos

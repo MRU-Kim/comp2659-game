@@ -17,17 +17,16 @@ Contains rendering functions
 #include "../stage-2/CONST.H"
 #include "../stage-3/model.h"
 
-void redraw(Model *model, UINT8 *base)
+void redraw(const Model *model, UINT8 *base)
 {
     /*check what objects have changed render state. to clear previous state, previous state must be stored  */
 
-    redrawDino(model,base);
-    redrawObticles(model,base);
-    redrawScoreBox(model,base);
+    redrawDino(&model->player, (UINT16 *)base);
+    redrawObticles(model->cactiMed, (UINT16 *)base);
+    redrawScoreBox(model, (UINT8 *)base);
 }
-void forceDraw(Model *model, UINT8 *base)
+void forceDraw(Model *model)
 {
-    return;
 }
 
 void redrawDino(Model *model, UINT8 *base)
@@ -41,14 +40,14 @@ void redrawDino(Model *model, UINT8 *base)
     {
         if (lastDrawPlayer->isAlive)
         {
+            clear16Bitmap(base,player)
         }
         
     }
 }
 /* */
-void redrawObticles(Model *model, UINT8 *base)
+void redrawObticles(const CactusMed *cactusmed, UINT8 *base)
 {
-    return;
 }
 
 void redrawScoreBox(Model *model, UINT8 *base)
@@ -59,7 +58,7 @@ void redrawScoreBox(Model *model, UINT8 *base)
     printNum(base, model->highScore.x + 50, model->highScore.y, model->highScore.value);
 }
 
-void redrawGround(Model *model, UINT8 *base)
+void redrawGround(const Ground *ground, UINT8 *base)
 {
     /* */
 }
