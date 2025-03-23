@@ -172,12 +172,12 @@ void redrawCacti(const Model *model, RenderTracker *tracker, UINT8 *base)
     int i;
     for (i = 0; i < 3; i++)
     {
-        if (cactusMed[i].x != trackerCactusMed->x)
+        if (cactusMed[i].x != trackerCactusMed[i].x)
         {
             clear16Bitmap(base, CactusMedSprite, trackerCactusMed[i].x, trackerCactusMed[i].y, CactMedHeight);
             plot16Bitmap(base, CactusMedSprite, cactusMed[i].x, cactusMed[i].y, CactMedHeight);
-            trackerCactusMed[i].x = cactusMed->x;
-            trackerCactusMed[i].y = cactusMed->y;
+            trackerCactusMed[i].x = cactusMed[i].x;
+            trackerCactusMed[i].y = cactusMed[i].y;
         }
     }
 }
