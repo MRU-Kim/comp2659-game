@@ -24,8 +24,6 @@ Professor       Steve Kalmar
         Void.
 -------------------------------------------------------------------
 */
-UINT8 value = 0x3F;
-
 void writePsg(int reg, UINT8 val) {
     volatile char *regSelect = PSGSelectAddress;
     volatile char *regWrite = PSGWriteAddress;
@@ -91,10 +89,10 @@ void setTone(int channel, int tuning) {
 -------------------------------------------------------------------
     function: setNoise
 
-    Initializes the game's Plane struct with starting properties 
+    Sets the NoiseReg tone with the given tuning value.
 
     input:
-        model  -   pointer to the game's Model struct
+        tuning  -   
     output:
         Void.
 -------------------------------------------------------------------
@@ -111,8 +109,8 @@ void setNoise(int tuning) {
 -------------------------------------------------------------------
     function: set_volume
 
-    Sets the volume level for a specified audio channel in the PSG
-    the volume value is passed as a paramenter, and the funcation
+    Sets the volume level of an audio channel in the PSG.
+    The volume value is passed as a paramenter, and the function
     writes it to the corresponding PSG register.
 
     input:
@@ -170,7 +168,7 @@ void setEnvelope(int shape, unsigned int sustain) {
 -------------------------------------------------------------------
 */
 void enableChannel(int channel, int toneOn, int noiseOn) {
-    /* UINT8 value = 0x3F; */
+    UINT8 value = 0x3F;
     if (toneOn == ON) {
         value = value & ~(1 << channel);
     }

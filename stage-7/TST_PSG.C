@@ -7,9 +7,6 @@ int main() {
     /*
     int i;
 
-    playJumpSound();
-    playDeathSound();
-
     helpInitialize();
     startMusic();
     while(!Cconis()){
