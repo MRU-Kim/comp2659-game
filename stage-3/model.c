@@ -254,7 +254,7 @@ void modelTicksPassedReset(Model *model)
 
 /*function: modelResetCacSpawnTimer
     after spawning a cactus this is called to reset to 
-    MinCacSpawnTime + 0 to MaxCacSpawnTimeAdd seconds
+    MinCacSpawnTime + 0 to MaxCacSpawnTimeAdd ticks
     inputs:
     model - pointer to model*/
 void modelResetCacSpawnTimer(Model *model)
