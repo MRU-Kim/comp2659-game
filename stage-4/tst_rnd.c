@@ -43,7 +43,6 @@ int main()
         input = NULL;
 
         evModelUpdate(&gameModel);
-        /*forceDraw(&gameModel,&tracker,base);*/
         redraw(&gameModel, &tracker, base);
     }
     return 0;

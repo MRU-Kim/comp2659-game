@@ -36,9 +36,9 @@ typedef int bool;
 #define DinoY GroundY-DinoHeight
 #define DinoX 100
 #define CactMedY GroundY-CactMedHeight
-#define ScoreX 639-5*8
+#define ScoreX 639-100
 #define ScoreY 10
-#define HighScoreX ScoreX-40
+#define HighScoreX ScoreX-50
 #define HighScoreY ScoreY
 
 /*Model game logic constants*/
@@ -48,7 +48,7 @@ typedef int bool;
 #define HitErrorMargin 1
 
 /*Animation logic*/
-#define DinoRunTimerLength 35
+#define DinoRunTimerLength 15
 
 
 /* stage 7 - sounds */

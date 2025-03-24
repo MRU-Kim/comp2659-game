@@ -43,11 +43,11 @@ typedef struct {
 } Ground;
 
 typedef struct {
-    int x,y,value;
+    int value;
 } Score;
 
 typedef struct {
-    int x,y,value;
+    int value;
 } HighScore;
 
 typedef struct {

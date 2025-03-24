@@ -189,12 +189,10 @@ void modelInitialize(Model *model)
     }
     model->ground.y = GroundY;
 
-    model->score.x = ScoreX;
-    model->score.y = ScoreY;
+
     model->score.value = 0;
 
-    model->highScore.x = HighScoreX;
-    model->highScore.y = HighScoreY;
+
     model->highScore.value = 0;
 
     model->scrollSpeed.delta_x = 0;

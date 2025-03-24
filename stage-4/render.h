@@ -30,8 +30,8 @@ void clearDino(const Model *model, RenderTracker *tracker, UINT8 *base);
 void trackerDinoCopy(const DinoPlayer *player, DinoPlayer *trackerDino);
 
 void redrawCacti(const Model *model, RenderTracker *tracker, UINT8 *base);
-void drawCacti(const Model *model, RenderTracker *tracker, UINT8 *base);
-void clearCacti(const Model *model, RenderTracker *tracker, UINT8 *base);
+void trackerMedCactiCopy(const Model *model, RenderTracker *tracker);
+
 
 
 void drawGround(const Model *model, RenderTracker *tracker, UINT8 *base);
@@ -40,7 +40,6 @@ void clearGround(const Model *model, RenderTracker *tracker, UINT8 *base);
 
 
 void redrawScoreBox(const Model *model, RenderTracker *tracker, UINT8 *base);
-void redrawObticles(const Model *model, RenderTracker *tracker, UINT8 *base);
 
 
 #endif

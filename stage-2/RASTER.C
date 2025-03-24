@@ -385,7 +385,7 @@ void plotHorizontalLine(UINT8 *base, int y)
     output:
         Void.
 */
-void clearHorizontalLine(UINT8 *base, int x, int y)
+void clearHorizontalLine(UINT8 *base, int y)
 {
     int i;
     UINT32 *plotLocation = (UINT32 *)base + (y * 20);

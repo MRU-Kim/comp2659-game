@@ -17,20 +17,21 @@ Contains rendering functions
 #include "../stage-2/CONST.H"
 #include "../stage-3/model.h"
 /*function: redraw
-    runs redraw routines
+    runs redraw routines, if the game is restarted all objects are refreshed
     input:
     base - pointer to frame buffer
     model - pointer to model
     tracker - pointer to the dino render tracker*/
 void redraw(const Model *model, RenderTracker *tracker, UINT8 *base)
 {
-    redrawDino(model, tracker, base);
     redrawCacti(model, tracker, base);
     redrawScoreBox(model, tracker, base);
+    redrawDino(model, tracker, base);
 }
 
 /*function: force draw
     clears screen and draws everything at once according to the model
+    should be used at start of game and on resets
     input:
     base - pointer to frame buffer
     model - pointer to model
@@ -38,8 +39,9 @@ void redraw(const Model *model, RenderTracker *tracker, UINT8 *base)
 void forceDraw(const Model *model, RenderTracker *tracker, UINT8 *base)
 {
     clearScreen(base);
+
     drawDino(model, tracker, base);
-    drawCacti(model, tracker, base);
+    drawGround(model, tracker, base);
 }
 
 /*function: redraw Dino
@@ -113,8 +115,8 @@ void drawDino(const Model *model, RenderTracker *tracker, UINT8 *base)
     to be called if current render is different from model
     input:
     base - pointer to frame buffer
-    player - pointer to model player
-    trackerDino - pointer to the dino render tracker*/
+    model - pointer to model
+    tracker - pointer to the dino render tracker*/
 void clearDino(const Model *model, RenderTracker *tracker, UINT8 *base)
 {
     DinoPlayer *trackerDino = &tracker->lastDrawnPlayer;
@@ -164,7 +166,11 @@ void trackerDinoCopy(const DinoPlayer *player, DinoPlayer *trackerDino)
 
 /*  function: redrawCacti
     checks each cactus to see if it is on screen and has changed
-    if so redraws it*/
+    if so redraws it
+    input:
+    base - pointer to frame buffer
+    model - pointer to model
+    tracker - pointer to the dino render tracker*/
 void redrawCacti(const Model *model, RenderTracker *tracker, UINT8 *base)
 {
     const CactusMed *cactusMed = model->cactiMed;
@@ -181,25 +187,49 @@ void redrawCacti(const Model *model, RenderTracker *tracker, UINT8 *base)
         }
     }
 }
-void drawCacti(const Model *model, RenderTracker *tracker, UINT8 *base)
+/*function: trackerMedCactiCopy
+    forcefully updates the render tracking for medium cacti
+    to be used after clearing screen
+    input:
+    model - pointer to model
+    tracker - pointer to the dino render tracker*/
+void trackerMedCactiCopy(const Model *model, RenderTracker *tracker)
 {
-}
-void clearCacti(const Model *model, RenderTracker *tracker, UINT8 *base)
-{
+    int i;
+    for (i = 0; i < 3; i++)
+    {
+        tracker->lastDrawnCactiMed[i].x = model->cactiMed[i].x;
+        tracker->lastDrawnCactiMed[i].y = model->cactiMed[i].y;
+    }
 }
 
 void drawGround(const Model *model, RenderTracker *tracker, UINT8 *base)
 {
+    plotHorizontalLine(base, model->ground.y);
+    tracker->lastDrawnGround.y = GroundY;
 }
 
 void clearGround(const Model *model, RenderTracker *tracker, UINT8 *base)
 {
 }
 
+/*function: redrawScorebox
+    if score has changed, redraw it
+    if high score is not 0 and has changed redraw it
+    input:
+    base - pointer to frame buffer
+    model - pointer to model
+    tracker - pointer to the dino render tracker*/
 void redrawScoreBox(const Model *model, RenderTracker *tracker, UINT8 *base)
 {
-    printString(base, model->score.x, model->score.y, "Score:");
-    printNum(base, model->score.x + 50, model->score.y, model->score.value);
-    printString(base, model->highScore.x, model->highScore.y, "HI:");
-    printNum(base, model->highScore.x + 50, model->highScore.y, model->highScore.value);
+    if (tracker->lastDrawnHighScore.value != model->highScore.value)
+    {
+        printNum(base, ScoreX, ScoreY, model->score.value);
+    }
+
+    if (model->highScore.value != 0 && tracker->lastDrawnHighScore.value != model->highScore.value)
+    {
+        printString(base, HighScoreX - 20, HighScoreY, "HI");
+        printNum(base, HighScoreX, HighScoreY, model->highScore.value);
+    }
 }

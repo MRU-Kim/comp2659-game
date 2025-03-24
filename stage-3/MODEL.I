@@ -41,11 +41,11 @@ typedef struct {
 } Ground;
 
 typedef struct {
-    int x,y,value;
+    int value;
 } Score;
 
 typedef struct {
-    int x,y,value;
+    int value;
 } HighScore;
 
 typedef struct {
@@ -297,7 +297,7 @@ void modelInitialize(Model *model)
     model->player.delta_y = 0;
     model->player.isAlive = 1 ;
     model->player.isCrouched = 0 ;
-    model->player.runAnimationTimer = 35 ;
+    model->player.runAnimationTimer = 15 ;
 
 
     for (i = 0; i < 3; i++)
@@ -307,12 +307,10 @@ void modelInitialize(Model *model)
     }
     model->ground.y = 200 ;
 
-    model->score.x = 639-5*8 ;
-    model->score.y = 10 ;
+
     model->score.value = 0;
 
-    model->highScore.x = 639-5*8 -40 ;
-    model->highScore.y = 10 ;
+
     model->highScore.value = 0;
 
     model->scrollSpeed.delta_x = 0;
@@ -381,7 +379,7 @@ void modelResetCacSpawnTimer(Model *model)
     model->ranNum = lfsr16(model->ranNum);
     model->cacSpawnTimer = abs(model->ranNum % 70) + 70;
 }
-# 274 "model.c"
+# 272 "model.c"
 int abs(int num)
 {
     if (num < 0)
@@ -390,7 +388,7 @@ int abs(int num)
     }
     return num;
 }
-# 288 "model.c"
+# 286 "model.c"
 int lfsr16(int seed)
 {
     UINT16 lfsr = seed;
