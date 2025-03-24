@@ -51,8 +51,8 @@ void initPsg() {
 /*
 -------------------------------------------------------------------
     function: playJumpSound and playDeathSound
-    Dino's jump/death sound. Using the envelope's 0x09 shape to 0x2000/ 
-    0x7000 duration.
+    Dino's jump/death sound. Loops through a jump/death sound effect
+    using the envelope's 0x09 shape in 0x2000/0x7000 duration.
 
     input:
         None.

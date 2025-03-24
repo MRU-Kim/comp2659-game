@@ -6,3 +6,29 @@ Deadline        March 17, 2024
 File name       input.c
 Professor     	Steve Kalmar
 */
+
+#include <stdio.h>
+#include "input.h"
+
+/*
+-------------------------------------------------------------------
+    function: getKey
+
+
+    input:
+        
+    output:
+        Void.
+-------------------------------------------------------------------
+*/
+
+void getKey(int key, const Model *model){
+    switch(key){
+        case 'w':
+        case 'a':
+        case 's':
+        case ' ':
+        default:
+            break;
+    }
+}

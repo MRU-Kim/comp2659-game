@@ -11,3 +11,21 @@ Professor     	Steve Kalmar
 #include "input.h"
 #include "../stage-3/model.h"
 #include "../stage-4/renderer.h"
+
+int main(){
+
+    Model gameModel;
+    RenderTracker tracker;
+
+    UINT8 *base = Physbase(); /* 8-bit */
+    modelInitialize(&gameModel);
+
+    input = NULL;
+
+    while (input != ' ')
+    {
+        input = Cnecin();
+    }
+    forceDraw(&gameModel,&tracker,base);
+    evStartGame(&gameModel);
+}
