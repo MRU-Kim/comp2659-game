@@ -116,12 +116,12 @@ void dinoRunCycleAdvance(DinoPlayer *player)
     cactusMed - pointer to cactus to be spawned*/
 void medCactusSpawn(CactusMed *cactusMed)
 {
-    cactusMed->x = ScreenWidth - 1 + CactMedWidth;
+    cactusMed->x = ScreenWidth + CactMedWidth;
     cactusMed->y = CactMedY;
 }
 void medCactusScroll(CactusMed *cactusMed, ScrollSpeed scrollSpeed)
 {
-    if (cactusMed->x > -CactMedWidth)
+    if (cactusMed->x > -CactMedWidth+1)
     { /*if the cactus is on screen */
         cactusMed->x -= scrollSpeed.delta_x;
     }
@@ -182,16 +182,14 @@ void modelInitialize(Model *model)
     model->player.runAnimationTimer = DinoRunTimerLength;
 
     /*init cacti*/
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < MaxCactus; i++)
     {
         model->cactiMed[i].x = -16;
         model->cactiMed[i].y = CactMedY;
     }
     model->ground.y = GroundY;
 
-
     model->score.value = 0;
-
 
     model->highScore.value = 0;
 
@@ -216,7 +214,7 @@ void modelResetAfterDeath(Model *model)
     model->player.isCrouched = false;
 
     /*reset cacti*/
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < MaxCactus; i++)
     {
         model->cactiMed[i].x = -16;
         model->cactiMed[i].y = CactMedY;
@@ -225,7 +223,7 @@ void modelResetAfterDeath(Model *model)
     model->score.value = 0;
 
     /*reset model logic*/
-    model->cacSpawnTimer = ; /*70 ticks in a second*/
+    modelResetCacSpawnTimer(model); /*70 ticks in a second*/
     model->lastMilestone = 0;
     model->runTicksPassed = 0;
 }
@@ -255,11 +253,14 @@ void modelTicksPassedReset(Model *model)
 }
 
 /*function: modelResetCacSpawnTimer
-    after spawning a cactus this is called to reset to 1-2 seconds*/
+    after spawning a cactus this is called to reset to 
+    MinCacSpawnTime + 0 to MaxCacSpawnTimeAdd seconds
+    inputs:
+    model - pointer to model*/
 void modelResetCacSpawnTimer(Model *model)
 {
     model->ranNum = lfsr16(model->ranNum);
-    model->cacSpawnTimer = abs(model->ranNum % 70) + 70; /*70 ticks in a second*/
+    model->cacSpawnTimer = abs(model->ranNum % MaxCacSpawnTimeAdd) + MinCacSpawnTime; /*70 ticks in a second*/
 }
 
 

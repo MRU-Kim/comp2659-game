@@ -50,7 +50,7 @@ typedef struct {
 
 typedef struct {
     DinoPlayer player;
-    CactusMed cactiMed[3];
+    CactusMed cactiMed[10 ];
     Ground ground;
     Score score;
     HighScore highScore;
@@ -253,12 +253,12 @@ void dinoRunCycleAdvance(DinoPlayer *player)
 # 117 "model.c"
 void medCactusSpawn(CactusMed *cactusMed)
 {
-    cactusMed->x = 640  - 1 + 16 ;
+    cactusMed->x = 640  + 16 ;
     cactusMed->y = 200 -16 ;
 }
 void medCactusScroll(CactusMed *cactusMed, ScrollSpeed scrollSpeed)
 {
-    if (cactusMed->x > -16 )
+    if (cactusMed->x > -16 +1)
     {
         cactusMed->x -= scrollSpeed.delta_x;
     }
@@ -300,16 +300,14 @@ void modelInitialize(Model *model)
     model->player.runAnimationTimer = 15 ;
 
 
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < 10 ; i++)
     {
         model->cactiMed[i].x = -16;
         model->cactiMed[i].y = 200 -16 ;
     }
     model->ground.y = 200 ;
 
-
     model->score.value = 0;
-
 
     model->highScore.value = 0;
 
@@ -334,7 +332,7 @@ void modelResetAfterDeath(Model *model)
     model->player.isCrouched = 0 ;
 
 
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < 10 ; i++)
     {
         model->cactiMed[i].x = -16;
         model->cactiMed[i].y = 200 -16 ;
@@ -343,7 +341,7 @@ void modelResetAfterDeath(Model *model)
     model->score.value = 0;
 
 
-    model->cacSpawnTimer = ;
+    modelResetCacSpawnTimer(model);
     model->lastMilestone = 0;
     model->runTicksPassed = 0;
 }
@@ -371,15 +369,13 @@ void modelTicksPassedReset(Model *model)
 {
     model->runTicksPassed = 0;
 }
-
-
-
+# 260 "model.c"
 void modelResetCacSpawnTimer(Model *model)
 {
     model->ranNum = lfsr16(model->ranNum);
-    model->cacSpawnTimer = abs(model->ranNum % 70) + 70;
+    model->cacSpawnTimer = abs(model->ranNum % 30 ) + 10 ;
 }
-# 272 "model.c"
+# 273 "model.c"
 int abs(int num)
 {
     if (num < 0)
@@ -388,7 +384,7 @@ int abs(int num)
     }
     return num;
 }
-# 286 "model.c"
+# 287 "model.c"
 int lfsr16(int seed)
 {
     UINT16 lfsr = seed;

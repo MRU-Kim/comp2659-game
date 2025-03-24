@@ -45,7 +45,12 @@ typedef int bool;
 #define MaxJump DinoY-30
 #define AirCrouchSpeed 10
 #define JumpSpeed -5
-#define HitErrorMargin 1
+#define HitErrorMargin 7
+
+/*cactus logic*/
+#define MaxCactus 10
+#define MinCacSpawnTime 10
+#define MaxCacSpawnTimeAdd 30
 
 /*Animation logic*/
 #define DinoRunTimerLength 15

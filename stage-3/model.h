@@ -52,7 +52,7 @@ typedef struct {
 
 typedef struct {
     DinoPlayer player;
-    CactusMed cactiMed[3];
+    CactusMed cactiMed[MaxCactus];
     Ground ground;
     Score score;
     HighScore highScore;

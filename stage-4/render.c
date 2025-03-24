@@ -20,7 +20,7 @@ Contains rendering functions
 /*function: initTracker*/
 void initTracker(RenderTracker *tracker){
     int i;
-    for ( i = 0; i < 3; i++)
+    for ( i = 0; i < MaxCactus; i++)
     {
         tracker->lastDrawnCactiMed[i].x = -16;
     }
@@ -35,8 +35,8 @@ void initTracker(RenderTracker *tracker){
     tracker - pointer to the dino render tracker*/
 void redraw(const Model *model, RenderTracker *tracker, UINT8 *base)
 {
-    redrawCacti(model, tracker, base);
     redrawScoreBox(model, tracker, base);
+    redrawCacti(model, tracker, base);
     redrawDino(model, tracker, base);
 }
 
@@ -50,7 +50,7 @@ void redraw(const Model *model, RenderTracker *tracker, UINT8 *base)
 void forceDraw(const Model *model, RenderTracker *tracker, UINT8 *base)
 {
     clearScreen(base);
-
+    trackerMedCactiCopy(model, tracker);
     drawDino(model, tracker, base);
     drawGround(model, tracker, base);
 }
@@ -98,25 +98,29 @@ void drawDino(const Model *model, RenderTracker *tracker, UINT8 *base)
         {
             if (model->scrollSpeed.delta_x != 0) /*if dino is moving*/
             {
-                if (player->walkCycle)
+                if (player->walkCycle)/*if dino is not moving*/ 
                 {
                     plot16Bitmap(base, DinoMove2Sprite, player->x, player->y, DinoHeight);
                     trackerDinoCopy(player, trackerDino);
                 }
-                else
+                else/*if dino is not moving but false walk flag*/ 
                 {
                     plot16Bitmap(base, DinoMove1Sprite, player->x, player->y, DinoHeight);
                     trackerDinoCopy(player, trackerDino);
                 }
             }
+            else{/*if dino is not moving but alive*/
+                plot16Bitmap(base, DinoStandSprite, player->x, player->y, DinoHeight);
+                trackerDinoCopy(player, trackerDino);
+            }
         }
-        else
+        else/*if dino is in air*/
         {
             plot16Bitmap(base, DinoStandSprite, player->x, player->y, DinoHeight);
             trackerDinoCopy(player, trackerDino);
         }
     }
-    else
+    else /*if dino is dead*/
     {
         plot16Bitmap(base, DinoDeadSprite, player->x, player->y, DinoHeight);
         trackerDinoCopy(player, trackerDino);
@@ -189,7 +193,7 @@ void redrawCacti(const Model *model, RenderTracker *tracker, UINT8 *base)
     const CactusMed *cactusMed = model->cactiMed;
     CactusMed *trackerCactusMed = tracker->lastDrawnCactiMed;
     int i;
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < MaxCactus; i++)
     {
         if (cactusMed[i].x != trackerCactusMed[i].x)
         {
@@ -201,7 +205,7 @@ void redrawCacti(const Model *model, RenderTracker *tracker, UINT8 *base)
     }
 }
 /*function: trackerMedCactiCopy
-    forcefully updates the render tracking for medium cacti
+    forcefully updates the render tracking for all medium cacti
     to be used after clearing screen
     input:
     model - pointer to model
@@ -209,7 +213,7 @@ void redrawCacti(const Model *model, RenderTracker *tracker, UINT8 *base)
 void trackerMedCactiCopy(const Model *model, RenderTracker *tracker)
 {
     int i;
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < MaxCactus; i++)
     {
         tracker->lastDrawnCactiMed[i].x = model->cactiMed[i].x;
         tracker->lastDrawnCactiMed[i].y = model->cactiMed[i].y;

@@ -107,7 +107,7 @@ void evScroll(Model *model)
     int ydiff;
     int xdiff;
 
-    for (i = 2; i >= 0; i--)
+    for (i = 0; i < MaxCactus; i++)
     {
         medCactusScroll(&model->cactiMed[i], model->scrollSpeed);
         /*check if new pos would kill player with a small margin of error*/
@@ -156,7 +156,7 @@ void evCactusSpawn(Model *model)
     if (model->cacSpawnTimer <= 0)
     {
         bool cactusSpawned = false;
-        for (i = 2; i >= 0; i--)
+        for (i = 0; i < MaxCactus; i++)
         /*check if a cactus is in play and spawn if not*/
         {
             if (model->cactiMed[i].x < -15 && cactusSpawned == false)
@@ -173,7 +173,12 @@ void evCactusSpawn(Model *model)
     }
 }
 /* funtion: evModelUpdate
-    saves prev stateruns player update, performs hit detection, runs cactus spawn management
+   Progresses all events that should run if the player is alive
+   updating player state
+   scrolling obsticles
+   spawning 
+    input:
+    model - pointer to model
 */
 void evModelUpdate(Model *model)
 {
@@ -185,9 +190,6 @@ void evModelUpdate(Model *model)
         evCactusSpawn(model);
         evScoreIncrement(model);
         modelIncrmentTick(model);
-    }
-    else
-    {
     }
 }
 

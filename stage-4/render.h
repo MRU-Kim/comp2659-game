@@ -15,7 +15,7 @@ Professor     	Steve Kalmar
 typedef struct
 {
     DinoPlayer lastDrawnPlayer;
-    CactusMed lastDrawnCactiMed[3];
+    CactusMed lastDrawnCactiMed[MaxCactus];
     Ground lastDrawnGround;
     Score lastDrawnScore;
     HighScore lastDrawnHighScore;
