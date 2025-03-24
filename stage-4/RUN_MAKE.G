@@ -8,7 +8,8 @@ foreach i {tst_rnd raster font objects model events render }
 		Rm $i.o
 	endif
 endfor
-Rm
+Rm -f tst_rast.o
+
 cd ..
 cd stage-2
 
@@ -23,5 +24,5 @@ cp model.o events.o "..\stage-4"
 cd ..
 cd stage-4
 
-
+cc68x -g -c -I ../stage-2 ../stage-3 render.c
 make
