@@ -16,6 +16,17 @@ Contains rendering functions
 #include "../stage-2/objects.h"
 #include "../stage-2/CONST.H"
 #include "../stage-3/model.h"
+
+/*function: initTracker*/
+void initTracker(RenderTracker *tracker){
+    int i;
+    for ( i = 0; i < 3; i++)
+    {
+        tracker->lastDrawnCactiMed[i].x = -16;
+    }
+    
+}
+
 /*function: redraw
     runs redraw routines, if the game is restarted all objects are refreshed
     input:
@@ -100,8 +111,10 @@ void drawDino(const Model *model, RenderTracker *tracker, UINT8 *base)
             }
         }
         else
+        {
             plot16Bitmap(base, DinoStandSprite, player->x, player->y, DinoHeight);
-        trackerDinoCopy(player, trackerDino);
+            trackerDinoCopy(player, trackerDino);
+        }
     }
     else
     {

@@ -25,14 +25,16 @@ int main()
 
     UINT8 *base = Physbase(); /* 8-bit */
     modelInitialize(&gameModel);
+    initTracker(&tracker);
+    forceDraw(&gameModel,&tracker,base);
 
     input = NULL;
 
-    while (input != ' ')
+    while (input != 'w')
     {
         input = Cnecin();
     }
-    forceDraw(&gameModel,&tracker,base);
+
     evStartGame(&gameModel);
 
 

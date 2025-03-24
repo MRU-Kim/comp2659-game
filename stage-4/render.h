@@ -21,6 +21,8 @@ typedef struct
     HighScore lastDrawnHighScore;
 } RenderTracker;
 
+void initTracker(RenderTracker *tracker);
+
 void redraw(const Model *model, RenderTracker *tracker, UINT8 *base);
 void forceDraw(const Model *model, RenderTracker *tracker, UINT8 *base);
 
