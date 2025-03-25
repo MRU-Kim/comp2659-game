@@ -20,6 +20,8 @@ Professor     	Steve Kalmar
 #include "../stage-3/events.h"
 #include "../stage-3/model.h"
 #include "../stage-4/render.h"
+#include "clock.h"
+#include "input.h"
 
 
 #include <osbind.h>
