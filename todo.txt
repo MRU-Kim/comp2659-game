@@ -10,14 +10,14 @@ Stage 3 model, events
 
 
 stage 4
-- renderer
-- add ability to model to say wether an object has been updated
-- decide if tracking through model is good idea
-- maybe just save to model old positions but only if there is an update
-- fix makefile
-- fix missmatch
+- renderer yep
+- add ability to model to say wether an object has been updated yep
+- decide if tracking through model is good idea yep
+- maybe just save to model old positions but only if there is an update yep
+- fix makefile yep
+- fix missmatch yep
 - add new documentation for new stage 2 functions
-
+- make first frame function work better
 stage 5
 - input
 - clock

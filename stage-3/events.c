@@ -17,13 +17,15 @@ Professor       Steve Kalmar
 /*ASYNC EVENTS*/
 
 /*  function: evKBInputHandle
-    manages async event calling including restarting game after death
-    and soon, starting the game
+    manages async events calling including restarting game after death,
+    starting the game
     inputs:
-    model - model object*/
+    model - model object
+    input - inputted character*/
 void evKBInputHandle(Model *model, char input)
 {
     DinoPlayer *player = &(model->player);
+    model->hasInput = true;
     if (model->player.isAlive)
     {
 
@@ -34,10 +36,6 @@ void evKBInputHandle(Model *model, char input)
         else if (input == 's')
         {
             evCrouch(player);
-        }
-        else
-        {
-            evNoInput(player);
         }
     }
     else if (input == 'w')
@@ -57,10 +55,12 @@ void evJump(DinoPlayer *player)
         player->y >= MaxJump && player->delta_y == JumpSpeed)
     { /* on the ground or below maxjump and hasn't decelerated yet*/
         dinoJump(player);
+        dinoStand(player);
     }
     else
     {
         dinoFall(player);
+        dinoStand(player);
     }
 }
 
@@ -181,7 +181,11 @@ void evCactusSpawn(Model *model)
     model - pointer to model
 */
 void evModelUpdate(Model *model)
-{
+{   
+    if (!model->hasInput){
+        evNoInput(&model->player);
+    }
+    model->hasInput = false; /*if there was input kill flag*/
     /*update to new state*/
     if (model->player.isAlive)
     {
@@ -191,6 +195,7 @@ void evModelUpdate(Model *model)
         evScoreIncrement(model);
         modelIncrmentTick(model);
     }
+
 }
 
 /*function: evScoreIncrement

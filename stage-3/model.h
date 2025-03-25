@@ -59,6 +59,7 @@ typedef struct {
     ScrollSpeed scrollSpeed;
     UINT16 ranNum;
     UINT16 cacSpawnTimer;
+    bool hasInput;
 
     int lastMilestone;
     UINT16 runTicksPassed;

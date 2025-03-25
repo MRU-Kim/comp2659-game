@@ -195,6 +195,7 @@ void modelInitialize(Model *model)
 
     model->scrollSpeed.delta_x = 0;
 
+    model->hasInput = false;
     modelGetSeed(model);
     modelResetCacSpawnTimer(model); /*70 ticks in a second*/
     model->lastMilestone = 0;
@@ -223,6 +224,9 @@ void modelResetAfterDeath(Model *model)
     model->score.value = 0;
 
     /*reset model logic*/
+
+    model->hasInput = false;
+    
     modelResetCacSpawnTimer(model); /*70 ticks in a second*/
     model->lastMilestone = 0;
     model->runTicksPassed = 0;

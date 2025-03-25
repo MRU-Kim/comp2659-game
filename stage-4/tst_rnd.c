@@ -41,7 +41,11 @@ int main()
     while (input != '`')
     {
         input = Cnecin();
-        evKBInputHandle(&gameModel, input);
+        if (input != ' ')
+        {
+            evKBInputHandle(&gameModel, input);
+        }
+        
         input = NULL;
 
         evModelUpdate(&gameModel);

@@ -42,7 +42,7 @@ void redraw(const Model *model, RenderTracker *tracker, UINT8 *base)
 
 /*function: force draw
     clears screen and draws everything at once according to the model
-    should be used at start of game and on resets
+    should be used at start of game
     input:
     base - pointer to frame buffer
     model - pointer to model

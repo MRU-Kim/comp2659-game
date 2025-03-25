@@ -9,7 +9,7 @@ Professor     	Steve Kalmar
 
 #ifndef CLOCK_H
 #define CLOCK_H
-
 #include "CONST.H"
+UINT32 get_Time();
 
 #endif
