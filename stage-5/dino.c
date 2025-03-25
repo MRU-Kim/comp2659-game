@@ -41,16 +41,9 @@ int main()
 
     input = NULL;
 
-    while (input != 'w')
-    {
-        input = Cnecin();
-    }
-
-    evStartGame(&gameModel);
-
-
     while (input != '`')
     {
+        
         input = Cnecin();
         if (input != ' ')
         {

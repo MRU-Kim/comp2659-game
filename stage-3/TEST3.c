@@ -32,9 +32,9 @@ int main()
 
     input = NULL;
 
-    while (input != ' ')
+    while (input != 'w')
     {
-        printf("start? press space%c\n", input);
+        printf("start? press w%c\n", input);
         input = Cnecin();
     }
     evStartGame(&gameModel);
@@ -43,6 +43,7 @@ int main()
     {
         /*show status of model*/
         modelState(&gameModel);
+        
         printf("choose input\n");
         input = Cnecin();
         evKBInputHandle(&gameModel, input);

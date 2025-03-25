@@ -23,8 +23,10 @@ It updates the model accordingly and coordinates interactions between player and
 
 /*ASYNC EVENTS*/
 
-/*  function: evKBInputHandle
-    manages async events calling including restarting game after death,
+/*function: evKBInputHandle
+    manages async events calling
+    if game has not started or needs to be restarted 
+    does so on jump input
     starting the game
     inputs:
     model - model object
@@ -33,7 +35,8 @@ void evKBInputHandle(Model *model, char input)
 {
     DinoPlayer *player = &(model->player);
     model->hasInput = true;
-    if (model->player.isAlive)
+
+    if (model->scrollSpeed.delta_x)
     {
 
         if (input == 'w')
