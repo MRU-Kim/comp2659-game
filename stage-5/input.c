@@ -9,7 +9,7 @@ Professor     	Steve Kalmar
 
 #include <stdio.h>
 #include "input.h"
-#include "../stage-3/model.h"
+#include "../stage-3/events.h"
 
 /*
 -------------------------------------------------------------------
@@ -23,7 +23,7 @@ Professor     	Steve Kalmar
 -------------------------------------------------------------------
 */
 
-void getKey(int key, const Model *model){
+void getKey(int key, const DinoPlayer *player){
     switch(key){
         case 'w':
             evJump(player);
