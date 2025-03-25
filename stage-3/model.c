@@ -5,14 +5,13 @@ Stage	    	Stage 3
 Deadline        February 28, 2024
 File name       model.C
 Professor     	Steve Kalmar
-*/
 
-/*
+Purpose:
 The file defines the behavior of the game's objects which
 consists of Dino, cactuses, terrain, current game's score
 and the high score. Functions in this file change their states
 based on game events like jumping, spawning obstacles, and
-scrolling
+scrolling.
 */
 
 #include "model.h"

@@ -5,6 +5,13 @@ Stage	    	Stage 2
 Deadline        February 28, 2024
 File name       RASTER.C
 Professor     	Steve Kalmar
+
+Purpose:
+Implements graphics functions for plotting, clearing, and 
+printing 8-bit and 16-bit bitmaps, drawing horizontal lines,
+and rendering text and numbers using a font bitmap, plotting 
+the sprites in objects.c.
+
 */
 
 #include <stdio.h>
@@ -395,7 +402,22 @@ void clearHorizontalLine(UINT8 *base, int y)
         plotLocation++;
     }
 }
+/*
+    function: printChar
 
+    Plots a bitmap character to the screen using font.h.
+    Uses the ASCII value of the character to get its bitmap
+    and renders it pixel by pixel.
+
+    inputs:
+        base   - pointer to starting address of framebuffer
+        x      - horizontal coordinate
+        y      - vertical coordinate
+        ch     - ASCII character to be printed
+    output:
+        Void.
+
+*/
 void printChar(UINT8 *base, int x, int y, char ch)
 {
     int i;
@@ -406,7 +428,20 @@ void printChar(UINT8 *base, int x, int y, char ch)
         *(base + (y + i) * 80 + (x >> 3)) = *charHexCode;
     }
 }
+/*
+    function: printString
 
+    Prints a null-terminated string to the screen at the given (x, y) position.
+    Calls printChar repeatedly, incrementing x by 8 pixels after each character.
+
+    inputs:
+        base    - pointer to framebuffer
+        x       - starting x coordinate
+        y       - y coordinate for baseline of text
+        string  - null-terminated character array
+    output:
+        Void.
+*/
 void printString(UINT8 *base, int x, int y, char *string)
 {
     int i = 0;
@@ -418,7 +453,21 @@ void printString(UINT8 *base, int x, int y, char *string)
         x += 8;
     }
 }
+/*
+    function: printNum
 
+    Converts a 5-digit unsigned integer into characters and
+    prints it to the screen using printChar. Prints leading 0s
+    if number is less than 5 digits.
+
+    inputs:
+        base   - pointer to framebuffer
+        x      - horizontal screen position
+        y      - vertical screen position
+        num    - unsigned 16-bit integer to print (0–65535)
+    output:
+        Void.
+*/
 void printNum(UINT8 *base, int x, int y, UINT16 num)
 {
     char a, b, c, d, e;

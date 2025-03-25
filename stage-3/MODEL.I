@@ -1,3 +1,30 @@
+/*
+Names           Talah Al-Zamel, Ethan Sigfusson, Kim Carino
+Course name     COMP 2659-002
+Stage           Stage 3
+Deadline        February 28, 2024
+File name       model.c
+Professor       Steve Kalmar
+
+Purpose:
+Defines and manages the logical behavior of all game objects, 
+including the Dino, cacti,scrolling speed, score, and high score.
+This file updates their state based on player input, timing, and in-game
+events such as jumping, crouching, spawning obstacles, and resetting after death.
+
+Assumptions:
+- All constants like `DinoY`, `MaxCactus`, and `CactMedY` are defined in CONST.H.
+- The game runs at a consistent tick/update rate.
+- The Model struct contains all necessary game state and is initialized before use.
+
+Limitations:
+- The game logic assumes valid, initialized pointers are passed to functions.
+- No bounds checking is performed inside model functions for array overflows.
+- No rendering is handled in this file — it only manages logic and state.
+
+
+*/
+
 # 1 "model.c" 1
 # 1 "./model.h" 1
 # 1 "./../stage-2/CONST.H" 1

@@ -5,6 +5,21 @@ Stage           Stage 3
 Deadline        February 28, 2024
 File name       events.h
 Professor       Steve Kalmar
+
+Purpose:
+Declares all asynchronous, synchronous, and cascade event handlers
+used by the game engine to manage player input, object scrolling, 
+obstacle spawning, and score tracking. These functions interact with 
+the game model to reflect changes in game state and behavior.
+
+Assumptions:
+- The model struct contains all game-relevant entities, including 
+    player, cacti, score, etc.
+- These functions are called by a game loop or event loop at appropriate times.
+
+Limitations:
+- Functions assume valid and initialized pointers to model and player objects.
+
 */
 
 #ifndef EVENTS_H

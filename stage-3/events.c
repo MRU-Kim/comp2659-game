@@ -5,6 +5,13 @@ Stage           Stage 3
 Deadline        February 28, 2024
 File name       events.c
 Professor       Steve Kalmar
+
+Purpose:
+Handles all game events in response to user input or game state updates.
+This includes player actions (jump, crouch), game progression (scrolling, 
+obstacle spawning, score tracking), and game state transitions (death, restart). 
+It updates the model accordingly and coordinates interactions between player and environment.
+
 */
 
 #include "../stage-2/const.h"

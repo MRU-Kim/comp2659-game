@@ -5,6 +5,18 @@ Stage	    	Stage 3
 Deadline        February 28, 2024
 File name       renderer.c
 Professor     	Steve Kalmar
+
+Purpose:
+Provides all rendering logic for drawing and updating game graphics 
+on screen based on the model state. This includes drawing and clearing
+the Dino, obstacles, ground, and score. The file uses a render tracker 
+to minimize unnecessary redraws and ensure efficient frame updates.
+
+Assumptions:
+- All sprites are 16 pixels wide and use consistent dimensions for clearing and plotting.
+- The raster, object, and CONST files from Stage 2 are correctly implemented and included.
+
+
 */
 
 /*

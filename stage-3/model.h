@@ -5,6 +5,21 @@ Stage           Stage 3
 Deadline        February 28, 2024
 File name       model.h
 Professor       Steve Kalmar
+
+Purpose:
+Defines the data structures and function prototypes for the core game model,
+including the Dino player, scrolling terrain, obstacles, score, high score,
+and related behaviors. These functions control logical state changes that 
+occur throughout the game, such as jumping, scrolling, spawning obstacles,
+and tracking game progress.
+
+Assumptions:
+- The Model struct is the central container for all game state data.
+- Functions operate on valid, initialized Model or component pointers.
+- Constants like MaxCactus, DinoY, and CactMedY are defined in CONST.H.
+
+Limitations:
+- This file only declares state logic; no rendering or direct input handling occurs here.
 */
 
 #ifndef MODEL_H

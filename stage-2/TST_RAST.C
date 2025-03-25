@@ -5,6 +5,14 @@ Stage	    	Stage 2
 Deadline        February 10, 2024
 File name       TST_RAST.C
 Professor     	Steve Kalmar
+
+Purpose:
+Test driver for raster graphics functions implemented in RASTER.C. 
+This file tests plotting and clearing 16-bit sprites (from objects.c)
+in various positions on the screen, including edge cases like off-screen 
+rendering. It also demonstrates horizontal line drawing and basic 
+sprite animation by moving and clearing a cactus sprite on user input.
+
 */
 
 #include <osbind.h>
