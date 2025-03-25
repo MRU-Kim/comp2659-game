@@ -10,7 +10,7 @@ Professor     	Steve Kalmar
 #include "clock.h"
 #include "input.h"
 #include "../stage-3/model.h"
-#include "../stage-4/renderer.h"
+#include "../stage-4/render.h"
 
 int main(){
 
@@ -19,13 +19,19 @@ int main(){
 
     UINT8 *base = Physbase(); /* 8-bit */
     modelInitialize(&gameModel);
+    
+    char input = NULL;
+    bool quit = false;
 
-    input = NULL;
+    while(quit != true){
 
-    while (input != ' ')
-    {
-        input = Cnecin();
+        while (input != ' ')
+        {
+            input = Cnecin();
+        }
+        forceDraw(&gameModel,&tracker,base);
+        evStartGame(&gameModel);
+
     }
-    forceDraw(&gameModel,&tracker,base);
-    evStartGame(&gameModel);
+
 }

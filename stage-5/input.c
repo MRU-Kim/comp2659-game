@@ -9,6 +9,7 @@ Professor     	Steve Kalmar
 
 #include <stdio.h>
 #include "input.h"
+#include "../stage-3/model.h"
 
 /*
 -------------------------------------------------------------------
@@ -25,9 +26,11 @@ Professor     	Steve Kalmar
 void getKey(int key, const Model *model){
     switch(key){
         case 'w':
-        case 'a':
+            evJump(player);
         case 's':
+            evCrouch(player);
         case ' ':
+            evJump(player);
         default:
             break;
     }
