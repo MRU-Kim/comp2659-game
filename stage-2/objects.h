@@ -5,6 +5,11 @@ Stage	    	Stage 2
 Deadline        February 10, 2024
 File name       objects.h
 Professor     	Steve Kalmar
+
+Purpose:
+Declares external references to sprite values used for rendering 
+game objects such as the Dino and obstacles. These definitions are
+provided in objects.c.
 */
 
 #ifndef OBJECTS_H

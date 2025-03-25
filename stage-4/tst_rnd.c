@@ -5,6 +5,15 @@ Stage	    	Stage 3
 Deadline        February 28, 2024
 File name       tstRnd.c
 Professor     	Steve Kalmar
+
+Purpose:
+This file serves as the main test runner for Stage 3, integrating model logic,
+event handling, and rendering. It initializes the game state and render tracker,
+then enters an interactive loop where the player can control the dino using 
+keyboard input.Rendering updates occur on each frame, allowing visual testing 
+of game mechanics in real time.
+
+
 */
 
 #include "../stage-2/const.h"

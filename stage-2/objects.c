@@ -5,6 +5,18 @@ Stage	    	Stage 2
 Deadline        February 10, 2024
 File name       objects.c
 Professor     	Steve Kalmar
+
+Purpose:
+This source file contains the sprite data definitions for all major objects used in the
+Dino game, including the dinosaur in its different states (standing, moving, crouching,
+and dead) and various obstacles like cacti. These sprites are 16-bit hexadecimal values
+representing each object's bitmap, which will be rendered on the screen.
+
+Assumptions:
+- Each sprite is defined as a 16-element array of UINT16 values.
+
+Limitations:
+- No functions are defined in this file—only sprite values.
 */
 
 #include "objects.h"

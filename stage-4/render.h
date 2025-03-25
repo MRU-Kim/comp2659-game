@@ -5,6 +5,13 @@ Stage	    	Stage 3
 Deadline        February 28, 2024
 File name       renderer.h
 Professor     	Steve Kalmar
+
+Purpose:
+Declares all rendering functions and the RenderTracker struct used 
+to manage and update the visual display of game entities (Dino, cacti,
+ground, score). These functions are responsible for drawing and clearing 
+objects on screen based on changes to the game model.
+
 */
 
 #ifndef RENDER_H
