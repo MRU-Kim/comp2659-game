@@ -1,30 +1,3 @@
-/*
-Names           Talah Al-Zamel, Ethan Sigfusson, Kim Carino
-Course name     COMP 2659-002
-Stage           Stage 3
-Deadline        February 28, 2024
-File name       model.c
-Professor       Steve Kalmar
-
-Purpose:
-Defines and manages the logical behavior of all game objects, 
-including the Dino, cacti,scrolling speed, score, and high score.
-This file updates their state based on player input, timing, and in-game
-events such as jumping, crouching, spawning obstacles, and resetting after death.
-
-Assumptions:
-- All constants like `DinoY`, `MaxCactus`, and `CactMedY` are defined in CONST.H.
-- The game runs at a consistent tick/update rate.
-- The Model struct contains all necessary game state and is initialized before use.
-
-Limitations:
-- The game logic assumes valid, initialized pointers are passed to functions.
-- No bounds checking is performed inside model functions for array overflows.
-- No rendering is handled in this file — it only manages logic and state.
-
-
-*/
-
 # 1 "model.c" 1
 # 1 "./model.h" 1
 # 1 "./../stage-2/CONST.H" 1
@@ -33,7 +6,7 @@ typedef unsigned char UINT8;
 typedef unsigned int  UINT16;
 typedef unsigned long UINT32;
 typedef int bool;
-# 12 "./model.h" 2
+# 27 "./model.h" 2
 
 
 
@@ -135,9 +108,9 @@ void modelResetCacSpawnTimer(Model *model);
 
 int abs(int num);
 int lfsr16(int seed);
-# 18 "model.c" 2
+# 17 "model.c" 2
 # 1 "./../stage-2/CONST.H" 1
-# 19 "model.c" 2
+# 18 "model.c" 2
 # 1 "C:/c68/include/time.h" 1
 # 1 "C:/c68/include/compiler.h" 1
 # 10 "C:/c68/include/time.h" 2
@@ -203,13 +176,13 @@ typedef unsigned long  fd_set;
 
 
  int	select	(int, fd_set *, fd_set *, fd_set *,					struct timeval *) ;
-# 25 "model.c" 2
-# 32 "model.c"
+# 24 "model.c" 2
+# 31 "model.c"
 void dinoJump(DinoPlayer *player)
 {
     player->delta_y = -5 ;
 }
-# 42 "model.c"
+# 41 "model.c"
 void dinoFall(DinoPlayer *player)
 {
     if (player->y < 200 -16 )
@@ -278,7 +251,7 @@ void dinoRunCycleAdvance(DinoPlayer *player)
 {
     player->walkCycle = !player->walkCycle;
 }
-# 117 "model.c"
+# 116 "model.c"
 void medCactusSpawn(CactusMed *cactusMed)
 {
     cactusMed->x = 640  + 16 ;
@@ -291,12 +264,12 @@ void medCactusScroll(CactusMed *cactusMed, ScrollSpeed scrollSpeed)
         cactusMed->x -= scrollSpeed.delta_x;
     }
 }
-# 135 "model.c"
+# 134 "model.c"
 void scoreReset(Score *score)
 {
     score->value = 0;
 }
-# 147 "model.c"
+# 146 "model.c"
 void scoreUpdate(HighScore *highScore, Score *score)
 {
     if (score->value > highScore->value)
@@ -316,7 +289,7 @@ void scrollStop(ScrollSpeed *scrollSpeed)
 {
     scrollSpeed->delta_x = 0;
 }
-# 174 "model.c"
+# 173 "model.c"
 void modelInitialize(Model *model)
 {
     int i;
@@ -401,13 +374,13 @@ void modelTicksPassedReset(Model *model)
 {
     model->runTicksPassed = 0;
 }
-# 264 "model.c"
+# 263 "model.c"
 void modelResetCacSpawnTimer(Model *model)
 {
     model->ranNum = lfsr16(model->ranNum);
     model->cacSpawnTimer = abs(model->ranNum % 30 ) + 10 ;
 }
-# 277 "model.c"
+# 276 "model.c"
 int abs(int num)
 {
     if (num < 0)
@@ -416,7 +389,7 @@ int abs(int num)
     }
     return num;
 }
-# 291 "model.c"
+# 290 "model.c"
 int lfsr16(int seed)
 {
     UINT16 lfsr = seed;

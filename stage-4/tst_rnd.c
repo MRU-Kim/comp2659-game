@@ -9,8 +9,8 @@ Professor     	Steve Kalmar
 Purpose:
 This file serves as the main test runner for Stage 3, integrating model logic,
 event handling, and rendering. It initializes the game state and render tracker,
-then enters an interactive loop where the player can control the dino using 
-keyboard input.Rendering updates occur on each frame, allowing visual testing 
+then enters an interactive loop where the player can control the dino using
+keyboard input.Rendering updates occur on each frame, allowing visual testing
 of game mechanics in real time.
 
 
@@ -20,7 +20,6 @@ of game mechanics in real time.
 #include "../stage-3/events.h"
 #include "../stage-3/model.h"
 #include "render.h"
-
 
 #include <osbind.h>
 #include <stdio.h>
@@ -35,17 +34,9 @@ int main()
     UINT8 *base = Physbase(); /* 8-bit */
     modelInitialize(&gameModel);
     initTracker(&tracker);
-    forceDraw(&gameModel,&tracker,base);
+    forceDraw(&gameModel, &tracker, base);
 
     input = NULL;
-
-    while (input != 'w')
-    {
-        input = Cnecin();
-    }
-
-    evStartGame(&gameModel);
-
 
     while (input != '`')
     {
@@ -54,7 +45,6 @@ int main()
         {
             evKBInputHandle(&gameModel, input);
         }
-        
         input = NULL;
 
         evModelUpdate(&gameModel);
