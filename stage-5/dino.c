@@ -35,6 +35,8 @@ int main()
 
     RenderTracker tracker;
 
+    UINT32 timeThen, timeNow, timeElapsed;
+
 
     UINT8 *base = Physbase();
     modelInitialize(&gameModel);
@@ -46,7 +48,6 @@ int main()
     input = NULL;
     while (input != '`')
     {
-        UINT32 timeThen, timeNow, timeElapsed;
 
         timeNow = get_time();
         timeElapsed = timeNow - timeThen;

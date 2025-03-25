@@ -1,5 +1,5 @@
 /*
-Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino 
+Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino
 Course name   	COMP 2659-002
 Stage	    	Stage 5
 Deadline        March 17, 2024
@@ -8,16 +8,14 @@ Professor     	Steve Kalmar
 */
 #include "clock.h"
 #include "osbind.h"
-
-
-
+#include "../stage-2/const.h"
 
 UINT32 get_Time()
 {
-    long *timer = (long *)0x462; // Address of longword auto-incremented 70x per second
+    long *timer = (long *)0x462;
     long timeNow;
-    long oldSsp = Super(0); // enter privileged mode
+    long oldSsp = Super(0);
     timeNow = *timer;
-    Super(oldSsp); // exit privileged mode as soon as possible
-    return time;
+    Super(oldSsp);
+    return timeNow;
 }
