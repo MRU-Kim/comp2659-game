@@ -24,10 +24,9 @@ It updates the model accordingly and coordinates interactions between player and
 /*ASYNC EVENTS*/
 
 /*function: evKBInputHandle
-    manages async events calling
+    manages async events calling also
     if game has not started or needs to be restarted 
     does so on jump input
-    starting the game
     inputs:
     model - model object
     input - inputted character
@@ -68,8 +67,7 @@ void evJump(DinoPlayer *player)
     }
     else
     {
-        dinoFall(player);
-        dinoStand(player);
+        evNoInput(player);
     }
 }
 
@@ -192,7 +190,7 @@ void evCactusSpawn(Model *model)
 void evModelUpdate(Model *model)
 {
     /*update to new state*/
-    if (!model->hasInput)
+    if (!model->hasInput || model->player.y)
     {
         evNoInput(&model->player);
     }

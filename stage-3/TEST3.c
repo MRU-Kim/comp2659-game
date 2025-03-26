@@ -43,7 +43,9 @@ int main()
         if (input != ' ')
         {
             evKBInputHandle(&gameModel, input);
+            gameModel.hasInput = true;
         }
+        
         input = NULL;
         evModelUpdate(&gameModel);
 
@@ -70,7 +72,6 @@ void modelState(const Model *gameModel)
                gameModel->ranNum, gameModel->cacSpawnTimer);
         printf("score = %d highscore = %d\n", gameModel->score.value, gameModel->highScore.value);
         printf("choose input\n");
-
     }
     else
     {

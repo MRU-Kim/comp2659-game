@@ -56,6 +56,7 @@ int main()
 
         /*async*/
         input = getKey();
+        input = 'w';
         
         if (input != NULL)
         {
@@ -68,7 +69,7 @@ int main()
 
 
         /*sync*/
-        if (timeElapsed > 0)
+        if (timeNow - timeThen > 3)
         {
             evModelUpdate(&gameModel);
             redraw(&gameModel, &tracker, base);
