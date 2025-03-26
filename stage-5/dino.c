@@ -74,7 +74,7 @@ int main()
             evModelUpdate(&gameModel);
             redraw(&gameModel, &tracker, base);
 
-            
+            printf("%d",gameModel.hasInput);
             timeThen = timeNow;
         }
 

@@ -29,7 +29,7 @@ Limitations:
 
 /*async events*/
 void evKBInputHandle(Model *model, char input);
-void evJump(DinoPlayer *player);
+void evJump(Model *model);
 void evCrouch(DinoPlayer *player);
 void evStartGame(Model *model);
 

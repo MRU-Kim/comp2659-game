@@ -8,8 +8,8 @@ Professor       Steve Kalmar
 
 Purpose:
 Handles all game events in response to user input or game state updates.
-This includes player actions (jump, crouch), game progression (scrolling, 
-obstacle spawning, score tracking), and game state transitions (death, restart). 
+This includes player actions (jump, crouch), game progression (scrolling,
+obstacle spawning, score tracking), and game state transitions (death, restart).
 It updates the model accordingly and coordinates interactions between player and environment.
 
 */
@@ -25,7 +25,7 @@ It updates the model accordingly and coordinates interactions between player and
 
 /*function: evKBInputHandle
     manages async events calling also
-    if game has not started or needs to be restarted 
+    if game has not started or needs to be restarted
     does so on jump input
     inputs:
     model - model object
@@ -39,7 +39,7 @@ void evKBInputHandle(Model *model, char input)
 
         if (input == 'w')
         {
-            evJump(player);
+            evJump(model);
         }
         else if (input == 's')
         {
@@ -57,8 +57,10 @@ void evKBInputHandle(Model *model, char input)
     otherwise they begin to fall
     input:
     player - pointer to player*/
-void evJump(DinoPlayer *player)
+void evJump(Model *model)
 {
+    DinoPlayer *player = &(model->player);
+
     if (player->y == DinoY ||
         player->y >= MaxJump && player->delta_y == JumpSpeed)
     { /* on the ground or below maxjump and hasn't decelerated yet*/
@@ -67,7 +69,8 @@ void evJump(DinoPlayer *player)
     }
     else
     {
-        evNoInput(player);
+        model->hasInput = false;
+        
     }
 }
 
@@ -196,7 +199,6 @@ void evModelUpdate(Model *model)
     }
 
     model->hasInput = false;
-    
 
     if (model->player.isAlive)
     {
@@ -206,7 +208,6 @@ void evModelUpdate(Model *model)
         evScoreIncrement(model);
         modelIncrmentTick(model);
     }
-
 }
 
 /*function: evScoreIncrement
