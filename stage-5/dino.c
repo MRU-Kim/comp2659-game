@@ -49,24 +49,35 @@ int main()
     while (input != '`')
     {
 
-        timeNow = get_time();
+        timeNow = get_Time();
         timeElapsed = timeNow - timeThen;
 
 
 
         /*async*/
-        input = Cnecin();
-        if (input != ' ')
+        input = getKey();
+        
+        if (input != NULL)
         {
             evKBInputHandle(&gameModel, input);
+            gameModel.hasInput = true;
         }
-        input = NULL;
+        else
+        {
+            gameModel.hasInput = false;
+        }
+        
+
+        
+
 
         /*sync*/
         if (timeElapsed > 0)
         {
             evModelUpdate(&gameModel);
             redraw(&gameModel, &tracker, base);
+
+            
             timeThen = timeNow;
         }
 

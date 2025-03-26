@@ -120,7 +120,7 @@ void medCactusSpawn(CactusMed *cactusMed)
 }
 void medCactusScroll(CactusMed *cactusMed, ScrollSpeed scrollSpeed)
 {
-    if (cactusMed->x > -CactMedWidth+1)
+    if (cactusMed->x > -CactMedWidth + 1)
     { /*if the cactus is on screen */
         cactusMed->x -= scrollSpeed.delta_x;
     }
@@ -164,69 +164,49 @@ void scrollStop(ScrollSpeed *scrollSpeed)
 }
 
 /*model behaviors*/
+
 /* function: modelInitialize
     initializes model to start conditions
     inputs:
     model - model to be to be initialized
-
 */
 void modelInitialize(Model *model)
 {
+    modelGetSeed(model);
+    model->highScore.value = 0;
+
+    modelResetNonePersists(model);
+}
+
+/* function: modelResetNonePersists
+    reset everything into new run except high score and rand num
+*/
+void modelResetNonePersists(Model *model)
+{
     int i;
-    model->player.x = DinoX; /*init player*/
+    model->player.x = DinoX; /*set player*/
     model->player.y = DinoY;
     model->player.delta_y = 0;
     model->player.isAlive = true;
     model->player.isCrouched = false;
     model->player.runAnimationTimer = DinoRunTimerLength;
 
-    /*init cacti*/
+    /*set cacti*/
     for (i = 0; i < MaxCactus; i++)
     {
         model->cactiMed[i].x = -16;
         model->cactiMed[i].y = CactMedY;
     }
     model->ground.y = GroundY;
-
+    /*set score*/
     model->score.value = 0;
 
-    model->highScore.value = 0;
+    /*set model logic*/
 
     model->scrollSpeed.delta_x = 0;
-
     model->hasInput = false;
-    modelGetSeed(model);
-    modelResetCacSpawnTimer(model); /*70 ticks in a second*/
-    model->lastMilestone = 0;
-    model->runTicksPassed = 0;
-}
 
-/* function: modelResetAfterDeath
-    a death reset everything into new run except high score and rand num
-*/
-void modelResetAfterDeath(Model *model)
-{
-    int i;
-    model->player.x = DinoX; /*reset player*/
-    model->player.y = DinoY;
-    model->player.delta_y = 0;
-    model->player.isAlive = true;
-    model->player.isCrouched = false;
-
-    /*reset cacti*/
-    for (i = 0; i < MaxCactus; i++)
-    {
-        model->cactiMed[i].x = -16;
-        model->cactiMed[i].y = CactMedY;
-    }
-    /*reset score*/
-    model->score.value = 0;
-
-    /*reset model logic*/
-
-    model->hasInput = false;
-    
-    modelResetCacSpawnTimer(model); /*70 ticks in a second*/
+    modelResetCacSpawnTimer(model);
     model->lastMilestone = 0;
     model->runTicksPassed = 0;
 }
@@ -256,7 +236,7 @@ void modelTicksPassedReset(Model *model)
 }
 
 /*function: modelResetCacSpawnTimer
-    after spawning a cactus this is called to reset to 
+    after spawning a cactus this is called to reset to
     MinCacSpawnTime + 0 to MaxCacSpawnTimeAdd ticks
     inputs:
     model - pointer to model*/
@@ -265,7 +245,6 @@ void modelResetCacSpawnTimer(Model *model)
     model->ranNum = lfsr16(model->ranNum);
     model->cacSpawnTimer = abs(model->ranNum % MaxCacSpawnTimeAdd) + MinCacSpawnTime; /*70 ticks in a second*/
 }
-
 
 /*helper functions*/
 /*function: abs

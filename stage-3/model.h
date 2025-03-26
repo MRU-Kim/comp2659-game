@@ -115,7 +115,7 @@ void scrollStop(ScrollSpeed *scrollSpeed);
 
 /*model behaviors*/
 void modelInitialize(Model *model);
-void modelResetAfterDeath(Model *model);
+void modelResetNonePersists(Model *model);
 void modelGetSeed(Model *model);
 void modelIncrmentTick(Model *model);
 void modelTicksPassedReset(Model *model);

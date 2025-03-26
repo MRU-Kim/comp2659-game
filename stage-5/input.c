@@ -8,8 +8,10 @@ Professor     	Steve Kalmar
 */
 
 #include <stdio.h>
+#include <osbind.h>
 #include "input.h"
 #include "../stage-3/events.h"
+#include "../stage-3/model.h"
 
 /*
 -------------------------------------------------------------------
@@ -19,19 +21,15 @@ Professor     	Steve Kalmar
     input:
         
     output:
-        Void.
+        Voids
 -------------------------------------------------------------------
 */
 
-void getKey(int key, const DinoPlayer *player){
-    switch(key){
-        case 'w':
-            evJump(player);
-        case 's':
-            evCrouch(player);
-        case ' ':
-            evJump(player);
-        default:
-            break;
+
+
+char getKey() {
+    if (Cconis()) { 
+        return (char)Cnecin(); /*Read and return the character immediately*/
     }
+    return NULL; /*Return null character if no input is available*/
 }

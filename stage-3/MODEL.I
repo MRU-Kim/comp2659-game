@@ -98,7 +98,7 @@ void scrollStop(ScrollSpeed *scrollSpeed);
 
 
 void modelInitialize(Model *model);
-void modelResetAfterDeath(Model *model);
+void modelResetNonePersists(Model *model);
 void modelGetSeed(Model *model);
 void modelIncrmentTick(Model *model);
 void modelTicksPassedReset(Model *model);
@@ -259,7 +259,7 @@ void medCactusSpawn(CactusMed *cactusMed)
 }
 void medCactusScroll(CactusMed *cactusMed, ScrollSpeed scrollSpeed)
 {
-    if (cactusMed->x > -16 +1)
+    if (cactusMed->x > -16  + 1)
     {
         cactusMed->x -= scrollSpeed.delta_x;
     }
@@ -292,6 +292,17 @@ void scrollStop(ScrollSpeed *scrollSpeed)
 # 173 "model.c"
 void modelInitialize(Model *model)
 {
+    modelGetSeed(model);
+    model->highScore.value = 0;
+
+    modelResetNonePersists(model);
+}
+
+
+
+
+void modelResetNonePersists(Model *model)
+{
     int i;
     model->player.x = 100 ;
     model->player.y = 200 -16 ;
@@ -310,41 +321,9 @@ void modelInitialize(Model *model)
 
     model->score.value = 0;
 
-    model->highScore.value = 0;
+
 
     model->scrollSpeed.delta_x = 0;
-
-    model->hasInput = 0 ;
-    modelGetSeed(model);
-    modelResetCacSpawnTimer(model);
-    model->lastMilestone = 0;
-    model->runTicksPassed = 0;
-}
-
-
-
-
-void modelResetAfterDeath(Model *model)
-{
-    int i;
-    model->player.x = 100 ;
-    model->player.y = 200 -16 ;
-    model->player.delta_y = 0;
-    model->player.isAlive = 1 ;
-    model->player.isCrouched = 0 ;
-
-
-    for (i = 0; i < 10 ; i++)
-    {
-        model->cactiMed[i].x = -16;
-        model->cactiMed[i].y = 200 -16 ;
-    }
-
-    model->score.value = 0;
-
-
-
-    model->hasInput = 0 ;
 
     modelResetCacSpawnTimer(model);
     model->lastMilestone = 0;
@@ -374,13 +353,13 @@ void modelTicksPassedReset(Model *model)
 {
     model->runTicksPassed = 0;
 }
-# 263 "model.c"
+# 242 "model.c"
 void modelResetCacSpawnTimer(Model *model)
 {
     model->ranNum = lfsr16(model->ranNum);
     model->cacSpawnTimer = abs(model->ranNum % 30 ) + 10 ;
 }
-# 276 "model.c"
+# 254 "model.c"
 int abs(int num)
 {
     if (num < 0)
@@ -389,7 +368,7 @@ int abs(int num)
     }
     return num;
 }
-# 290 "model.c"
+# 268 "model.c"
 int lfsr16(int seed)
 {
     UINT16 lfsr = seed;

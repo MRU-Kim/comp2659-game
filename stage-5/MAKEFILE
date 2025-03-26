@@ -13,5 +13,6 @@ dino.o: dino.c
 
 clock.o: clock.c
 	cc68x -g -c -I ../stage-2 -I ../stage-3 -I ../stage-4 clock.c
-dino.o: input.c
+
+input.o: input.c
 	cc68x -g -c -I ../stage-2 -I ../stage-3 -I ../stage-4 input.c

@@ -29,4 +29,7 @@ cp render.o "..\stage-5"
 cd ..
 cd stage-5
 
+cc68x -g -c -I ../stage-2 -I ../stage-3 -I ../stage-4 input.c
+
+Rm dino.o
 make

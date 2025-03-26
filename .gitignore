@@ -35,3 +35,5 @@ stage-5/FONT.O
 stage-5/EVENTS.O
 stage-5/DINO.O
 stage-5/CLOCK.O
+stage-5/INPUT.O
+stage-5/mad.g

@@ -30,12 +30,11 @@ It updates the model accordingly and coordinates interactions between player and
     starting the game
     inputs:
     model - model object
-    input - inputted character*/
+    input - inputted character
+*/
 void evKBInputHandle(Model *model, char input)
 {
     DinoPlayer *player = &(model->player);
-    model->hasInput = true;
-
     if (model->scrollSpeed.delta_x)
     {
 
@@ -97,7 +96,7 @@ void evCrouch(DinoPlayer *player)
     model - pointer to model*/
 void evStartGame(Model *model)
 {
-    modelResetAfterDeath(model);
+    modelResetNonePersists(model);
     scrollStart(&model->scrollSpeed);
     scoreReset(&model->score);
 }
@@ -192,11 +191,14 @@ void evCactusSpawn(Model *model)
 */
 void evModelUpdate(Model *model)
 {   
-    if (!model->hasInput){
+
+    /*update to new state*/
+    if (!model->hasInput)
+    {
         evNoInput(&model->player);
     }
-    model->hasInput = false; /*if there was input kill flag*/
-    /*update to new state*/
+    
+
     if (model->player.isAlive)
     {
         evPlayerUpdate(model);
