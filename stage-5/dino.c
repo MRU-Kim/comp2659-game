@@ -62,10 +62,6 @@ int main()
             evKBInputHandle(&gameModel, input);
             gameModel.hasInput = true;
         }
-        else
-        {
-            gameModel.hasInput = false;
-        }
         
 
         

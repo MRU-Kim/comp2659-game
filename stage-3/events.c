@@ -197,6 +197,8 @@ void evModelUpdate(Model *model)
     {
         evNoInput(&model->player);
     }
+
+    model->hasInput = false;
     
 
     if (model->player.isAlive)

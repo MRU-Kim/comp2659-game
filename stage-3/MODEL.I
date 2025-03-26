@@ -324,6 +324,7 @@ void modelResetNonePersists(Model *model)
 
 
     model->scrollSpeed.delta_x = 0;
+    model->hasInput = 0 ;
 
     modelResetCacSpawnTimer(model);
     model->lastMilestone = 0;
@@ -353,13 +354,13 @@ void modelTicksPassedReset(Model *model)
 {
     model->runTicksPassed = 0;
 }
-# 242 "model.c"
+# 243 "model.c"
 void modelResetCacSpawnTimer(Model *model)
 {
     model->ranNum = lfsr16(model->ranNum);
     model->cacSpawnTimer = abs(model->ranNum % 30 ) + 10 ;
 }
-# 254 "model.c"
+# 255 "model.c"
 int abs(int num)
 {
     if (num < 0)
@@ -368,7 +369,7 @@ int abs(int num)
     }
     return num;
 }
-# 268 "model.c"
+# 269 "model.c"
 int lfsr16(int seed)
 {
     UINT16 lfsr = seed;
