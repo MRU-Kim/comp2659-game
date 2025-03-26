@@ -12,7 +12,7 @@ Professor       Steve Kalmar
 #include "PSG.H"
 #include "EFFECTS.H"
 #include "MUSIC.H" 
-#include "../stage-2/CONST.H"
+#include "CONST7.h"
 
 /*
 -------------------------------------------------------------------

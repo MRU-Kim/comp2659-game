@@ -11,7 +11,7 @@ Professor       Steve Kalmar
 
 #include "PSG.H"
 #include "MUSIC.H"
-#include "../stage-2/CONST.H"
+#include "CONST7.h"
 
 const int theMusic[30] = {
     G5,G5,F5Sharp,G5,Pause,
