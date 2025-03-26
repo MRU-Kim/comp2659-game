@@ -7,8 +7,8 @@ File name       soundconst.h
 Professor     	Steve Kalmar
 */
 
-#ifndef SOUNDCONST_H
-#define SOUNDCONST_H
+#ifndef CONST7_H
+#define CONST7_H
 
 typedef unsigned char UINT8;
 typedef unsigned int  UINT16;
