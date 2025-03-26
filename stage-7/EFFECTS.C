@@ -9,6 +9,15 @@ Professor       Steve Kalmar
 -----------------------------------------------------------------------------
 */
 
+/*
+-----------------------------------------------------------------------------
+    Description:
+        The file contains functions for initializing and controlling the PSG
+        for the Atari ST. It provides functionalities for sound effects,
+        specifically jumping, and dying.
+-----------------------------------------------------------------------------
+*/
+
 #include "PSG.H"
 #include "EFFECTS.H"
 #include "MUSIC.H" 

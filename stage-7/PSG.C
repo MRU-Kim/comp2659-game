@@ -9,6 +9,15 @@ Professor       Steve Kalmar
 -----------------------------------------------------------------------------
 */
 
+/*
+-----------------------------------------------------------------------------
+    Description:
+        The file provides the functions with the PSG on the Atari ST
+        It allows setting tones, noise, volume, and envelope configurations
+        for sound generation.
+-----------------------------------------------------------------------------
+*/
+
 #include "CONST7.h"
 #include "PSG.H"
 
