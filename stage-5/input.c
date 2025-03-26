@@ -24,12 +24,15 @@ Professor     	Steve Kalmar
 /*
 -------------------------------------------------------------------
     function: getKey
+    Function checks to see if a key from the keyboard is pressed.
+    If a key is pressed, the function returns the char representation
+    of the key, if not, it returns NULL ('\0').
 
-
-    input:
-
+    input: 
+        None.
     output:
-        Voids
+        Char representation of the pressed key
+        or NULL ('\0').
 -------------------------------------------------------------------
 */
 
