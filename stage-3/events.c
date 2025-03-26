@@ -185,13 +185,12 @@ void evCactusSpawn(Model *model)
    Progresses all events that should run if the player is alive
    updating player state
    scrolling obsticles
-   spawning 
+   spawning
     input:
     model - pointer to model
 */
 void evModelUpdate(Model *model)
-{   
-
+{
     /*update to new state*/
     if (!model->hasInput)
     {
