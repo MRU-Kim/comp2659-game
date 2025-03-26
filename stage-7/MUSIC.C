@@ -9,6 +9,14 @@ Professor       Steve Kalmar
 -----------------------------------------------------------------------------
 */
 
+/*
+-----------------------------------------------------------------------------
+    Description:
+        The file manages PSG music playback on the Atari ST.abort
+        It initializes and plays a pre-defined song using the PSG.
+-----------------------------------------------------------------------------
+*/
+
 #include "PSG.H"
 #include "MUSIC.H"
 #include "CONST7.h"
