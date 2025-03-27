@@ -51,8 +51,8 @@ typedef int bool;
 
 /*cactus logic*/
 #define MaxCactus 10
-#define MinCacSpawnTime 10
-#define MaxCacSpawnTimeAdd 30
+#define MinCacSpawnTime 50
+#define MaxCacSpawnTimeAdd 40
 
 /*Animation logic*/
 #define DinoRunTimerLength 15
