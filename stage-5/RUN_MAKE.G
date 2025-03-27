@@ -9,6 +9,9 @@ foreach i {raster font objects model events render clock input dino}
 	endif
 endfor
 
+Rm dino.o
+echo Rm dino.o
+
 cd ..\stage-2
 
 cp objects.o raster.o font.o "..\stage-5"
@@ -31,6 +34,5 @@ cd stage-5
 
 cc68x -g -c -I ../stage-2 -I ../stage-3 -I ../stage-4 input.c
 
-Rm dino.o
-echo Rm dino.o
+
 make
