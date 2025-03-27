@@ -21,18 +21,16 @@ scrolling, and score progression without graphical output.
 #include <osbind.h>
 #include <stdio.h>
 
-char input;
 
 void modelState(const Model *model);
 
 int main()
 {
+    char input;
     Model gameModel;
     modelInitialize(&gameModel);
 
     input = NULL;
-
-    input = Cnecin();
 
     while (input != '`')
     {
@@ -43,7 +41,6 @@ int main()
         if (input != ' ')
         {
             evKBInputHandle(&gameModel, input);
-            gameModel.hasInput = true;
         }
         
         input = NULL;
@@ -75,6 +72,6 @@ void modelState(const Model *gameModel)
     }
     else
     {
-        printf("start? press w%c\n", input);
+        printf("start? press w\n");
     }
 }

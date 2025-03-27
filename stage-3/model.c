@@ -78,7 +78,7 @@ void updateDinoY(DinoPlayer *player)
     player - pointer to player*/
 void dinoCrouch(DinoPlayer *player)
 {
-    player->isCrouched = 1;
+    player->isCrouched = true;
 }
 
 /*  function: dinoStand
@@ -87,7 +87,7 @@ void dinoCrouch(DinoPlayer *player)
     player - pointer to player*/
 void dinoStand(DinoPlayer *player)
 {
-    player->isCrouched = 0;
+    player->isCrouched = false;
 }
 
 /*  function: dinoDie
@@ -96,7 +96,7 @@ void dinoStand(DinoPlayer *player)
     player - pointer to player*/
 void dinoDie(DinoPlayer *player)
 {
-    player->isAlive = 0;
+    player->isAlive = false;
 }
 /*  function: dinoRunCycleAdvance
     Toggles run sprite flag for animation
@@ -155,7 +155,7 @@ void scoreUpdate(HighScore *highScore, Score *score)
 
 void scrollStart(ScrollSpeed *scrollSpeed)
 {
-    scrollSpeed->delta_x = 5;
+    scrollSpeed->delta_x = StartScrollSpeed;
 }
 
 void scrollStop(ScrollSpeed *scrollSpeed)

@@ -34,6 +34,8 @@ It updates the model accordingly and coordinates interactions between player and
 void evKBInputHandle(Model *model, char input)
 {
     DinoPlayer *player = &(model->player);
+    model->hasInput = true;
+
     if (model->scrollSpeed.delta_x)
     {
 
@@ -183,7 +185,8 @@ void evCactusSpawn(Model *model)
     }
 }
 /* funtion: evModelUpdate
-   Progresses all events that should run if the player is alive
+   Progress game state if player is alive, puts player into neutral state
+   if there is no acceptable input
    updating player state
    scrolling obsticles
    spawning
@@ -193,9 +196,9 @@ void evCactusSpawn(Model *model)
 void evModelUpdate(Model *model)
 {
     /*update to new state*/
-    if (!model->hasInput || model->player.y)
+    if (!model->hasInput)
     {
-        evNoInput(&model->player);
+        evPlayerNeutal(&model->player);
     }
 
     model->hasInput = false;
@@ -225,12 +228,12 @@ void evScoreIncrement(Model *model)
 
 /*CASCADE EVENTS*/
 
-/* function evNoInput
+/* function evPlayerNeutal
     accelerate downwards if player is in air with jump input
     otherwise make dino stand
     input:
     player - pointer to player*/
-void evNoInput(DinoPlayer *player)
+void evPlayerNeutal(DinoPlayer *player)
 {
     dinoFall(player);
     dinoStand(player);
@@ -243,7 +246,7 @@ void evNoInput(DinoPlayer *player)
 */
 void evMilestone(Model *model)
 {
-    if (model->lastMilestone < model->score.value - 1000 == 0)
+    if (model->lastMilestone < model->score.value - MileStoneScore == 0)
     {
         model->scrollSpeed.delta_x++;
     }

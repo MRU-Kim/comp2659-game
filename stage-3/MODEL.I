@@ -223,7 +223,7 @@ void updateDinoY(DinoPlayer *player)
 
 void dinoCrouch(DinoPlayer *player)
 {
-    player->isCrouched = 1;
+    player->isCrouched = 1 ;
 }
 
 
@@ -232,7 +232,7 @@ void dinoCrouch(DinoPlayer *player)
 
 void dinoStand(DinoPlayer *player)
 {
-    player->isCrouched = 0;
+    player->isCrouched = 0 ;
 }
 
 
@@ -241,7 +241,7 @@ void dinoStand(DinoPlayer *player)
 
 void dinoDie(DinoPlayer *player)
 {
-    player->isAlive = 0;
+    player->isAlive = 0 ;
 }
 
 
@@ -282,7 +282,7 @@ void scoreUpdate(HighScore *highScore, Score *score)
 
 void scrollStart(ScrollSpeed *scrollSpeed)
 {
-    scrollSpeed->delta_x = 5;
+    scrollSpeed->delta_x = 3 ;
 }
 
 void scrollStop(ScrollSpeed *scrollSpeed)
@@ -304,7 +304,7 @@ void modelInitialize(Model *model)
 void modelResetNonePersists(Model *model)
 {
     int i;
-    model->player.x = 100 ;
+    model->player.x = 16*8 ;
     model->player.y = 200 -16 ;
     model->player.delta_y = 0;
     model->player.isAlive = 1 ;

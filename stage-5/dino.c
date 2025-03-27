@@ -24,6 +24,7 @@ Professor     	Steve Kalmar
 #include "input.h"
 
 #include <osbind.h>
+
 #include <stdio.h>
 
 char input;
@@ -34,6 +35,8 @@ int main()
     Model gameModel;
 
     RenderTracker tracker;
+
+    RenderTracker tracker2;
 
     UINT32 timeThen, timeNow, timeElapsed;
 
@@ -56,12 +59,10 @@ int main()
 
         /*async*/
         input = getKey();
-        input = 'w';
-        
+
         if (input != NULL)
         {
             evKBInputHandle(&gameModel, input);
-            gameModel.hasInput = true;
         }
         
 
@@ -73,8 +74,6 @@ int main()
         {
             evModelUpdate(&gameModel);
             redraw(&gameModel, &tracker, base);
-
-            printf("%d",gameModel.hasInput);
             timeThen = timeNow;
         }
 

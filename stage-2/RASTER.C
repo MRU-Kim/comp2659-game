@@ -46,9 +46,7 @@ void clearScreen(UINT8 *base)
 /*
     functions: clear8Bitmap, clear16Bitmap
 
-    Clears an 8/16 px bitmap. Used clear pixles activated
-    by the plot8Bitmap/clear16Bitmap function.
-    Toggles each pixel as to only clear the prev plotted bitmap,
+    Clears a 8/16 px bitmap. given the correct clear mask
     given that the same (x,y).Can clear bitmaps plotted partially off screen. In the case that the cordinates would clear
     the bitmap entirely off of the screen nothing is cleared.
 
@@ -98,7 +96,7 @@ void clear8Bitmap(UINT8 *base, UINT8 bitmap[], int x, int y, int height)
             {
                 /*plot the bitmap shifted abs(x) to the left
                 x is negative*/
-                *(plotLocation + 1) ^= *(bitmap++) << -x;
+                *(plotLocation + 1) &= *(bitmap++) << -x;
                 plotLocation += 80;
             }
         }
@@ -109,7 +107,7 @@ void clear8Bitmap(UINT8 *base, UINT8 bitmap[], int x, int y, int height)
             for (i = 0; i < usedHeight; i++)
             {
                 /*plot the bitmap shifted  to the left */
-                *(plotLocation) ^= *(bitmap++) >> offset;
+                *(plotLocation) &= *(bitmap++) >> offset;
                 plotLocation += 80;
             }
         }
@@ -118,10 +116,10 @@ void clear8Bitmap(UINT8 *base, UINT8 bitmap[], int x, int y, int height)
         {
             for (i = 0; i < usedHeight; i++)
             {
-                *plotLocation ^= *(bitmap) >> offset;
+                *plotLocation &= *(bitmap) >> offset;
                 if (offset != 0)
                 {
-                    *(plotLocation + 1) ^= *(bitmap) << (8 - offset);
+                    *(plotLocation + 1) &= *(bitmap) << (8 - offset);
                 }
                 plotLocation += 80;
                 bitmap++;
@@ -167,7 +165,7 @@ void clear16Bitmap(UINT8 *base, UINT16 bitmap[], int x, int y, int height)
             {
                 /*toggle the bitmap shifted abs(x) to the left
                 x is negative*/
-                *(location + 1) ^= *(bitmap++) << -x;
+                *(location + 1) &= *(bitmap++) << -x;
                 location += 40;
             }
         }
@@ -178,7 +176,7 @@ void clear16Bitmap(UINT8 *base, UINT16 bitmap[], int x, int y, int height)
             for (i = 0; i < usedHeight; i++)
             {
                 /*toggle the bitmap shifted  to the left */
-                *(location) ^= *(bitmap++) >> offset;
+                *(location) &= *(bitmap++) >> offset;
                 location += 40;
             }
         }
@@ -187,10 +185,10 @@ void clear16Bitmap(UINT8 *base, UINT16 bitmap[], int x, int y, int height)
         {
             for (i = 0; i < usedHeight; i++)
             {
-                *location ^= *(bitmap) >> offset;
+                *location &= *(bitmap) >> offset;
                 if (offset != 0)
                 {
-                    *(location + 1) ^= *(bitmap) << (16 - offset);
+                    *(location + 1) &= *(bitmap) << (16 - offset);
                 }
                 location += 40;
                 bitmap++;

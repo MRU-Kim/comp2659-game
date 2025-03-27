@@ -34,7 +34,7 @@ typedef int bool;
 /*Model location  constants*/
 #define GroundY 200
 #define DinoY GroundY-DinoHeight
-#define DinoX 100
+#define DinoX 16*8
 #define CactMedY GroundY-CactMedHeight
 #define ScoreX 639-100
 #define ScoreY 10
@@ -46,6 +46,8 @@ typedef int bool;
 #define AirCrouchSpeed 10
 #define JumpSpeed -5
 #define HitErrorMargin 7
+#define MileStoneScore 1000
+#define StartScrollSpeed 3
 
 /*cactus logic*/
 #define MaxCactus 10

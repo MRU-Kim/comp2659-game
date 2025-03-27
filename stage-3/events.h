@@ -43,7 +43,7 @@ void evScoreIncrement(Model *model);
 
 
 /*cascade events*/
-void evNoInput(DinoPlayer *player);
+void evPlayerNeutal(DinoPlayer *player);
 void evDeath(Model *model);
 void evMilestone( Model *model);
 void evUpdateHighscore(Model *model);

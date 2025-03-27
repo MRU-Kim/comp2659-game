@@ -153,7 +153,7 @@ void clearDino(const Model *model, RenderTracker *tracker, UINT8 *base)
     {
         if (trackerDino->isCrouched) /*crouch has precedence over all*/
         {
-            clear16Bitmap(base, DinoCrouchSprite, trackerDino->x, trackerDino->y, DinoHeight);
+            clear16Bitmap(base, DinoCrouchSpriteClear, trackerDino->x, trackerDino->y, DinoHeight);
         }
         else if (trackerDino->y == DinoY) /*if player is on ground*/
         {
@@ -161,20 +161,20 @@ void clearDino(const Model *model, RenderTracker *tracker, UINT8 *base)
             {
                 if (trackerDino->walkCycle)
                 {
-                    clear16Bitmap(base, DinoMove2Sprite, trackerDino->x, trackerDino->y, DinoHeight);
+                    clear16Bitmap(base, DinoMove2SpriteClear, trackerDino->x, trackerDino->y, DinoHeight);
                 }
                 else
                 {
-                    clear16Bitmap(base, DinoMove1Sprite, trackerDino->x, trackerDino->y, DinoHeight);
+                    clear16Bitmap(base, DinoMove1SpriteClear, trackerDino->x, trackerDino->y, DinoHeight);
                 }
             }
         }
         else
-            clear16Bitmap(base, DinoStandSprite, trackerDino->x, trackerDino->y, DinoHeight);
+            clear16Bitmap(base, DinoStandSpriteClear, trackerDino->x, trackerDino->y, DinoHeight);
     }
     else
     {
-        clear16Bitmap(base, DinoDeadSprite, trackerDino->x, trackerDino->y, DinoHeight);
+        clear16Bitmap(base, DinoDeadSpriteClear, trackerDino->x, trackerDino->y, DinoHeight);
     }
 }
 
@@ -209,7 +209,7 @@ void redrawCacti(const Model *model, RenderTracker *tracker, UINT8 *base)
     {
         if (cactusMed[i].x != trackerCactusMed[i].x)
         {
-            clear16Bitmap(base, CactusMedSprite, trackerCactusMed[i].x, trackerCactusMed[i].y, CactMedHeight);
+            clear16Bitmap(base, CactusMedSpriteClear, trackerCactusMed[i].x, trackerCactusMed[i].y, CactMedHeight);
             plot16Bitmap(base, CactusMedSprite, cactusMed[i].x, cactusMed[i].y, CactMedHeight);
             trackerCactusMed[i].x = cactusMed[i].x;
             trackerCactusMed[i].y = cactusMed[i].y;
