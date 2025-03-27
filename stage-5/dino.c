@@ -36,8 +36,6 @@ int main()
 
     RenderTracker tracker;
 
-    RenderTracker tracker2;
-
     UINT32 timeThen, timeNow, timeElapsed;
 
 
@@ -70,7 +68,7 @@ int main()
 
 
         /*sync*/
-        if (timeNow - timeThen > 3)
+        if (timeNow - timeThen > 0)
         {
             evModelUpdate(&gameModel);
             redraw(&gameModel, &tracker, base);

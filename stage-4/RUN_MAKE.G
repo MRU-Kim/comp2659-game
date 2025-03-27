@@ -9,6 +9,7 @@ foreach i {tst_rnd raster font objects model events render }
 	endif
 endfor
 Rm tst_rnd.o
+echo Rm tst_rnd.o
 
 cd ..
 cd stage-2
