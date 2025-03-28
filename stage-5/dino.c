@@ -102,7 +102,14 @@ int main()
     return 0;
 }
 
-/*funtion: swapBuffer*/
+/*funtion: swapBuffer
+    given two frame buffers, sets screen to the second if select is true
+    the first if select is false returns the negation of the select bool
+    input:
+    buff1 - first frame buffer
+    buff2 - second frame buffer
+    select - false to select buff1, true to select buff2*/
+    
 bool swapBuffer(UINT8 *buff1, UINT8 *buff2, bool select){
     if (select)
     {
