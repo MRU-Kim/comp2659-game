@@ -180,7 +180,7 @@ typedef unsigned long  fd_set;
 # 31 "model.c"
 void dinoJump(DinoPlayer *player)
 {
-    player->delta_y = -5 ;
+    player->delta_y = -10 ;
 }
 # 41 "model.c"
 void dinoFall(DinoPlayer *player)
@@ -358,7 +358,7 @@ void modelTicksPassedReset(Model *model)
 void modelResetCacSpawnTimer(Model *model)
 {
     model->ranNum = lfsr16(model->ranNum);
-    model->cacSpawnTimer = abs(model->ranNum % 30 ) + 10 ;
+    model->cacSpawnTimer = abs(model->ranNum % 40 ) + 50 ;
 }
 # 255 "model.c"
 int abs(int num)

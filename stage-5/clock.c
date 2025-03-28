@@ -25,12 +25,12 @@ void waitVBlank()
     long *VBlankCounter = (long*)0x462;
     long countNow, countThen;
     long oldSsp = Super(0);
-    countNow = *timer;
+    countNow = *VBlankCounter;
     countThen = countNow;
 
     while (countNow == countThen)
     {
-        countNow = *timer;
+        countNow = *VBlankCounter;
     }
     Super(oldSsp);
 }
