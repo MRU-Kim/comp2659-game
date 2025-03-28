@@ -49,6 +49,7 @@ int main()
     static UINT8 buffer2Arr[32000+256];
     UINT8 *buffer2 = buffer2Arr;
     UINT16 buffer2IntAdd = (UINT16)buffer2Arr;
+    
     /*find displacement of buffer2 from being 256 byte alligned
     then add displacement */
     UINT16 displacement = 256 - buffer2IntAdd%256;
