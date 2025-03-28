@@ -4,7 +4,7 @@
 
 int main() {
 
-    /*
+    
     int i;
 
     helpInitialize();
@@ -16,7 +16,7 @@ int main() {
         helpInitialize();
         startMusic();
     }
-    */
+    
 
     initPsg();
     playJumpSound();

@@ -49,7 +49,7 @@ int main()
     static UINT8 buffer2Arr[32000+256];
     UINT8 *buffer2 = buffer2Arr;
     UINT16 buffer2IntAdd = (UINT16)buffer2Arr;
-    
+
     /*find displacement of buffer2 from being 256 byte alligned
     then add displacement */
     UINT16 displacement = 256 - buffer2IntAdd%256;
@@ -86,8 +86,7 @@ int main()
         if (timeNow - timeThen > 0)
         {
             evModelUpdate(&gameModel);
-            waitVBlank();
-            bufferSelect = (buffer1,buffer2,bufferSelect);
+
             if (bufferSelect)
             {
                 redraw(&gameModel, &tracker1, buffer1);
@@ -95,7 +94,9 @@ int main()
             else{
                 redraw(&gameModel, &tracker2, buffer2);
             }
-            
+            waitVBlank();
+            bufferSelect = swapBuffer(buffer1,buffer2,bufferSelect);
+
             timeThen = timeNow;
         }
 
@@ -114,10 +115,10 @@ int main()
 bool swapBuffer(UINT8 *buff1, UINT8 *buff2, bool select){
     if (select)
     {
-        Setscreen(buff2,-1,-1);
+        Setscreen(-1, buff2,-1);
     }
     else{
-        Setscreen(buff1,-1,-1);
+        Setscreen(-1, buff1,-1);
     }
     return !select;
 }

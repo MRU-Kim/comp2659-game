@@ -12,7 +12,7 @@ Professor     	Steve Kalmar
 
 UINT32 get_Time()
 {
-    long *timer = (long *)0x462;
+    long volatile *timer = (long *)0x462;
     long timeNow;
     long oldSsp = Super(0);
     timeNow = *timer;
@@ -22,7 +22,7 @@ UINT32 get_Time()
 
 void waitVBlank()
 {
-    long *VBlankCounter = (long*)0x462;
+    long volatile *VBlankCounter = (long*)0x462;
     long countNow, countThen;
     long oldSsp = Super(0);
     countNow = *VBlankCounter;
