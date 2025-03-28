@@ -19,3 +19,18 @@ UINT32 get_Time()
     Super(oldSsp);
     return timeNow;
 }
+
+void waitVBlank()
+{
+    long *VBlankCounter = (long*)0x462;
+    long countNow, countThen;
+    long oldSsp = Super(0);
+    countNow = *timer;
+    countThen = countNow;
+
+    while (countNow == countThen)
+    {
+        countNow = *timer;
+    }
+    Super(oldSsp);
+}

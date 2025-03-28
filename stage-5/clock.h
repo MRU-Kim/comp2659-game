@@ -13,4 +13,6 @@ Professor     	Steve Kalmar
 
 UINT32 get_Time();
 
+void waitVBlank();
+
 #endif
