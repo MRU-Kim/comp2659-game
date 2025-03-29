@@ -97,7 +97,6 @@ int main()
             }
             waitVBlank();
             bufferSelect = selectBuffer(buffer1,buffer2,bufferSelect);
-
             timeThen = timeNow;
         }
     }
@@ -112,7 +111,6 @@ int main()
     buff1 - first frame buffer
     buff2 - second frame buffer
     select - false to select buff1, true to select buff2*/
-    
 bool selectBuffer(UINT8 *buff1, UINT8 *buff2, bool select){
     if (select)
     {

@@ -21,7 +21,6 @@ scrolling.
 /*#include <stdio.h>*/
 
 /*random num gen*/
-#include <time.h>
 
 /*------dino behaviors------*/
 /*function: dinoJump
@@ -229,10 +228,10 @@ void modelResetNonePersists(Model *model)
 }
 
 /*function: modelGetSeed
-    uses systemclock to get a 16 bit num from systemclock*/
+    puts a semi random number in model ranNum*/
 void modelGetSeed(Model *model)
 {
-    model->ranNum = time(NULL);
+    model->ranNum = (UINT16)model;
 }
 
 /*function modelIncrmentTick

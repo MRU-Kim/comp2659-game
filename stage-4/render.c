@@ -7,9 +7,9 @@ File name       renderer.c
 Professor     	Steve Kalmar
 
 Purpose:
-Provides all rendering logic for drawing and updating game graphics 
+Provides all rendering logic for drawing and updating game graphics
 on screen based on the model state. This includes drawing and clearing
-the Dino, obstacles, ground, and score. The file uses a render tracker 
+the Dino, obstacles, ground, and score. The file uses a render tracker
 to minimize unnecessary redraws and ensure efficient frame updates.
 
 Assumptions:
@@ -32,13 +32,13 @@ Contains rendering functions
 /*function: initTracker
     redundant????
     force all */
-void initTracker(RenderTracker *tracker){
+void initTracker(RenderTracker *tracker)
+{
     int i;
-    for ( i = 0; i < MaxCactus; i++)
+    for (i = 0; i < MaxCactus; i++)
     {
         tracker->lastDrawnCactiMed[i].x = -16;
     }
-    
 }
 
 /*function: redraw
@@ -92,7 +92,8 @@ void redrawDino(const Model *model, RenderTracker *tracker, UINT8 *base)
 
 /*function drawDino
     draws dino according to the model
-    to be called after previous dino is anihilated
+    if dead, draw dead, if alive and not on ground running draw
+    to be called after previous dino render is anihilated
     input:
     base - pointer to frame buffer
     model - pointer to model
@@ -101,44 +102,31 @@ void drawDino(const Model *model, RenderTracker *tracker, UINT8 *base)
 {
     const DinoPlayer *player = &model->player;
     DinoPlayer *trackerDino = &tracker->lastDrawnPlayer;
-    if (player->isAlive)
-    {
-        if (player->isCrouched) /*crouch has precedence over all*/
-        {
-            plot16Bitmap(base, DinoCrouchSprite, player->x, player->y, DinoHeight);
-            trackerDinoCopy(player, trackerDino);
-        }
-        else if (player->y == DinoY) /*if player is on ground*/
-        {
-            if (player->isMoving) /*if dino is moving*/
-            {
-                if (player->walkCycle)/*if dino is not moving*/ 
-                {
-                    plot16Bitmap(base, DinoMove2Sprite, player->x, player->y, DinoHeight);
-                    trackerDinoCopy(player, trackerDino);
-                }
-                else/*if dino is not moving but false walk flag*/ 
-                {
-                    plot16Bitmap(base, DinoMove1Sprite, player->x, player->y, DinoHeight);
-                    trackerDinoCopy(player, trackerDino);
-                }
-            }
-            else{/*if dino is not moving but alive*/
-                plot16Bitmap(base, DinoStandSprite, player->x, player->y, DinoHeight);
-                trackerDinoCopy(player, trackerDino);
-            }
-        }
-        else/*if dino is in air*/
-        {
-            plot16Bitmap(base, DinoStandSprite, player->x, player->y, DinoHeight);
-            trackerDinoCopy(player, trackerDino);
-        }
-    }
-    else /*if dino is dead*/
+    if (!player->isAlive)
     {
         plot16Bitmap(base, DinoDeadSprite, player->x, player->y, DinoHeight);
-        trackerDinoCopy(player, trackerDino);
     }
+    else if (player->isCrouched) /*crouch has precedence over all*/
+    {
+        plot16Bitmap(base, DinoCrouchSprite, player->x, player->y, DinoHeight);
+    }
+    else if (player->y == DinoY && player->isMoving) /*if player is on ground*/
+    {
+
+        if (player->walkCycle)
+        {
+            plot16Bitmap(base, DinoMove2Sprite, player->x, player->y, DinoHeight);
+        }
+        else /*if dino is not moving but false walk flag*/
+        {
+            plot16Bitmap(base, DinoMove1Sprite, player->x, player->y, DinoHeight);
+        }
+    }
+    else /*if dino is in air or on ground not moving*/
+    {
+        plot16Bitmap(base, DinoStandSprite, player->x, player->y, DinoHeight);
+    }
+    trackerDinoCopy(player, trackerDino);
 }
 
 /*function clearDino
@@ -151,32 +139,29 @@ void drawDino(const Model *model, RenderTracker *tracker, UINT8 *base)
 void clearDino(const Model *model, RenderTracker *tracker, UINT8 *base)
 {
     DinoPlayer *trackerDino = &tracker->lastDrawnPlayer;
-    if (trackerDino->isAlive)
-    {
-        if (trackerDino->isCrouched) /*crouch has precedence over all*/
-        {
-            clear16Bitmap(base, DinoCrouchSpriteClear, trackerDino->x, trackerDino->y, DinoHeight);
-        }
-        else if (trackerDino->y == DinoY) /*if player is on ground*/
-        {
-            if (trackerDino->isMoving) /*if dino is moving*/
-            {
-                if (trackerDino->walkCycle)
-                {
-                    clear16Bitmap(base, DinoMove2SpriteClear, trackerDino->x, trackerDino->y, DinoHeight);
-                }
-                else
-                {
-                    clear16Bitmap(base, DinoMove1SpriteClear, trackerDino->x, trackerDino->y, DinoHeight);
-                }
-            }
-        }
-        else
-            clear16Bitmap(base, DinoStandSpriteClear, trackerDino->x, trackerDino->y, DinoHeight);
-    }
-    else
+    if (!trackerDino->isAlive)
     {
         clear16Bitmap(base, DinoDeadSpriteClear, trackerDino->x, trackerDino->y, DinoHeight);
+    }
+    else if (trackerDino->isCrouched) /*crouch has precedence over all*/
+    {
+        clear16Bitmap(base, DinoCrouchSpriteClear, trackerDino->x, trackerDino->y, DinoHeight);
+    }
+    else if (trackerDino->y == DinoY && trackerDino->isMoving) /*if trackerDino is on ground*/
+    {
+
+        if (trackerDino->walkCycle)
+        {
+            clear16Bitmap(base, DinoMove2SpriteClear, trackerDino->x, trackerDino->y, DinoHeight);
+        }
+        else /*if dino is not moving but false walk flag*/
+        {
+            clear16Bitmap(base, DinoMove1SpriteClear, trackerDino->x, trackerDino->y, DinoHeight);
+        }
+    }
+    else /*if dino is in air or on ground not moving*/
+    {
+        clear16Bitmap(base, DinoStandSpriteClear, trackerDino->x, trackerDino->y, DinoHeight);
     }
 }
 
