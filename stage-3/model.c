@@ -222,6 +222,7 @@ void modelResetNonePersists(Model *model)
     model->scrollSpeed.delta_x = 0;
     model->hasInput = false;
 
+    model->gravTimer = GravityTime;
     modelResetCacSpawnTimer(model);
     model->lastMilestone = 0;
     model->runTicksPassed = 0;

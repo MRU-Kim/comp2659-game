@@ -42,9 +42,10 @@ typedef int bool;
 #define HighScoreY ScoreY
 
 /*Model game logic constants*/
+#define GravityTime 3
 #define MaxJump DinoY-30
 #define AirCrouchSpeed 10
-#define JumpSpeed -10
+#define JumpSpeed -5
 #define HitErrorMargin 2
 #define MileStoneScore 1000
 #define StartScrollSpeed 3

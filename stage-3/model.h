@@ -76,7 +76,8 @@ typedef struct {
 
 
     UINT16 ranNum;
-    UINT16 cacSpawnTimer;
+    int cacSpawnTimer;
+    UINT16 gravTimer;
     bool hasInput;
 
     int lastMilestone;

@@ -72,7 +72,6 @@ void evJump(Model *model)
     else
     {
         model->hasInput = false;
-        
     }
 }
 
@@ -231,7 +230,8 @@ void evScoreIncrement(Model *model)
 /*CASCADE EVENTS*/
 
 /* function evPlayerNeutal
-    accelerate downwards if player is in air
+    accelerate downwards if player is in air and grav timer is 0,
+    decrements otherwise
     and sets dino to standing
     input:
     player - pointer to player*/
@@ -239,7 +239,15 @@ void evPlayerNeutal(Model *model)
 {
     DinoPlayer *player = &model->player;
 
-    dinoFall(player);
+    if (model->gravTimer <= 0)
+    {
+        dinoFall(player);
+        model->gravTimer = GravityTime;
+    }
+    else
+    {
+        model->gravTimer--;
+    }
     dinoStand(player);
 }
 

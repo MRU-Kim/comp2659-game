@@ -182,7 +182,7 @@ void trackerDinoCopy(const DinoPlayer *player, DinoPlayer *trackerDino)
 }
 
 /*  function: redrawCacti
-    checks each cactus to see if it is on screen and has changed
+    checks each cactus to see if it is on screen
     if so redraws it
     input:
     base - pointer to frame buffer
@@ -195,7 +195,7 @@ void redrawCacti(const Model *model, RenderTracker *tracker, UINT8 *base)
     int i;
     for (i = 0; i < MaxCactus; i++)
     {
-        if (cactusMed[i].x != trackerCactusMed[i].x)
+        if (cactusMed[i].x < ScreenWidth-1 && cactusMed[i].x>-16)
         {
             clear16Bitmap(base, CactusMedSpriteClear, trackerCactusMed[i].x, trackerCactusMed[i].y, CactMedHeight);
             plot16Bitmap(base, CactusMedSprite, cactusMed[i].x, cactusMed[i].y, CactMedHeight);
