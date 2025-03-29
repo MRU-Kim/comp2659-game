@@ -34,7 +34,7 @@ void dinoJump(DinoPlayer *player)
 }
 
 /* function dinoFall
-    acclerates downwards
+    acclerates player downwards if they are in air
     inputs:
     player - dino object
 */
@@ -42,7 +42,6 @@ void dinoFall(DinoPlayer *player)
 {
     if (player->y < DinoY)
     {
-        ;
         player->delta_y++;
     }
 }
@@ -91,13 +90,23 @@ void dinoStand(DinoPlayer *player)
 }
 
 /*  function: dinoDie
-    Makes Dino die
+    Makes Dino die and clears moving flag
     inputs:
     player - pointer to player*/
 void dinoDie(DinoPlayer *player)
 {
     player->isAlive = false;
+    player->isMoving = false;
 }
+
+/*function: dinoMove
+    sets dino move flag
+    inputs:
+    player - pointer to player*/
+void dinoMove(DinoPlayer *player){
+    player->isMoving = true;
+}
+
 /*  function: dinoRunCycleAdvance
     Toggles run sprite flag for animation
     inputs:
@@ -106,8 +115,6 @@ void dinoRunCycleAdvance(DinoPlayer *player)
 {
     player->walkCycle = !player->walkCycle;
 }
-
-/**/
 
 /*------cactus behaviors------*/
 /*fucntion: medCactusSpawn
@@ -153,11 +160,18 @@ void scoreUpdate(HighScore *highScore, Score *score)
 
 /*scroll behaviors*/
 
+/*function: scrollStart
+    starts scrolling of horizontally moving objects
+    inputs:
+    scrollSpeed - pointer to model scroll speed*/
 void scrollStart(ScrollSpeed *scrollSpeed)
 {
     scrollSpeed->delta_x = StartScrollSpeed;
 }
-
+/*function: scrollStop
+    stops scrolling of horizontally moving objects
+    inputs:
+    scrollSpeed - pointer to model scroll speed*/
 void scrollStop(ScrollSpeed *scrollSpeed)
 {
     scrollSpeed->delta_x = 0;
@@ -166,6 +180,8 @@ void scrollStop(ScrollSpeed *scrollSpeed)
 /*model behaviors*/
 
 /* function: modelInitialize
+    gets random seed
+    sets highscore to zero
     initializes model to start conditions
     inputs:
     model - model to be to be initialized
@@ -190,6 +206,7 @@ void modelResetNonePersists(Model *model)
     model->player.isAlive = true;
     model->player.isCrouched = false;
     model->player.runAnimationTimer = DinoRunTimerLength;
+    model->player.isMoving = false;
 
     /*set cacti*/
     for (i = 0; i < MaxCactus; i++)

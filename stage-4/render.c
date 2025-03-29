@@ -29,7 +29,9 @@ Contains rendering functions
 #include "../stage-2/CONST.H"
 #include "../stage-3/model.h"
 
-/*function: initTracker*/
+/*function: initTracker
+    redundant????
+    force all */
 void initTracker(RenderTracker *tracker){
     int i;
     for ( i = 0; i < MaxCactus; i++)
@@ -53,7 +55,7 @@ void redraw(const Model *model, RenderTracker *tracker, UINT8 *base)
 }
 
 /*function: force draw
-    clears screen and draws everything at once according to the model
+    clears buffer and draws everything at once according to the model
     should be used at start of game
     input:
     base - pointer to frame buffer
@@ -108,7 +110,7 @@ void drawDino(const Model *model, RenderTracker *tracker, UINT8 *base)
         }
         else if (player->y == DinoY) /*if player is on ground*/
         {
-            if (model->scrollSpeed.delta_x != 0) /*if dino is moving*/
+            if (player->isMoving) /*if dino is moving*/
             {
                 if (player->walkCycle)/*if dino is not moving*/ 
                 {
@@ -157,7 +159,7 @@ void clearDino(const Model *model, RenderTracker *tracker, UINT8 *base)
         }
         else if (trackerDino->y == DinoY) /*if player is on ground*/
         {
-            if (model->scrollSpeed.delta_x != 0) /*if dino is moving*/
+            if (trackerDino->isMoving) /*if dino is moving*/
             {
                 if (trackerDino->walkCycle)
                 {
@@ -179,7 +181,7 @@ void clearDino(const Model *model, RenderTracker *tracker, UINT8 *base)
 }
 
 /*function: trackerDinoCopy
-    copies the current aspects of model dino into the tracker
+    copies the current aspects of model dino and scrollspeed into the tracker
     should be called everytime the dino render is updated
     input:
     trackerDino, pointer dino render tracker
@@ -191,6 +193,7 @@ void trackerDinoCopy(const DinoPlayer *player, DinoPlayer *trackerDino)
     trackerDino->isCrouched = player->isCrouched;
     trackerDino->walkCycle = player->walkCycle;
     trackerDino->y = player->y;
+    trackerDino->isMoving = player->isMoving;
 }
 
 /*  function: redrawCacti

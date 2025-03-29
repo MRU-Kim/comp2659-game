@@ -94,13 +94,15 @@ void evCrouch(DinoPlayer *player)
 }
 
 /* function evStartGame
-    reset model to after death sate, start scroll, reset score
+    reset model to after death sate, start scroll, reset score,
+    activate dinoMove flag
     input:
     model - pointer to model*/
 void evStartGame(Model *model)
 {
     modelResetNonePersists(model);
     scrollStart(&model->scrollSpeed);
+    dinoMove(&model->player);
     scoreReset(&model->score);
 }
 
@@ -198,7 +200,7 @@ void evModelUpdate(Model *model)
     /*update to new state*/
     if (!model->hasInput)
     {
-        evPlayerNeutal(&model->player);
+        evPlayerNeutal(model);
     }
 
     model->hasInput = false;
@@ -229,12 +231,14 @@ void evScoreIncrement(Model *model)
 /*CASCADE EVENTS*/
 
 /* function evPlayerNeutal
-    accelerate downwards if player is in air with jump input
-    otherwise make dino stand
+    accelerate downwards if player is in air
+    and sets dino to standing
     input:
     player - pointer to player*/
-void evPlayerNeutal(DinoPlayer *player)
+void evPlayerNeutal(Model *model)
 {
+    DinoPlayer *player = &model->player;
+
     dinoFall(player);
     dinoStand(player);
 }

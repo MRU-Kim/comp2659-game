@@ -26,7 +26,7 @@ Professor     	Steve Kalmar
 #include <osbind.h>
 #include <stdio.h>
 
-bool swapBuffer(UINT8 *buff1, UINT8 *buff2, bool select);
+bool selectBuffer(UINT8 *buff1, UINT8 *buff2, bool select);
 
 
 char input;
@@ -87,6 +87,7 @@ int main()
         {
             evModelUpdate(&gameModel);
 
+            /*draw backbuffer*/
             if (bufferSelect)
             {
                 redraw(&gameModel, &tracker1, buffer1);
@@ -95,16 +96,16 @@ int main()
                 redraw(&gameModel, &tracker2, buffer2);
             }
             waitVBlank();
-            bufferSelect = swapBuffer(buffer1,buffer2,bufferSelect);
+            bufferSelect = selectBuffer(buffer1,buffer2,bufferSelect);
 
             timeThen = timeNow;
         }
-
     }
+    selectBuffer(buffer1,buffer1,bufferSelect);
     return 0;
 }
 
-/*funtion: swapBuffer
+/*funtion: selectBuffer
     given two frame buffers, sets screen to the second if select is true
     the first if select is false returns the negation of the select bool
     input:
@@ -112,7 +113,7 @@ int main()
     buff2 - second frame buffer
     select - false to select buff1, true to select buff2*/
     
-bool swapBuffer(UINT8 *buff1, UINT8 *buff2, bool select){
+bool selectBuffer(UINT8 *buff1, UINT8 *buff2, bool select){
     if (select)
     {
         Setscreen(-1, buff2,-1);

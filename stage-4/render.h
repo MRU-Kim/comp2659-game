@@ -26,6 +26,7 @@ typedef struct
     Ground lastDrawnGround;
     Score lastDrawnScore;
     HighScore lastDrawnHighScore;
+    ScrollSpeed lastScrollSpeed;
 } RenderTracker;
 
 void initTracker(RenderTracker *tracker);
