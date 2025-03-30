@@ -34,18 +34,20 @@ Professor       Steve Kalmar
         Void.
 -------------------------------------------------------------------
 */
-void writePsg(int reg, UINT8 val) {
+void writePsg(int reg, UINT8 val)
+{
     volatile char *regSelect = PSGSelectAddress;
     volatile char *regWrite = PSGWriteAddress;
     long oldSsp = Super(0);
 
-    if (reg >= 0 && reg <= 15) {
+    if (reg >= 0 && reg <= 15)
+    {
         *regSelect = reg;
-        *regWrite = val; 
+        *regWrite = val;
     }
-    
+
     Super(oldSsp);
-    
+
     return;
 }
 /*
@@ -58,7 +60,8 @@ void writePsg(int reg, UINT8 val) {
         Void.
 -------------------------------------------------------------------
 */
-UINT8 readPsg(int reg) {
+UINT8 readPsg(int reg)
+{
     /* optional */
     return reg;
 }
@@ -76,12 +79,14 @@ UINT8 readPsg(int reg) {
         Void.
 -------------------------------------------------------------------
 */
-void setTone(int channel, int tuning) {
+void setTone(int channel, int tuning)
+{
     int fineTune, coarseTune, fineReg, coarseReg;
     int fineRegisters[] = {AFine, BFine, CFine};
     int coarseRegisters[] = {ACoarse, BCoarse, CCoarse};
 
-    if (channel >= ChannelA && channel <= ChannelC) {
+    if (channel >= ChannelA && channel <= ChannelC)
+    {
         fineReg = fineRegisters[channel];
         coarseReg = coarseRegisters[channel];
 
@@ -91,7 +96,7 @@ void setTone(int channel, int tuning) {
         writePsg(fineReg, fineTune);
         writePsg(coarseReg, coarseTune);
     }
-    
+
     return;
 }
 
@@ -102,14 +107,15 @@ void setTone(int channel, int tuning) {
     Sets the NoiseReg tone with the given tuning value.
 
     input:
-        tuning  -   
+        tuning  -
     output:
         Void.
 -------------------------------------------------------------------
 */
-void setNoise(int tuning) {
+void setNoise(int tuning)
+{
     writePsg(NoiseReg, tuning);
-    
+
     printf("setNoise\n");
 
     return;
@@ -130,9 +136,10 @@ void setNoise(int tuning) {
         Void.
 -------------------------------------------------------------------
 */
-void setVolume(int channel, int volume) {
-    
-    writePsg(channel+ GotoVolume, volume);
+void setVolume(int channel, int volume)
+{
+
+    writePsg(channel + GotoVolume, volume);
 
     printf("set_volume\n");
 
@@ -143,7 +150,7 @@ void setVolume(int channel, int volume) {
 -------------------------------------------------------------------
     function: set_envelope
 
-    Configures the envelope and sustain level for the PSG. 
+    Configures the envelope and sustain level for the PSG.
     Writes to the PSG to set the envelope's shape and sustain.
 
     input:
@@ -153,7 +160,8 @@ void setVolume(int channel, int volume) {
         Void.
 -------------------------------------------------------------------
 */
-void setEnvelope(int shape, unsigned int sustain) {
+void setEnvelope(int shape, unsigned int sustain)
+{
     writePsg(1, 1);
 
     printf("setEnvelope\n");
@@ -177,13 +185,16 @@ void setEnvelope(int shape, unsigned int sustain) {
         Void.
 -------------------------------------------------------------------
 */
-void enableChannel(int channel, int toneOn, int noiseOn) {
+void enableChannel(int channel, int toneOn, int noiseOn)
+{
     UINT8 value = 0x3F;
-    if (toneOn == ON) {
+    if (toneOn == ON)
+    {
         value = value & ~(1 << channel);
     }
 
-    if (noiseOn == ON) {
+    if (noiseOn == ON)
+    {
         value = value & ~(1 << channel + 3);
     }
 
@@ -206,6 +217,7 @@ void enableChannel(int channel, int toneOn, int noiseOn) {
         Void.
 -------------------------------------------------------------------
 */
-void stopSound(){
-    writePsg(Mixer,0x3F);
+void stopSound()
+{
+    writePsg(Mixer, 0x3F);
 }
