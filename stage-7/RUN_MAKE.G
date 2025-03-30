@@ -1,4 +1,4 @@
-foreach i { $< }
+foreach i { music effects psg tst_psg }
 	if { -f $i.tos }
 		echo Rm $i.tos
 		Rm $i.tos
