@@ -87,6 +87,7 @@ void setTone(int channel, int tuning)
 
     if (channel >= ChannelA && channel <= ChannelC)
     {
+
         fineReg = fineRegisters[channel];
         coarseReg = coarseRegisters[channel];
 
@@ -114,9 +115,10 @@ void setTone(int channel, int tuning)
 */
 void setNoise(int tuning)
 {
-    writePsg(NoiseReg, tuning);
-
-
+    if (0 <= tuning && tuning <= 31)
+    {
+        writePsg(NoiseReg, tuning);
+    }
     return;
 }
 
@@ -151,18 +153,63 @@ void setVolume(int channel, int volume)
     Configures the envelope and sustain level for the PSG.
     Writes to the PSG to set the envelope's shape and sustain.
 
+    HOLD - Holds at max or min volume
+    ALT  - Alternate between high and low
+    ATT  - Gradual increase to full vol
+    CONT - Continuous loop
+
     input:
-        shape   -  envelope's shape
-        sustain -  The sustain level
+        shape   -  gives the register with the given shape
+        sustain -  16-bit value loaded into the fine and 
+                    coarse envelope register
     output:
         Void.
 -------------------------------------------------------------------
 */
 void setEnvelope(int shape, unsigned int sustain)
 {
-    writePsg(1, 1);
+    int fine = 0x00F & sustain;
+    int coarse = sustain >> 8;
 
+    UINT8 shapeMask = 0x00;
 
+    switch (shape) 
+    {
+        case Hold:
+            if (sustain > 0) 
+            {
+                shapeMask |= MaskHold;
+            }
+            break;
+
+        case Alt:
+            if (sustain > 0) 
+            {
+                shapeMask |= MaskAlt;
+            }
+            break;
+        
+        case Att:
+            if (sustain > 0) 
+            {
+                shapeMask |= MaskAtt;
+            }
+            break;
+
+        case Cont:
+            if (sustain > 0) 
+            {
+                shapeMask |= MaskCont;
+            }
+            break;
+        
+        default:
+            break;
+    }
+    
+    writePsg(EnvelopeShape, shapeMask);
+    writePsg(EnvelopeFine, fine);
+    writePsg(EnvelopeCoarse, coarse);
     return;
 }
 
@@ -215,5 +262,6 @@ void enableChannel(int channel, int toneOn, int noiseOn)
 */
 void stopSound()
 {
-    writePsg(Mixer, 0x3F);
+    writePsg(Mixer, 0x3F); 
+    return;
 }

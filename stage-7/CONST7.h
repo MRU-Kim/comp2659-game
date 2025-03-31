@@ -48,4 +48,20 @@ Professor     	Steve Kalmar
 #define NoiseReg 6
 #define GotoVolume 8
 
+/* envelope shapes and masks */
+#define Hold 0
+#define Alt 1
+#define Att 2
+#define Cont 3
+#define Non 15
+
+#define MaskHold 0x01
+#define MaskAlt 0x02
+#define MaskAtt 0x04
+#define MaskCont 0x08
+
+#define EnvelopeShape 0x0D
+#define EnvelopeFine 0x0B
+#define EnvelopeCoarse 0x0C
+
 #endif
