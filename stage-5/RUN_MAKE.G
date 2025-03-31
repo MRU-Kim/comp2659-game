@@ -1,4 +1,4 @@
-foreach i {raster font objects model events render clock input dino}
+foreach i {raster font objects model events render clock input dino psg music effects}
 	if { -f $i.tos }
 		echo Rm $i.tos
 		Rm $i.tos
@@ -28,9 +28,15 @@ cp render.o "..\stage-5"
 
 cp render.o "..\stage-5"
 
+cd ..\stage-7
 
-cd ..
-cd stage-5
+cp music.o "..\stage-5"
+cp psg.o "..\stage-5"
+cp effects.o "..\stage-5"
+
+
+
+cd ..\stage-5
 
 cc68x -g -c -I ../stage-2 -I ../stage-3 -I ../stage-4 input.c
 

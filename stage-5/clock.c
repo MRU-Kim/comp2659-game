@@ -10,9 +10,10 @@ Professor     	Steve Kalmar
 #include "osbind.h"
 #include "../stage-2/const.h"
 
+
 UINT32 get_Time()
 {
-    long volatile *timer = (long *)0x462;
+    long volatile *timer = (long *)VBlankCountAdd;
     long timeNow;
     long oldSsp = Super(0);
     timeNow = *timer;
@@ -22,7 +23,7 @@ UINT32 get_Time()
 
 void waitVBlank()
 {
-    long volatile *VBlankCounter = (long*)0x462;
+    long volatile *VBlankCounter = (long*)VBlankCountAdd;
     long countNow, countThen;
     long oldSsp = Super(0);
     countNow = *VBlankCounter;

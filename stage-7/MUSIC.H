@@ -13,16 +13,14 @@ Professor       Steve Kalmar
 
 typedef struct{
   int value;
-  int time;
+  int duration;
 } note;
 
 typedef struct{
-  note theMainMusic[30];
+  note arrangment[NoteAMT];
   int index;
-  long previousTime;
+  UINT32 previousTime;
 } song;
 
 void startMusic();
-void updateMusic();
-void helpInitialize();
-long getTime();
+void updateMusic(UINT32 time_elapsed);

@@ -1,4 +1,4 @@
-foreach i { music effects psg tst_psg }
+foreach i { music effects psg tst_psg clock}
 	if { -f $i.tos }
 		echo Rm $i.tos
 		Rm $i.tos
@@ -8,4 +8,13 @@ foreach i { music effects psg tst_psg }
 		Rm $i.o
 	endif
 endfor
+
+
+
+cd ..\stage-5
+
+cp clock.o ..\stage-7
+
+cd ..\stage-7
+
 make

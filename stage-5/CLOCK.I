@@ -6,7 +6,7 @@ typedef unsigned char UINT8;
 typedef unsigned int  UINT16;
 typedef unsigned long UINT32;
 typedef int bool;
-# 12 "./clock.h" 2
+# 15 "./clock.h" 2
 
 
 UINT32 get_Time();
@@ -178,9 +178,10 @@ typedef struct
 # 11 "clock.c" 2
 
 
+
 UINT32 get_Time()
 {
-    long volatile *timer = (long *)0x462;
+    long volatile *timer = (long *)0x462 ;
     long timeNow;
     long oldSsp = _trap_1_wl((short)0x20,(long)(0)) ;
     timeNow = *timer;
@@ -190,7 +191,7 @@ UINT32 get_Time()
 
 void waitVBlank()
 {
-    long volatile *VBlankCounter = (long*)0x462;
+    long volatile *VBlankCounter = (long*)0x462 ;
     long countNow, countThen;
     long oldSsp = _trap_1_wl((short)0x20,(long)(0)) ;
     countNow = *VBlankCounter;

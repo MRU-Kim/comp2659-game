@@ -116,7 +116,6 @@ void setNoise(int tuning)
 {
     writePsg(NoiseReg, tuning);
 
-    printf("setNoise\n");
 
     return;
 }
@@ -141,7 +140,6 @@ void setVolume(int channel, int volume)
 
     writePsg(channel + GotoVolume, volume);
 
-    printf("set_volume\n");
 
     return;
 }
@@ -164,7 +162,6 @@ void setEnvelope(int shape, unsigned int sustain)
 {
     writePsg(1, 1);
 
-    printf("setEnvelope\n");
 
     return;
 }
@@ -200,7 +197,6 @@ void enableChannel(int channel, int toneOn, int noiseOn)
 
     writePsg(Mixer, value);
 
-    printf("enableChannel\n");
 
     return;
 }

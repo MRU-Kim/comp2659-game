@@ -1,25 +1,24 @@
 #include "psg.h"
 #include "music.h"
 #include "effects.h"
+#include "../stage-5/clock.h"
 
-int main() {
+int main()
+{
 
-    
     int i;
+    UINT32 timeThen, timeNow, timeElapsed;
 
-    helpInitialize();
+
     startMusic();
-    while(!Cconis()){
-        for(i=0; i <26;i++){
-            updateMusic();
-        }
-        helpInitialize();
-        startMusic();
+    while (!Cconis())
+    {
+        timeNow = get_Time();
+        updateMusic(timeNow);
     }
-    
-
+    /*
     initPsg();
     playJumpSound();
     playDeathSound();
-    return 0;
+    */return 0;
 }

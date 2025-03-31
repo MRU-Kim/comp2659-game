@@ -1,5 +1,5 @@
 /*
-Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino 
+Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino
 Course name   	COMP 2659-002
 Stage	    	Stage 2
 Deadline        February 10, 2024
@@ -10,15 +10,17 @@ Professor     	Steve Kalmar
 #ifndef CONST7_H
 #define CONST7_H
 
-typedef unsigned char UINT8;
-typedef unsigned int  UINT16;
-typedef unsigned long UINT32;
+#define NoteAMT 30
+#define TimeSig 70
+#define Whole TimeSig/1
+#define Half TimeSig/2
+#define Quarter TimeSig/4
 
-#define OFF                 0
-#define ON                  1
-#define Mixer               7
-#define PSGSelectAddress    0xFF8800
-#define PSGWriteAddress     0xFF8802
+#define OFF 0
+#define ON 1
+#define Mixer 7
+#define PSGSelectAddress 0xFF8800
+#define PSGWriteAddress 0xFF8802
 
 /* notes */
 #define C5 0x06B
@@ -32,18 +34,18 @@ typedef unsigned long UINT32;
 #define Pause 0
 
 /* Channels */
-#define ChannelA            0
-#define ChannelB            1
-#define ChannelC            2
+#define ChannelA 0
+#define ChannelB 1
+#define ChannelC 2
 
 /* fine and coarse registers of each channels */
-#define AFine               ChannelA
-#define ACoarse             ChannelA + 1
-#define BFine               ChannelB + 1
-#define BCoarse             ChannelB + 2
-#define CFine               ChannelC + 2
-#define CCoarse             ChannelC + 3
-#define NoiseReg            6
-#define GotoVolume          8
+#define AFine ChannelA
+#define ACoarse ChannelA + 1
+#define BFine ChannelB + 1
+#define BCoarse ChannelB + 2
+#define CFine ChannelC + 2
+#define CCoarse ChannelC + 3
+#define NoiseReg 6
+#define GotoVolume 8
 
 #endif

@@ -2,7 +2,8 @@ Stage-2 = objects.o raster.o font.o
 Stage-3 = model.o events.o
 Stage-4 = render.o
 Stage-5	= dino.o clock.o input.o
-DEPENDNACIES =  $(Stage-2) $(Stage-3) $(Stage-4) $(Stage-5)
+Stage-7 = music.o effects.o psg.o
+DEPENDNACIES =  $(Stage-2) $(Stage-3) $(Stage-4) $(Stage-5) $(Stage-7)
 
 
 dino: $(DEPENDNACIES)

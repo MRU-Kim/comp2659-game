@@ -20,7 +20,7 @@ Professor       Steve Kalmar
 
 #include "PSG.H"
 #include "EFFECTS.H"
-#include "MUSIC.H" 
+#include "MUSIC.H"
 #include "CONST7.h"
 
 /*
@@ -28,7 +28,7 @@ Professor       Steve Kalmar
     function: initPsg
     Resets the register and its value to 0x00; turns all Channels
     A, B, and C off; sets the Channels' Volume to 0x00; and noise
-    to 0x00. 
+    to 0x00.
 
     input:
         None.
@@ -36,25 +36,24 @@ Professor       Steve Kalmar
         Void.
 -------------------------------------------------------------------
 */
-void initPsg() {
+void initPsg()
+{
     int i;
 
-    for(i=0; i<16; i++) {
-        writePsg(i,0x00);
-        printf("reset register\n");
+    for (i = 0; i < 16; i++)
+    {
+        writePsg(i, 0x00);
     }
 
     enableChannel(ChannelA, OFF, OFF);
     enableChannel(ChannelB, OFF, OFF);
     enableChannel(ChannelC, OFF, OFF);
 
-    setVolume(ChannelA,0x00);
-    setVolume(ChannelB,0x00);
-    setVolume(ChannelC,0x00);
+    setVolume(ChannelA, 0x00);
+    setVolume(ChannelB, 0x00);
+    setVolume(ChannelC, 0x00);
 
     setNoise(0x00);
-
-    printf("PSG initialized\n");
 
 }
 /*
@@ -69,42 +68,35 @@ void initPsg() {
         Void.
 -------------------------------------------------------------------
 */
-void playJumpSound() {
+void playJumpSound()
+{
     long startTime, nowTime;
     int jumpTone = G5;
 
-    startTime=getTime();
-    nowTime=getTime();
 
-    setEnvelope(0x09,0x2000);
+    setEnvelope(0x09, 0x2000);
 
-    while ((nowTime-startTime) < (64/2)) {
+    while ((nowTime - startTime) < (TimeSig / 2))
+    {
         setTone(ChannelA, jumpTone);
-        enableChannel(ChannelA, ON, OFF); 
-        setVolume(ChannelA, 12);  
-        nowTime = getTime();
+        enableChannel(ChannelA, ON, OFF);
+        setVolume(ChannelA, 12);
     }
-    printf("JUMP\n");
     stopSound();
 }
 
-void playDeathSound() {
+void playDeathSound()
+{
     long startTime, nowTime;
     int jumpTone = F5;
 
-    startTime=getTime();
-    nowTime=getTime();
+    setEnvelope(0x09, 0x7000);
 
-    setEnvelope(0x09,0x7000);
-
-    while ((nowTime-startTime) < (64/2)) {
+    while ((nowTime - startTime) < (TimeSig / 2))
+    {
         setTone(ChannelA, jumpTone);
-        enableChannel(ChannelA, ON, OFF); 
-        setVolume(ChannelA, 12);  
-        nowTime = getTime();
+        enableChannel(ChannelA, ON, OFF);
+        setVolume(ChannelA, 12);
     }
-    printf("DEAD\n");
     stopSound();
 }
-
-
