@@ -39,8 +39,7 @@ song theSong;
 /*
 -------------------------------------------------------------------
     function: startMusic
-    plays the current note for a specific duration based on the
-    duration value.
+    loads song sructure and starts the first note
 
     input:
         None.
@@ -71,8 +70,8 @@ void startMusic()
 /*
 -------------------------------------------------------------------
     function: updateMusic
-    updates the song by playing the next note. Checks if the note
-    is a pause and only plays the non-pause notes.
+    if the duration of the note playing has passed since the note started, plays the next note 
+    Checks if the note is a pause and only plays the non-pause notes.
 
     input:
         time - current value of the VB clock

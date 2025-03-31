@@ -35,38 +35,6 @@ Professor     	Steve Kalmar
         or NULL ('\0').
 -------------------------------------------------------------------
 */
-
-/*
-char getKey(char input)
-{
-    volatile UINT8 *const IKBD_control = 0xFFFC00;
-    volatile const UINT8 *const IKBD_status = 0xFFFC00;
-    volatile const SCANCODE *const IKBD_RDR = 0xFFFC02;
-
-    SCANCODE scanCode = 0;
-    char output = NULL;
-
-    long old_ssp = Super(0);
-    *IKBD_control = 0x16;
-
-    if (!(*IKBD_status & RDR_full))
-    {
-        scanCode = *IKBD_RDR;
-        *IKBD_control = default_control;
-    }
-
-    *IKBD_control = 0x96;
-    Super(old_ssp);
-
-    return output;
-
-    /*
-    if (Cconis()) {
-        return (char)Cnecin();
-    }
-
-    return NULL;
-}*/
 char getKey()
 {
     if (Cconis()) {
