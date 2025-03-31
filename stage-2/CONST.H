@@ -47,13 +47,13 @@ typedef int bool;
 #define AirCrouchSpeed 10
 #define JumpSpeed -5
 #define HitErrorMargin 2
-#define MileStoneScore 1000
-#define StartScrollSpeed 3
+#define MileStoneScore 500
+#define StartScrollSpeed 5
 
 /*cactus logic*/
 #define MaxCactus 10
 #define MinCacSpawnTime 50
-#define MaxCacSpawnTimeAdd 40
+#define MaxCacSpawnTimeAdd 20
 
 /*Animation logic*/
 #define DinoRunTimerLength 15

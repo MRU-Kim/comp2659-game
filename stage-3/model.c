@@ -224,7 +224,7 @@ void modelResetNonePersists(Model *model)
 
     model->gravTimer = GravityTime;
     modelResetCacSpawnTimer(model);
-    model->lastMilestone = 0;
+    model->nextMilestone = MileStoneScore;
     model->runTicksPassed = 0;
 }
 
@@ -260,7 +260,7 @@ void modelTicksPassedReset(Model *model)
 void modelResetCacSpawnTimer(Model *model)
 {
     model->ranNum = lfsr16(model->ranNum);
-    model->cacSpawnTimer = abs(model->ranNum % MaxCacSpawnTimeAdd) + MinCacSpawnTime; /*70 ticks in a second*/
+    model->cacSpawnTimer = abs(model->ranNum % MaxCacSpawnTimeAdd) + MinCacSpawnTime - (model->score.value/100); /*70 ticks in a second*/
 }
 
 /*helper functions*/

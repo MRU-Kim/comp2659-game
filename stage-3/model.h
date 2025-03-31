@@ -80,7 +80,7 @@ typedef struct {
     UINT16 gravTimer;
     bool hasInput;
 
-    int lastMilestone;
+    int nextMilestone;
     UINT16 runTicksPassed; /*redundant??*/
 } Model;
 

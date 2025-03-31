@@ -210,6 +210,7 @@ void evModelUpdate(Model *model)
         evScroll(model); /*move cactus and check if dino needs to die*/
         evCactusSpawn(model);
         evScoreIncrement(model);
+        evMilestone(model);
         modelIncrmentTick(model);
     }
 }
@@ -253,14 +254,16 @@ void evPlayerNeutal(Model *model)
 
 /* function: evMilestone
     after 1000 points increase the speed of the evScroll
+    then sets next milestone
     inputs:
     model - pointer to model
 */
 void evMilestone(Model *model)
 {
-    if (model->lastMilestone < model->score.value - MileStoneScore == 0)
+    if (model->nextMilestone < model->score.value)
     {
         model->scrollSpeed.delta_x++;
+        model->nextMilestone += MileStoneScore;
     }
 }
 /*function: evDeath
