@@ -14,14 +14,22 @@ typedef unsigned char UINT8;
 typedef unsigned int  UINT16;
 typedef unsigned long UINT32;
 
-int welcomeX = 200;
-int welcomeY = 300;
+#define true 1
+#define false 0
 
-int player1X = 200;
-int player1Y = 200;
+/* keyboard keys */
+#define UpKey   0x00480000L
+#define DownKey 0x00500000L
+#define EnterKey      0x0072000DL
 
-int player2X = 200;
-int player2Y = 100;
+/* plot strings */
+#define int welcomeX 200;
+#define int welcomeY 300;
+#define int player1X 200;
+#define int player1Y 200;
+#define int player2X 200;
+#define int player2Y 100;
+
 
 
 #endif

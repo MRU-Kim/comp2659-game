@@ -7,36 +7,43 @@ File name       splash.c
 Professor     	Steve Kalmar
 */
 
-void welcomeScreen(){
-    unsigned long input = 0; 
+#include "splash.h"
+#include "CONST8.h"
+#include "input.h"
+
+void welcomeScreen()
+{
+    char playerOneString[11] = {'O','n','e',' ','P','l','a','y','e','r','\n'};
+    char playerTwoString[12] = {'T','w','o',' ','P','l','a','y','e','r','s','\n'};
+    char quitString[5] = {'Q','u','i','t','\n'};
+    UINT8 *base8 = Physbase();
+    bool quit = false;
+    long input = 0; 
+    int result = 0;
+
     
-    int userChoice = MENU_CHOICE_1;
-    int prevChoice = userChoice;
+    initializeSplashScreen(base8, playerOneString, playerTwoString, quitString);
 
-    drawArrow(userChoice);
-
-    while (1) { 
-        if (hasUserInput()) {
-            input = getUserInput();
-            prevChoice = userChoice;
+    while (!quit) 
+    { 
+        if (getKey()) 
+        {
+            input = getKey();
 
             switch (input) {
-                case UP_KEY:
-                    if (userChoice > MENU_CHOICE_1) {
+                case UpKey:
+                    if (userChoice > MenuChoice1) {
                         userChoice--;
                     }
                     break;
-                case DOWN_KEY:
-                    if (userChoice < MENU_CHOICE_2) {
+                case DownKey:
+                    if (userChoice < MenuChoice2) {
                         userChoice++;
                     }
                     break;
-                case ENTER_KEY:
+                case EnterKey:
                     selectOption(userChoice);
                     return; 
-                case Q_KEY:
-                    selectOption(MENU_CHOICE_2); 
-                    return;
                 default:
                     break;
             }
