@@ -73,6 +73,7 @@ void playJumpSound()
 
     setNoise(15);
 
+    setTone(ChannelB,G5);
     setEnvelope(0x9, 0x1000);
 
     setVolume(ChannelB+GotoVolume,16); /*set mode to one*/
@@ -82,15 +83,11 @@ void playJumpSound()
 
 void playDeathSound()
 {
-    enableChannel(ChannelC, OFF, ON);
-
-    setNoise(15);
-
-    setTone(ChannelC,G5);
-
-    setEnvelope(0xF, 0x1100);
+    enableChannel(ChannelC, ON, OFF);
+/*    setNoise(10);
+*/
+    setTone(ChannelC,F5Sharp);
+    setEnvelope(4, 0x1000);
 
     setVolume(ChannelC+GotoVolume,16); /*set mode to one*/
-
-
 }

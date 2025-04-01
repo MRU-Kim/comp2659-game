@@ -22,11 +22,15 @@ int main()
 
    playJumpSound();
     Cnecin();
+    playJumpSound();
+    Cnecin();
+    playJumpSound();
+    Cnecin();
+    playJumpSound();
+    Cnecin();
     playDeathSound();
     Cnecin();
-    Cnecin();
     playDeathSound();
-    Cnecin();
     Cnecin();
     playDeathSound();
     Cnecin();
