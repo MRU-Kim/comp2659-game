@@ -208,27 +208,35 @@ void enableChannel(UINT16 channel, int toneOn, int noiseOn)
     else if(channel == ChannelC)
     {
         value = 4;
-        /*printf("jbkfgdbjkfdsuijkh\n");*/
+        printf("select C\n");
 
     }
     else
     {
         value = 0;
+        printf("bad select\n");
+
     }
     /*return of both noise and tone are on, else shift value for noise, else use value*/
     if (toneOn && noiseOn )
     {
+        printf("nois tone");
+
         return;
     }
-    else if (!(toneOn && noiseOn))
+    else if (!toneOn && !noiseOn)
     {
+        printf("not nois tone");
+
         value = 0;
     }
     else if (noiseOn)
     {
+        printf("nois");
+
         value = value << 3;
     }
-    printf("%x\n", value);
+    /*printf("%x\n", value);*/
     writePsg(Mixer, value);
 
     return;
