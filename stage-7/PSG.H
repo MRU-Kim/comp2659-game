@@ -24,8 +24,8 @@ UINT8 readPsg(int reg);
 void setTone(int channel, int tuning);
 void setNoise(int tuning);
 void setVolume(int channel, int volume);
-void setEnvelope(int shape, unsigned int sustain);
-void enableChannel(int channel, int toneOn, int noiseOn);
+void setEnvelope(UINT8 shape, UINT16 sustain);
+void enableChannel(UINT16 channel, int toneOn, int noiseOn);
 void stopSound();
 
 

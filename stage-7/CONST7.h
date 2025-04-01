@@ -33,20 +33,23 @@ Professor     	Steve Kalmar
 #define F5 0x0A0
 #define Pause 0
 
-/* Channels */
+/* Channelregisters */
 #define ChannelA 0
 #define ChannelB 1
-#define ChannelC 2
+#define ChannelC 3
 
 /* fine and coarse registers of each channels */
 #define AFine ChannelA
 #define ACoarse ChannelA + 1
-#define BFine ChannelB + 1
-#define BCoarse ChannelB + 2
-#define CFine ChannelC + 2
-#define CCoarse ChannelC + 3
+#define BFine ChannelB
+#define BCoarse ChannelB 1
+#define BLevel  9
+#define CFine ChannelC
+#define CCoarse ChannelC + 1
 #define NoiseReg 6
 #define GotoVolume 8
+
+/**/
 
 /* envelope shapes and masks */
 #define Hold 0

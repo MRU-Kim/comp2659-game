@@ -19,6 +19,7 @@ Professor       Steve Kalmar
 */
 
 #include "CONST7.h"
+#include "..\stage-2\CONST.H"
 #include "PSG.H"
 
 /*
@@ -142,7 +143,6 @@ void setVolume(int channel, int volume)
 
     writePsg(channel + GotoVolume, volume);
 
-
     return;
 }
 
@@ -151,7 +151,7 @@ void setVolume(int channel, int volume)
     function: set_envelope
 
     Configures the envelope and sustain level for the PSG.
-    Writes to the PSG to set the envelope's shape and sustain.
+    Writes to the PSG to set the envelope's shape and sustain for channel B.
 
     HOLD - Holds at max or min volume
     ALT  - Alternate between high and low
@@ -160,54 +160,18 @@ void setVolume(int channel, int volume)
 
     input:
         shape   -  gives the register with the given shape
-        sustain -  16-bit value loaded into the fine and 
+        sustain -  16-bit value loaded into the fine and
                     coarse envelope register
     output:
         Void.
 -------------------------------------------------------------------
 */
-void setEnvelope(int shape, unsigned int sustain)
+void setEnvelope(UINT8 shape, UINT16  sustain)
 {
-    int fine = 0x00F & sustain;
-    int coarse = sustain >> 8;
+    UINT16 fine = 0x00FF & sustain;
+    UINT16 coarse = sustain >> 8;
 
-    UINT8 shapeMask = 0x00;
-
-    switch (shape) 
-    {
-        case Hold:
-            if (sustain > 0) 
-            {
-                shapeMask |= MaskHold;
-            }
-            break;
-
-        case Alt:
-            if (sustain > 0) 
-            {
-                shapeMask |= MaskAlt;
-            }
-            break;
-        
-        case Att:
-            if (sustain > 0) 
-            {
-                shapeMask |= MaskAtt;
-            }
-            break;
-
-        case Cont:
-            if (sustain > 0) 
-            {
-                shapeMask |= MaskCont;
-            }
-            break;
-        
-        default:
-            break;
-    }
-    
-    writePsg(EnvelopeShape, shapeMask);
+    writePsg(EnvelopeShape, shape);
     writePsg(EnvelopeFine, fine);
     writePsg(EnvelopeCoarse, coarse);
     return;
@@ -229,21 +193,40 @@ void setEnvelope(int shape, unsigned int sustain)
         Void.
 -------------------------------------------------------------------
 */
-void enableChannel(int channel, int toneOn, int noiseOn)
+void enableChannel(UINT16 channel, int toneOn, int noiseOn)
 {
-    UINT8 value = 0x3F;
-    if (toneOn == ON)
-    {
-        value = value & ~(1 << channel);
-    }
+    UINT16 value;
 
-    if (noiseOn == ON)
+    if (channel == ChannelA)
     {
-        value = value & ~(1 << channel + 3);
+        value = 1;
     }
+    else if(channel == ChannelB)
+    {
+        value = 2;
+    }
+    else if(channel == ChannelC)
+    {
+        value = 4;
+        printf("jbkfgdbjkfdsuijkh\n");
+    }
+    else
+    {
+        value = 0;
+    }
+    /*return of both noise and tone are on, else shift value for noise, else use value*/
+    if (toneOn && noiseOn || !(toneOn && noiseOn))
+    {
+        return;
+    }
+    else if (noiseOn)
+    {
+        value = value << 3;
+    }
+    
+    printf("%x\n", value);
 
     writePsg(Mixer, value);
-
 
     return;
 }
@@ -262,6 +245,6 @@ void enableChannel(int channel, int toneOn, int noiseOn)
 */
 void stopSound()
 {
-    writePsg(Mixer, 0x3F); 
+    writePsg(Mixer, 0x3F);
     return;
 }

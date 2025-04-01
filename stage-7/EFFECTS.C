@@ -54,7 +54,6 @@ void initPsg()
     setVolume(ChannelC, 0x00);
 
     setNoise(0x00);
-
 }
 /*
 -------------------------------------------------------------------
@@ -70,33 +69,28 @@ void initPsg()
 */
 void playJumpSound()
 {
-    long startTime, nowTime;
-    int jumpTone = G5;
+    enableChannel(ChannelB, OFF, ON);
+
+    setNoise(15);
+
+    setEnvelope(0x9, 0x1000);
+
+    setVolume(ChannelB+GotoVolume,16); /*set mode to one*/
 
 
-    setEnvelope(0x09, 0x2000);
-
-    while ((nowTime - startTime) < (TimeSig / 2))
-    {
-        setTone(ChannelA, jumpTone);
-        enableChannel(ChannelA, ON, OFF);
-        setVolume(ChannelA, 12);
-    }
-    stopSound();
 }
 
 void playDeathSound()
 {
-    long startTime, nowTime;
-    int jumpTone = F5;
+    enableChannel(ChannelC, OFF, ON);
 
-    setEnvelope(0x09, 0x7000);
+    setNoise(15);
 
-    while ((nowTime - startTime) < (TimeSig / 2))
-    {
-        setTone(ChannelA, jumpTone);
-        enableChannel(ChannelA, ON, OFF);
-        setVolume(ChannelA, 12);
-    }
-    stopSound();
+    setTone(ChannelC,G5);
+
+    setEnvelope(0xF, 0x1100);
+
+    setVolume(ChannelC+GotoVolume,16); /*set mode to one*/
+
+
 }
