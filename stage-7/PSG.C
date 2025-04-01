@@ -228,7 +228,7 @@ void enableChannel(UINT16 channel, int toneOn, int noiseOn)
     {
         value = value << 3;
     }
-    /*printf("%x\n", value);*/
+    printf("%x\n", value);
     writePsg(Mixer, value);
 
     return;
