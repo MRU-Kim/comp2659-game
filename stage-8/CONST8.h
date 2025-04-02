@@ -18,9 +18,9 @@ typedef unsigned long UINT32;
 #define false 0
 
 /* keyboard keys */
-#define UpKey   0x00480000L
+#define UpKey 0x00480000L
 #define DownKey 0x00500000L
-#define EnterKey      0x0072000DL
+#define EnterKey 0x0072000DL
 
 /* plot strings */
 #define int welcomeX 200;

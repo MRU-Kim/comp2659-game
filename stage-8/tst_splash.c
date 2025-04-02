@@ -6,9 +6,9 @@ int main()
 {
     UINT8 *base = Physbase();
 
+    Cnecin();
     clearScreen(base);
-
-    void printString(base, player1X, player1Y, "1 Player");
-    void printString(base, player2X, player2Y, "2 Players");
-    void printString(base, welcomeX, welcomeY, "Quit");    
+    Cnecin();
+    welcomeScreen();
+    Cnecin();
 }
