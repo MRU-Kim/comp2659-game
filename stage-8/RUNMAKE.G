@@ -1,4 +1,4 @@
-foreach i { splash splashtst }
+foreach i { splash splsh raster }
 	if { -f $i.tos }
 		echo Rm $i.tos
 		Rm $i.tos
