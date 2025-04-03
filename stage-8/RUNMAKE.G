@@ -1,4 +1,4 @@
-foreach i { splash }
+foreach i { splash splashtst }
 	if { -f $i.tos }
 		echo Rm $i.tos
 		Rm $i.tos
@@ -8,5 +8,11 @@ foreach i { splash }
 		Rm $i.o
 	endif
 endfor
+
+cd ..\stage-2
+
+cp raster.o ..\stage-8
+
+cd ..\stage-8
 
 make

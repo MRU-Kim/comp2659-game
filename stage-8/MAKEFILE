@@ -1,8 +1,12 @@
-tst_splash: tst_splash.o splash.o
-	cc68x -g tst_splash.o splash.o -o tst_splash
+splashtst: splashtst.o splash.o raster.o objects.o
+	cc68x -g splashtst.o splash.o -o tstsplash
 
-tst_splash.o: tst_splash.c splash.h
-	cc68x -g -c tst_splash.c
+splashtst.o: splashtst.c splash.h raster.h objects.h
+	cc68x -g -c splashtst.c
 
-splash.o: splash.c splash.h
+splash.o: splash.c splash.h input.h
 	cc68x -g -c splash.c
+
+raster.o: raster.c raster.h
+	cc68x -g -c -I..\stage-2 raster.c
+
