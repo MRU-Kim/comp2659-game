@@ -38,12 +38,6 @@ Professor       Steve Kalmar
 */
 void initPsg()
 {
-    int i;
-
-    for (i = 0; i < 16; i++)
-    {
-        writePsg(i, 0x00);
-    }
 
     enableChannel(ChannelA, OFF, OFF);
     enableChannel(ChannelB, OFF, OFF);
@@ -69,25 +63,25 @@ void initPsg()
 */
 void playJumpSound()
 {
-    enableChannel(ChannelB, OFF, ON);
+    enableChannel(ChannelB, ON, ON);
 
     setNoise(15);
 
     setTone(ChannelB,G5);
     setEnvelope(0x9, 0x1000);
 
-    setVolume(ChannelB+GotoVolume,16); /*set mode to one*/
+    setVolume(ChannelB,16); /*set mode to one*/
 
 
 }
 
 void playDeathSound()
 {
-    enableChannel(ChannelC, ON, OFF);
-/*    setNoise(10);
-*/
+    enableChannel(ChannelC, ON, ON);
+    setNoise(10);
+
     setTone(ChannelC,F5Sharp);
     setEnvelope(4, 0x1000);
 
-    setVolume(ChannelC+GotoVolume,16); /*set mode to one*/
+    setVolume(ChannelC,16); /*set mode to one*/
 }

@@ -11,16 +11,16 @@ int main()
     initPsg();
 
     /*
-        startMusic();
-        while (!Cconis())
-        {
-            timeNow = get_Time();
-            updateMusic(timeNow);
-        }
-    */
-   Cnecin();
+    startMusic();
+    while (!Cconis())
+    {
+        timeNow = get_Time();
+        updateMusic(timeNow);
+    }
 
-   playJumpSound();
+    Cnecin();
+*/
+    playJumpSound();
     Cnecin();
     playJumpSound();
     Cnecin();

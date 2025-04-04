@@ -54,17 +54,28 @@ void writePsg(int reg, UINT8 val)
 /*
 -------------------------------------------------------------------
     function: readPsg
-    -
+    Returns contents of Register
     input:
         reg  -  value of PSG register.
     output:
-        Void.
+        regContent value of contents of register
 -------------------------------------------------------------------
 */
 UINT8 readPsg(int reg)
 {
-    /* optional */
-    return reg;
+    volatile char *regSelect = PSGSelectAddress;
+    UINT8 regContent = 0;
+    long oldSsp = Super(0);
+
+    if (reg >= 0 && reg <= 15)
+    {
+        *regSelect = reg;
+        regContent = *regSelect;
+    }
+
+    Super(oldSsp);
+
+    return regContent;
 }
 
 /*
@@ -193,50 +204,36 @@ void setEnvelope(UINT8 shape, UINT16  sustain)
         Void.
 -------------------------------------------------------------------
 */
-void enableChannel(UINT16 channel, int toneOn, int noiseOn)
-{
-    UINT16 value;
+void enableChannel(UINT16 channel, int toneOn, int noiseOn) {
+    UINT8 value = readPsg(Mixer);
+    UINT8 mask = 0;
+    printf("read val   %x\n", value);
 
-    if (channel == ChannelA)
-    {
-        value = 1;
-    }
-    else if(channel == ChannelB)
-    {
-        value = 2;
-    }
-    else if(channel == ChannelC)
-    {
-        value = 4;
-        printf("select C\n");
 
+    mask = 1<<channel;
+    if (toneOn) {
+        mask = ~mask;
+        value &= mask;
     }
     else
     {
-        value = 0;
-        printf("bad select\n");
-
+        value |= mask;
     }
-    /*return of both noise and tone are on, else shift value for noise, else use value*/
-    if (toneOn && noiseOn )
+    printf("tone mask   %x\n", mask);
+    
+    mask = 8<<channel;
+    if (noiseOn)
     {
-        printf("nois tone");
-
-        return;
+        value &= ~mask;
     }
-    else if (!toneOn && !noiseOn)
+    else
     {
-        printf("not nois tone");
-
-        value = 0;
+        value |= mask;
     }
-    else if (noiseOn)
-    {
-        printf("nois");
+    printf("noise mask  %x\n", mask);
 
-        value = value << 3;
-    }
-    /*printf("%x\n", value);*/
+    printf("value   %x\n", value);
+    
     writePsg(Mixer, value);
 
     return;
