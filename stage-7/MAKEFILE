@@ -11,7 +11,7 @@ tst_psg: $(Stage-7) tst_psg.o clock.o
 	cc68x -g $(Stage-7) tst_psg.o clock.o -o tst_psg
 
 dino: $(DEPENDNACIES) dino.o
-	cc68x -g $(DEPENDNACIES) dino.o -o dino
+	cc68x -g $(DEPENDNACIES) music.o psg.o effects.o dino.o -o dino
 dino.o: dino.c
 	cc68x -g -c -I ../stage-2 -I ../stage-3 -I ../stage-4 -I ../stage-5 dino.c	
 
@@ -20,12 +20,12 @@ tst_psg.o: tst_psg.c psg.h
 
 psg.o: psg.c
 	cc68x -g -c psg.c
-	
+
 music.o: music.c
 	cc68x -g -c -I../stage-5 music.c
 
-effect.o: effects.c
-	cc68x -g -c effects.cs
+effects.o: effects.c
+	cc68x -g -c effects.c
 
 events.o: events.c events.h
 	cc68x -g -c events.c

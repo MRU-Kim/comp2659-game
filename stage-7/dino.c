@@ -18,7 +18,7 @@ Professor     	Steve Kalmar
 
 #include "../stage-2/const.h"
 #include "events.h"
-#include "../stage-3/model.h"
+#include "model.h"
 #include "../stage-4/render.h"
 #include "MUSIC.H"
 
