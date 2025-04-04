@@ -7,6 +7,8 @@ splsh.o: splsh.c
 splash.o: splash.c
 	cc68x -g -c -I..\stage-5 splash.c
 
-raster.o: raster.c raster.h
-	cc68x -g -c -I..\stage-2 raster.c
+#raster.o: raster.c 
+#	cc68x -g -c -I..\stage-2 raster.c
 
+raster.o: raster.c raster.h font.h const.h
+	cc68x -g -c -I..\stage-2 font.o const.o raster.c 

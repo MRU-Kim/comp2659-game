@@ -401,6 +401,69 @@ void clearHorizontalLine(UINT8 *base, int y)
     }
 }
 /*
+    function: plotRectangle
+
+    Plots a rectangle by calling plotHorizontalLine in "height" times.
+
+    inputs:
+        base   - pointer to starting address of framebuffer
+        x      - horizontal coordinate
+        y      - vertical coordinate
+        width  - width of the rectangle
+        height - the times plotHorizontalLine will be called
+    output:
+        Void.
+
+*/
+void plotRectangle(UINT8 *base, int x, int y, int width, int height)
+{
+    UINT8 *draw = base;
+    int i = 0;
+    int leftShift = (x % 32);
+    int rightShift = (32 - ((width - (32 - leftShift)) % 32));
+
+    for (i = 0; i < height; i++)
+    {
+        plotHorizontalLine(draw, y);
+        draw += 20;
+
+    }
+    
+    return;
+}
+
+/*
+    function: clearRectangle
+
+    Clears a rectangle by calling clearHorizontalLine in "height" times.
+
+    inputs:
+        base   - pointer to starting address of framebuffer
+        x      - horizontal coordinate
+        y      - vertical coordinate
+        width  - width of the rectangle
+        height - the times clearHorizontalLine will be called
+    output:
+        Void.
+
+*/
+
+void clearRectangle(UINT8 *base, int x, int y, int width, int height)
+{
+    UINT8 *clean = base;
+    int i = 0;
+
+    for (i = 0; i < height; i++)
+    {
+        clearHorizontalLine(clean, y);
+        clean += 80;
+    }
+
+    return;
+}
+
+
+/*
     function: printChar
 
     Plots a bitmap character to the screen using font.h.

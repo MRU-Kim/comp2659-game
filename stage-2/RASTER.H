@@ -27,6 +27,8 @@ void plot16Bitmap(UINT8 *base, UINT16 bitmap[], int x, int y, int height);
 void plotHorizontalLine (UINT8 *base, int y);
 void clearHorizontalLine(UINT8* base, int y);
 
+void plotRectangle(UINT8 *base, int x, int y, int width, int height);
+void clearRectangle(UINT8 *base, int x, int y, int width, int height);
 
 void printChar(UINT8 *base, int x, int y, char ch);
 void printString(UINT8 *base, int x, int y, char *string);
