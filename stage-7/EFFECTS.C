@@ -81,7 +81,7 @@ void playDeathSound()
     setNoise(10);
 
     setTone(ChannelC,F5Sharp);
-    setEnvelope(4, 0x1000);
+    setEnvelope(0x9, 0x7000);
 
     setVolume(ChannelC,16); /*set mode to one*/
 }

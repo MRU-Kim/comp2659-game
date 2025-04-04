@@ -1,8 +1,7 @@
 /*
 Names           Talah Al-Zamel, Ethan Sigfusson, Kim Carino
 Course name     COMP 2659-002
-Stage           Stage 3
-Deadline        February 28, 2024
+Stage           Stage 7
 File name       events.c
 Professor       Steve Kalmar
 
@@ -11,12 +10,14 @@ Handles all game events in response to user input or game state updates.
 This includes player actions (jump, crouch), game progression (scrolling,
 obstacle spawning, score tracking), and game state transitions (death, restart).
 It updates the model accordingly and coordinates interactions between player and environment.
+different from earlier stages in that it incorperated sound effects
 
 */
 
 #include "../stage-2/const.h"
 #include "model.h"
 #include "events.h"
+#include "EFFECTS.H"
 
 /*tester libs*/
 #include <stdio.h>
@@ -57,17 +58,22 @@ void evKBInputHandle(Model *model, char input)
     gives dino upward velocity if they are on the ground
     if they are in the air and havent reached the jump limit they keep their velocity
     otherwise they begin to fall
+    plays jump sound if on ground
     input:
     player - pointer to player*/
 void evJump(Model *model)
 {
     DinoPlayer *player = &(model->player);
 
-    if (player->y == DinoY ||
-        player->y >= MaxJump && player->delta_y == JumpSpeed)
+    if (player->y == DinoY || player->y >= MaxJump && player->delta_y == JumpSpeed)
     { /* on the ground or below maxjump and hasn't decelerated yet*/
         dinoJump(player);
         dinoStand(player);
+        if (player->y == DinoY)
+        {
+            playJumpSound();
+        }
+        
     }
     else
     {
@@ -268,12 +274,13 @@ void evMilestone(Model *model)
 }
 /*function: evDeath
     to be triggered when the dino intersects with a cactus hitbox
-    stops evScroll, dino dies, sets new high score
+    stops evScroll, dino dies, sets new high score, plays death sound
     input:
     model - pointer to model
 */
 void evDeath(Model *model)
 {
+    playDeathSound();
     dinoDie(&model->player);
     scrollStop(&model->scrollSpeed);
     evUpdateHighscore(model);

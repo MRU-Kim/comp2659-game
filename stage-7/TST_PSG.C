@@ -10,16 +10,17 @@ int main()
     UINT32 timeThen, timeNow, timeElapsed;
     initPsg();
 
-    /*
+    
     startMusic();
     while (!Cconis())
     {
         timeNow = get_Time();
         updateMusic(timeNow);
     }
+    stopSound();
 
     Cnecin();
-*/
+
     playJumpSound();
     Cnecin();
     playJumpSound();

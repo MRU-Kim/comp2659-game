@@ -1,0 +1,13 @@
+Stage-2 = objects.o raster.o font.o
+Stage-3 = model.o events.o
+Stage-4 = render.o
+Stage-5	= clock.o input.o
+Stage-6 = dino.o
+DEPENDNACIES =  $(Stage-2) $(Stage-3) $(Stage-4) $(Stage-5) $(stage-6)
+
+
+dino: $(DEPENDNACIES) dino.o
+	cc68x -g $(DEPENDNACIES) dino.o -o dino
+
+dino.o: dino.c
+	cc68x -g -c -I ../stage-2 -I ../stage-3 -I ../stage-4 -I ../stage-5 dino.c

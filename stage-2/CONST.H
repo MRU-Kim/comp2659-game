@@ -1,5 +1,5 @@
 /*
-Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino 
+Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino
 Course name   	COMP 2659-002
 Stage	    	Stage 2
 Deadline        February 10, 2024
@@ -12,7 +12,7 @@ Professor     	Steve Kalmar
 
 /* types */
 typedef unsigned char UINT8;
-typedef unsigned int  UINT16;
+typedef unsigned int UINT16;
 typedef unsigned long UINT32;
 typedef int bool;
 #define true 1
@@ -33,22 +33,23 @@ typedef int bool;
 
 /*Model location  constants*/
 #define GroundY 200
-#define DinoY GroundY-DinoHeight
-#define DinoX 16*8
-#define CactMedY GroundY-CactMedHeight
-#define ScoreX 639-100
+#define DinoY GroundY - DinoHeight
+#define DinoX 16 * 8
+#define CactMedY GroundY - CactMedHeight
+#define ScoreX 639 - 100
 #define ScoreY 10
-#define HighScoreX ScoreX-50
+#define HighScoreX ScoreX - 50
 #define HighScoreY ScoreY
 
 /*Model game logic constants*/
 #define GravityTime 3
-#define MaxJump DinoY-30
+#define MaxJump DinoY - 30
 #define AirCrouchSpeed 10
 #define JumpSpeed -5
 #define HitErrorMargin 2
 #define MileStoneScore 500
 #define StartScrollSpeed 3
+#define leftLimit -30
 
 /*cactus logic*/
 #define MaxCactus 10
@@ -58,13 +59,12 @@ typedef int bool;
 /*Animation logic*/
 #define DinoRunTimerLength 15
 
-
 /* stage 7 - sounds */
-#define OFF                 0
-#define ON                  1
-#define Mixer               7
-#define PSGSelectAddress    0xFF8800
-#define PSGWriteAddress     0xFF8802
+#define OFF 0
+#define ON 1
+#define Mixer 7
+#define PSGSelectAddress 0xFF8800
+#define PSGWriteAddress 0xFF8802
 
 /* notes */
 #define C5 0x06B
@@ -78,18 +78,18 @@ typedef int bool;
 #define Pause 0
 
 /* Channels */
-#define ChannelA            0
-#define ChannelB            1
-#define ChannelC            2
+#define ChannelA 0
+#define ChannelB 1
+#define ChannelC 2
 
 /* fine and coarse registers of each channels */
-#define AFine               ChannelA
-#define ACoarse             ChannelA + 1
-#define BFine               ChannelB + 1
-#define BCoarse             ChannelB + 2
-#define CFine               ChannelC + 2
-#define CCoarse             ChannelC + 3
-#define NoiseReg            6
-#define GotoVolume          8
+#define AFine ChannelA
+#define ACoarse ChannelA + 1
+#define BFine ChannelB + 1
+#define BCoarse ChannelB + 2
+#define CFine ChannelC + 2
+#define CCoarse ChannelC + 3
+#define NoiseReg 6
+#define GotoVolume 8
 
 #endif

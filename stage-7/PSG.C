@@ -207,7 +207,6 @@ void setEnvelope(UINT8 shape, UINT16  sustain)
 void enableChannel(UINT16 channel, int toneOn, int noiseOn) {
     UINT8 value = readPsg(Mixer);
     UINT8 mask = 0;
-    printf("read val   %x\n", value);
 
 
     mask = 1<<channel;
@@ -219,7 +218,6 @@ void enableChannel(UINT16 channel, int toneOn, int noiseOn) {
     {
         value |= mask;
     }
-    printf("tone mask   %x\n", mask);
     
     mask = 8<<channel;
     if (noiseOn)
@@ -230,9 +228,7 @@ void enableChannel(UINT16 channel, int toneOn, int noiseOn) {
     {
         value |= mask;
     }
-    printf("noise mask  %x\n", mask);
 
-    printf("value   %x\n", value);
     
     writePsg(Mixer, value);
 
@@ -243,7 +239,7 @@ void enableChannel(UINT16 channel, int toneOn, int noiseOn) {
 -------------------------------------------------------------------
     function: stopSound
 
-    End the sound.
+    Ceases all noise.
 
     input:
         None.

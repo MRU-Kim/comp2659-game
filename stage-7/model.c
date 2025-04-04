@@ -1,8 +1,7 @@
 /*
 Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino
 Course name   	COMP 2659-002
-Stage	    	Stage 3
-Deadline        February 28, 2024
+Stage	    	Stage 7
 File name       model.C
 Professor     	Steve Kalmar
 
@@ -17,10 +16,6 @@ scrolling.
 #include "model.h"
 #include "../stage-2/CONST.H"
 
-/*tester libs*/
-/*#include <stdio.h>*/
-
-/*random num gen*/
 
 /*------dino behaviors------*/
 /*function: dinoJump

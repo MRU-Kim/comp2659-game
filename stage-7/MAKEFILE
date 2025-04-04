@@ -1,13 +1,35 @@
-tst_psg: tst_psg.o psg.o music.o effects.o clock.o
-	cc68x -g tst_psg.o psg.o music.o effects.o clock.o -o tst_psg 
+Stage-2 = objects.o raster.o font.o
+Stage-3 = model.o events.o
+Stage-4 = render.o
+Stage-5	= clock.o input.o
+Stage-7 = psg.o music.o effects.o
+DEPENDNACIES =  $(Stage-2) $(Stage-3) $(Stage-4) $(Stage-5) $(stage-7)
+
+all: tst_psg dino
+
+tst_psg: $(Stage-7) tst_psg.o clock.o
+	cc68x -g $(Stage-7) tst_psg.o clock.o -o tst_psg
+
+dino: $(DEPENDNACIES) dino.o
+	cc68x -g $(DEPENDNACIES) dino.o -o dino
+dino.o: dino.c
+	cc68x -g -c -I ../stage-2 -I ../stage-3 -I ../stage-4 -I ../stage-5 dino.c	
 
 tst_psg.o: tst_psg.c psg.h
-	cc68x -g -c -I..\stage-5 tst_psg.c
+	cc68x -g -c -I../stage-5 tst_psg.c
 
-psg.o: psg.c psg.h
+psg.o: psg.c
 	cc68x -g -c psg.c
-music.o: music.c  music.h
-	cc68x -g -c -I..\stage-5 music.c
-effects.o: effects.c effects.h
-	cc68x -g -c effects.c
+	
+music.o: music.c
+	cc68x -g -c -I../stage-5 music.c
+
+effect.o: effects.c
+	cc68x -g -c effects.cs
+
+events.o: events.c events.h
+	cc68x -g -c events.c
+
+model.o: model.c model.h
+	cc68x -g -c -I../stage-2 model.c
 
