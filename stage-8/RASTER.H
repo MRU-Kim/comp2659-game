@@ -34,4 +34,6 @@ void printChar(UINT8 *base, int x, int y, char ch);
 void printString(UINT8 *base, int x, int y, char *string);
 void printNum(UINT8 *base, int x, int y, UINT16 num);
 
+UINT8 *get_video_base();
+
 #endif

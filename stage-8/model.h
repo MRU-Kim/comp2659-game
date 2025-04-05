@@ -24,7 +24,7 @@ Limitations:
 
 #ifndef MODEL_H
 #define MODEL_H
-#include "../stage-2/CONST.H"
+#include "CONST.H"
 
 
 typedef struct {

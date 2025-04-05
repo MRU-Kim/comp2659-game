@@ -13,7 +13,7 @@ It updates the model accordingly and coordinates interactions between player and
 different from earlier stages in that it incorperated sound effects
 */
 
-#include "../stage-2/const.h"
+#include "const.h"
 #include "model.h"
 #include "events.h"
 #include "EFFECTS.H"

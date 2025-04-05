@@ -24,10 +24,10 @@ Contains rendering functions
 */
 
 #include "render.h"
-#include "../stage-2/raster.h"
-#include "../stage-2/objects.h"
-#include "../stage-2/CONST.H"
-#include "../stage-3/model.h"
+#include "raster.h"
+#include "objects.h"
+#include "CONST.H"
+#include "model.h"
 
 /*function: initTracker
     redundant????

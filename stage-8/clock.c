@@ -11,7 +11,7 @@ Hold functions that involve time based purposes
 
 #include "clock.h"
 #include "osbind.h"
-#include "../stage-2/const.h"
+#include "const.h"
 
 /*function get_Time
 returns unsigned long from the verticle blank counter

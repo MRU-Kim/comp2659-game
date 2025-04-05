@@ -11,7 +11,7 @@ Professor     	Steve Kalmar
 
 #define VBlankCountAdd 0x462
 
-#include "../stage-2/const.h"
+#include "const.h"
 
 UINT32 get_Time();
 

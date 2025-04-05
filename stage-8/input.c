@@ -12,8 +12,6 @@ Holds Input function that will be modified later
 #include <stdio.h>
 #include <osbind.h>
 #include "input.h"
-#include "../stage-3/events.h"
-#include "../stage-3/model.h"
 
 #define esc 0x01
 #define esc_break 0x81

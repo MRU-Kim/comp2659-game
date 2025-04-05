@@ -1,10 +1,10 @@
 
-#include "../stage-2/RASTER.H"
-#include "../stage-2/objects.h"
+#include "RASTER.H"
 #include "CONST8.H"
 #include "splash.h"
 #include <stdio.h>
 #include <osbind.h>
+#include"RASTER.H"
 
 
 int main()

@@ -10,7 +10,7 @@ Professor     	Steve Kalmar
 #ifndef SPLASH_H
 #define SPLASH_H
 
-#include "../stage-2/CONST.H"
+#include "CONST.H"
 
 void welcomeScreen();
 void initSplash(UINT8 *base8, char playerOneString[], char playerTwoString[], char quitString[]);

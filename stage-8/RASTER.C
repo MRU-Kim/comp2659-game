@@ -553,3 +553,18 @@ void printNum(UINT8 *base, int x, int y, UINT16 num)
     printChar(base, x + 24, y, d);
     printChar(base, x + 32, y, e);
 }
+
+/*function: get_video_base
+provides the address of the beggining of the frame buffer
+output: address of the beggining of the frame buffer*/
+UINT8 *get_video_base()
+{
+    long oldSsp = Super(0);
+    volatile UINT8 *vhi = VideoBaseHi;
+    volatile UINT8 *vmi = VideoBaseMi;
+    UINT32 output = 0x0;
+    output += ((UINT32)(*vhi) << 16) | ((UINT32)(*vmi) << 8);
+    Super(oldSsp);
+
+    return (UINT8 *)output;
+}

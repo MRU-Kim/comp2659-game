@@ -11,18 +11,18 @@ Professor     	Steve Kalmar
 #include <stdio.h>
 #include "splash.h"
 #include "CONST.H"
-#include "../stage-2/RASTER.H"
+#include "RASTER.H"
 #include "CONST8.h"
-#include "../stage-5/input.h"
+#include "input.h"
 
 void welcomeScreen()
 {
-    char playerOneString[11] = {'O','n','e',' ','P','l','a','y','e','r','\n'};
-    char playerTwoString[12] = {'T','w','o',' ','P','l','a','y','e','r','s','\n'};
-    char quitString[5] = {'Q','u','i','t','\n'};
+    char *playerOneString = "One Player";
+    char *playerTwoString = "Two Players";
+    char *quitString = "Quit\n";
     UINT8 *base = Physbase();
     bool quit = false;
-    long input = 0; 
+    long input = 0;
     int result = 0;
     int i;
 

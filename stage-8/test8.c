@@ -1,20 +1,34 @@
 #include <osbind.h>
 #include <stdio.h>
-#include "../stage-2/const.h"
+#include "const.h"
 
 #define VideoBaseHi 0xFFFF8201
 #define VideoBaseMi 0xFFFF8203
 
 UINT8 *get_video_base();
-void set_video_base(UINT8 * add);
+void set_video_base(UINT8 *add);
+void set_video_base_asm(UINT8 *add);
 
 int main()
 {
+    static UINT8 buffer2Arr[32000 + 256];
+    UINT8 *buffer2 = buffer2Arr;
+    UINT16 buffer2IntAdd = (UINT16)buffer2Arr;
+
+    /*find displacement of buffer2 from being 256 byte alligned
+    then add displacement */
+    UINT16 displacement = 256 - buffer2IntAdd % 256;
+    buffer2 += displacement;
+    /*
     volatile UINT8 *vhi = VideoBaseHi;
     volatile UINT8 *vmi = VideoBaseMi;
-    volatile UINT8 *fb5 = 0xF8000;
+    
+    
+
+    */
     UINT32 oldSsp;
     UINT8 *fb;
+    /*
     UINT8 *buffer1 = Physbase();
 
     printf("%p address\n", buffer1);
@@ -24,9 +38,13 @@ int main()
     Super(oldSsp);
     fb = get_video_base();
     printf("%p address\n", fb);
-    set_video_base(fb5);
+    */
+    set_video_base(buffer2);
+    /*modify via ass*/
+
     fb = get_video_base();
     printf("%p address\n", fb);
+
 
     return 0;
 }
@@ -49,13 +67,18 @@ takes a 256 byte alligned address and changes
 the start address of the frame buffer to that address
 Input:
 add- 256 byte alligned adress to change fb to*/
+
 void set_video_base(UINT8 *add)
 {
     long oldSsp = Super(0);
+    set_video_base_asm(add);
+    /*
     volatile UINT8 *vhi = VideoBaseHi;
     volatile UINT8 *vmi = VideoBaseMi;
 
-    *vhi = (UINT32)add>>16 & 0xFF;
-    *vmi = (UINT32)add>>8 & 0xFF;
+    *vhi = (UINT32)add >> 16 & 0xFF;
+    *vmi = (UINT32)add >> 8 & 0xFF;
+    */
     Super(oldSsp);
 }
+    

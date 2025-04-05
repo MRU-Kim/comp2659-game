@@ -14,7 +14,7 @@ scrolling.
 */
 
 #include "model.h"
-#include "../stage-2/CONST.H"
+#include "CONST.H"
 
 
 /*------dino behaviors------*/

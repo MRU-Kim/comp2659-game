@@ -17,7 +17,7 @@ Professor       Steve Kalmar
 #include <osbind.h>
 
 #include "CONST7.h"
-#include "../stage-2/CONST.H"
+#include "CONST.H"
 
 void writePsg(int reg, UINT8 val);
 UINT8 readPsg(int reg);

@@ -19,7 +19,7 @@ Professor       Steve Kalmar
 #include "PSG.H"
 #include "MUSIC.H"
 #include "CONST7.h"
-#include "../stage-5/clock.h"
+#include "clock.h"
 
 const int theMusic[NoteAMT] = {
     G5, G5, F5Sharp, G5, Pause,

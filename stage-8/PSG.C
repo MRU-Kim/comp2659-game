@@ -18,7 +18,7 @@ Professor       Steve Kalmar
 */
 
 #include "CONST7.h"
-#include "..\stage-2\CONST.H"
+#include "CONST.H"
 #include "PSG.H"
 
 /*
