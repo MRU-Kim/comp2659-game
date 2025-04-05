@@ -1,14 +1,8 @@
-splashtst: splsh.o splash.o raster.o objects.o
-	cc68x -g splashtst.o splash.o -o tstsplash
+splashtst: splsh.o splash.o raster.o objects.o font.o input.o
+	cc68x -g splsh.o splash.o raster.o objects.o font.o input.o -o splashtst
 
 splsh.o: splsh.c
 	cc68x -g -c splsh.c
 
 splash.o: splash.c
-	cc68x -g -c -I..\stage-5 splash.c
-
-#raster.o: raster.c 
-#	cc68x -g -c -I..\stage-2 raster.c
-
-raster.o: raster.c raster.h font.h const.h
-	cc68x -g -c -I..\stage-2 font.o const.o raster.c 
+	cc68x -g -c splash.c

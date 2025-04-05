@@ -12,7 +12,7 @@ Professor     	Steve Kalmar
 #include "../stage-2/CONST.H"
 #include "../stage-2/RASTER.H"
 #include "CONST8.h"
-#include "input.h"
+#include "../stage-5/input.h"
 
 void welcomeScreen()
 {

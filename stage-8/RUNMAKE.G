@@ -1,4 +1,4 @@
-foreach i { splash splsh raster }
+foreach i { splash splsh raster input objects font}
 	if { -f $i.tos }
 		echo Rm $i.tos
 		Rm $i.tos
@@ -10,8 +10,10 @@ foreach i { splash splsh raster }
 endfor
 
 cd ..\stage-2
+cp raster.o objects.o font.o ..\stage-8
 
-cp raster.o ..\stage-8
+cd ..\stage-5
+cp input.o ..\stage-8
 
 cd ..\stage-8
 
