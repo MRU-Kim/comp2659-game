@@ -137,9 +137,7 @@ void setNoise(int tuning)
 -------------------------------------------------------------------
     function: set_volume
 
-    Sets the volume level of an audio channel in the PSG.
-    The volume value is passed as a paramenter, and the function
-    writes it to the corresponding PSG register.
+    Sets the volume level of a channel in the PSG.
 
     input:
         channel -   audio channel to adjust
@@ -162,11 +160,6 @@ void setVolume(int channel, int volume)
 
     Configures the envelope and sustain level for the PSG.
     Writes to the PSG to set the envelope's shape and sustain for channel B.
-
-    HOLD - Holds at max or min volume
-    ALT  - Alternate between high and low
-    ATT  - Gradual increase to full vol
-    CONT - Continuous loop
 
     input:
         shape   -  gives the register with the given shape

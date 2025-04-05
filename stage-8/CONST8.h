@@ -5,6 +5,9 @@ Stage	    	Stage 2
 Deadline        February 10, 2024
 File name       soundconst.h
 Professor     	Steve Kalmar
+
+Purpose:
+    Holds constants for stage-8 implementation.
 */
 
 #ifndef CONST8_H
