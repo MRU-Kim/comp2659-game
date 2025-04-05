@@ -1,4 +1,4 @@
-foreach i {raster font objects model events render clock input dino psg music effects}
+foreach i {raster font objects model events render clock input dino}
 	if { -f $i.tos }
 		echo Rm $i.tos
 		Rm $i.tos
