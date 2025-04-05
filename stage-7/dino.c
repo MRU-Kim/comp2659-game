@@ -1,19 +1,14 @@
 /*
 Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino
 Course name   	COMP 2659-002
-Stage	    	Stage 5
-Deadline        March 17, 2024
+Stage	    	Stage 7
 File name       dino.c
 Professor     	Steve Kalmar
-*/
 
-/*
-Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino
-Course name   	COMP 2659-002
-Stage	    	Stage 3
-Deadline        February 28, 2024
-File name       tstRnd.c
-Professor     	Steve Kalmar
+Purpose:
+Main driver of game, initializes stuctures, runs main loop,
+calls event, rendering, input and time functions.
+Has added double buffering over previous stage
 */
 
 #include "../stage-2/const.h"
@@ -21,6 +16,7 @@ Professor     	Steve Kalmar
 #include "model.h"
 #include "../stage-4/render.h"
 #include "MUSIC.H"
+#include "PSG.H"
 
 #include "../stage-5/clock.h"
 #include "../stage-5/input.h"
@@ -98,6 +94,7 @@ int main()
         }
     }
     selectBuffer(buffer1, buffer1, bufferSelect);
+    stopSound();
     return 0;
 }
 

@@ -2,19 +2,14 @@
 Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino
 Course name   	COMP 2659-002
 Stage	    	Stage 5
-Deadline        March 17, 2024
 File name       dino.c
 Professor     	Steve Kalmar
+
+Purpose:
+Main driver of game, initializes stuctures, runs main loop, 
+calls event, rendering, input and time functions
 */
 
-/*
-Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino
-Course name   	COMP 2659-002
-Stage	    	Stage 3
-Deadline        February 28, 2024
-File name       tstRnd.c
-Professor     	Steve Kalmar
-*/
 
 #include "../stage-2/const.h"
 #include "../stage-3/events.h"

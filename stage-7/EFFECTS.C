@@ -26,9 +26,8 @@ Professor       Steve Kalmar
 /*
 -------------------------------------------------------------------
     function: initPsg
-    Resets the register and its value to 0x00; turns all Channels
-    A, B, and C off; sets the Channels' Volume to 0x00; and noise
-    to 0x00.
+    turns all Channels
+    A, B, and C off; sets the Channels' Volume to 0x00
 
     input:
         None.
@@ -47,13 +46,11 @@ void initPsg()
     setVolume(ChannelB, 0x00);
     setVolume(ChannelC, 0x00);
 
-    setNoise(0x00);
 }
 /*
 -------------------------------------------------------------------
     function: playJumpSound and playDeathSound
-    Dino's jump/death sound. Loops through a jump/death sound effect
-    using the envelope's 0x09 shape in 0x2000/0x7000 duration.
+    Produces envoloped sound effects for use in gameplay
 
     input:
         None.

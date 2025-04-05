@@ -5,6 +5,9 @@ Stage	    	Stage 2
 Deadline        February 10, 2024
 File name       soundconst.h
 Professor     	Steve Kalmar
+
+Purpose:
+Holds constants relating to manipulating the psg
 */
 
 #ifndef CONST7_H
@@ -12,9 +15,9 @@ Professor     	Steve Kalmar
 
 #define NoteAMT 30
 #define TimeSig 70
-#define Whole TimeSig/1
-#define Half TimeSig/2
-#define Quarter TimeSig/4
+#define Whole TimeSig / 1
+#define Half TimeSig / 2
+#define Quarter TimeSig / 4
 
 #define OFF 0
 #define ON 1

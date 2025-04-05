@@ -2,9 +2,11 @@
 Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino
 Course name   	COMP 2659-002
 Stage	    	Stage 2
-Deadline        February 10, 2024
 File name       CONST.H
 Professor     	Steve Kalmar
+
+Purpose:
+Holds constants for rendering and gameplay logic
 */
 
 #ifndef CONST_H

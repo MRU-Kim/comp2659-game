@@ -2,9 +2,13 @@
 Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino
 Course name   	COMP 2659-002
 Stage	    	Stage 6
-Deadline        March 17, 2024
 File name       dino.c
 Professor     	Steve Kalmar
+
+Purpose:
+Main driver of game, initializes stuctures, runs main loop,
+calls event, rendering, input and time functions.
+Has added double buffering over previous stage
 */
 
 #include "../stage-2/const.h"
@@ -13,7 +17,6 @@ Professor     	Steve Kalmar
 #include "../stage-4/render.h"
 #include "../stage-5/clock.h"
 #include "../stage-5/input.h"
-
 
 #include <osbind.h>
 #include <stdio.h>

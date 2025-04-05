@@ -11,7 +11,6 @@ This includes player actions (jump, crouch), game progression (scrolling,
 obstacle spawning, score tracking), and game state transitions (death, restart).
 It updates the model accordingly and coordinates interactions between player and environment.
 different from earlier stages in that it incorperated sound effects
-
 */
 
 #include "../stage-2/const.h"
