@@ -6,3 +6,6 @@ splsh.o: splsh.c
 
 splash.o: splash.c
 	cc68x -g -c splash.c
+
+raster.o: raster.c
+	cc68x -g -c raster.c

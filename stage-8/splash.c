@@ -8,8 +8,9 @@ Professor     	Steve Kalmar
 */
 
 #include <osbind.h>
+#include <stdio.h>
 #include "splash.h"
-#include "../stage-2/CONST.H"
+#include "CONST.H"
 #include "../stage-2/RASTER.H"
 #include "CONST8.h"
 #include "../stage-5/input.h"

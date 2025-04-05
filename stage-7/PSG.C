@@ -135,7 +135,7 @@ void setNoise(int tuning)
 
 /*
 -------------------------------------------------------------------
-    function: set_volume
+    function: setVolume
 
     Sets the volume level of a channel in the PSG.
 
@@ -156,7 +156,7 @@ void setVolume(int channel, int volume)
 
 /*
 -------------------------------------------------------------------
-    function: set_envelope
+    function: setEnvelope
 
     Configures the envelope and sustain level for the PSG.
     Writes to the PSG to set the envelope's shape and sustain for channel B.
@@ -169,7 +169,7 @@ void setVolume(int channel, int volume)
         Void.
 -------------------------------------------------------------------
 */
-void setEnvelope(UINT8 shape, UINT16  sustain)
+void setEnvelope(UINT8 shape, UINT16 sustain)
 {
     UINT16 fine = 0x00FF & sustain;
     UINT16 coarse = sustain >> 8;
@@ -182,7 +182,7 @@ void setEnvelope(UINT8 shape, UINT16  sustain)
 
 /*
 -------------------------------------------------------------------
-    function: enable_channel
+    function: enableChannel
 
     Enables a specified audio channel's tone and noise
     in the PSG. Adjusts the mixer register to control the

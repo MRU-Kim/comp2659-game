@@ -10,7 +10,7 @@ foreach i { splash splsh raster input objects font}
 endfor
 
 cd ..\stage-2
-cp raster.o objects.o font.o ..\stage-8
+cp objects.o font.o ..\stage-8
 
 cd ..\stage-5
 cp input.o ..\stage-8
