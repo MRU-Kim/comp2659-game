@@ -1,0 +1,1 @@
+cc68x -g test8.c
