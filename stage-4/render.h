@@ -1,9 +1,8 @@
 /*
 Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino
 Course name   	COMP 2659-002
-Stage	    	Stage 3
-Deadline        February 28, 2024
-File name       renderer.h
+Stage	    	Stage 4
+File name       render.h
 Professor     	Steve Kalmar
 
 Purpose:

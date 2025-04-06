@@ -1,3 +1,15 @@
+/*
+Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino
+Course name   	COMP 2659-002
+Stage	    	Stage 7
+File name       tst_psg.c
+Professor     	Steve Kalmar
+
+Purpose:
+This file is the test file for Stage 7, it plays
+the game's music, and the jump and death sound effects.
+*/
+
 #include "psg.h"
 #include "music.h"
 #include "effects.h"

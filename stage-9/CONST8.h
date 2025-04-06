@@ -1,9 +1,7 @@
 /*
 Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino 
 Course name   	COMP 2659-002
-Stage	    	Stage 2
-Deadline        February 10, 2024
-File name       soundconst.h
+File name       const8.h
 Professor     	Steve Kalmar
 
 Purpose:

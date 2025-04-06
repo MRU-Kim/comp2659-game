@@ -1,7 +1,7 @@
 /*
 Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino
 Course name   	COMP 2659-002
-File name       soundconst.h
+File name       const7.h
 Professor     	Steve Kalmar
 
 Purpose:

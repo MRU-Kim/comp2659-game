@@ -1,7 +1,7 @@
 /*
 Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino
 Course name   	COMP 2659-002
-File name       renderer.c
+File name       render.c
 Professor     	Steve Kalmar
 
 Purpose:
