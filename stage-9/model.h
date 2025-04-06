@@ -79,6 +79,7 @@ typedef struct {
     int cacSpawnTimer;
     UINT16 gravTimer;
     bool hasInput;
+    char lastInput;
 
     int nextMilestone;
     UINT16 runTicksPassed; /*redundant??*/

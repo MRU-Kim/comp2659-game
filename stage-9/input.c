@@ -51,6 +51,7 @@ char getKey()
     {
         output = 'w';
     }
-
+    
+    
     return output;
 }

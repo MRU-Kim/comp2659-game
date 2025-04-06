@@ -11,11 +11,10 @@ Professor     	Steve Kalmar
 
 UINT16 keyValues[] = {0, 0, 0, 0, 0, 0, 0, 0}; /*global variable*/
 
-UINT16 lastValue = 0;
 UINT16 stateIKBR = 0;
-UINT32 mouseXlocation = 128;
-UINT32 mouseYlocation = 128;
-UINT32 mousePress = 0;
+int mouseXlocation = 128;
+int mouseYlocation = 128;
+int mousePress = 0;
 
 /*function: install_vector*/
 Vector installVector(int num, Vector vector)
@@ -36,13 +35,20 @@ void incVbCounter(){
 }
 
 /*
+function addBuff
 Purpose:
-	adds a keycode to the buffer and handle mouse movements
+	adds a keycode to the gloval keyValue buffer and handle mouse movements
+	also controls the global mouse state
+	handles each accordingly
+
+input: 
+value - value frome the IKBR output register
 */
 
 void addBuff(signed int value)
 {
 	int negitive = ((char)value) < 0;
+
 	if (stateIKBR == 0 && value >= 248)
 	{
 		mousePress = value & 0x0003;
@@ -66,14 +72,14 @@ void addBuff(signed int value)
 	}
 	else
 	{
-		/*state 1 or 2, decrement state when visited*/
+		/*state 1 or 2 both for mouse delta position input, decrement state when visited*/
 		if (stateIKBR == 1)
 		{
-			mouseYlocation += ((char)value);
+			mouseYlocation += ((int)value);
 		}
 		else
 		{
-			mouseXlocation += ((char)value);
+			mouseXlocation += ((int)value);
 		}
 		stateIKBR--;
 	}
