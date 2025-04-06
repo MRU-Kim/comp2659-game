@@ -9,13 +9,13 @@ Professor     	Steve Kalmar
 #include "osbind.h"
 
 
-unsigned long keyValues[] = {0, 0, 0, 0, 0, 0, 0, 0};
-unsigned int lastValue = 0;
-unsigned long time = 0;
-unsigned int stateIKBR = 0;
-unsigned long mouseXlocation = 128;
-unsigned long mouseYlocation = 128;
-unsigned long mousePress = 0;
+UINT16 keyValues[] = {0, 0, 0, 0, 0, 0, 0, 0}; /*global variable*/
+
+UINT16 lastValue = 0;
+UINT16 stateIKBR = 0;
+UINT32 mouseXlocation = 128;
+UINT32 mouseYlocation = 128;
+UINT32 mousePress = 0;
 
 /*function: install_vector*/
 Vector installVector(int num, Vector vector)
@@ -32,7 +32,7 @@ Vector installVector(int num, Vector vector)
 
 
 void incVbCounter(){
-	vbCounter += 1;
+	vbCounter += 1; /*global variable in clock.h*/
 }
 
 /*
@@ -50,19 +50,23 @@ void addBuff(signed int value)
 	}
 	else if (stateIKBR == 0 && value < 248)
 	{
+		/*toggle keypress at the low nibble of value place of keypress
+		at the index of high nibble of value in keyValues
+		ingoring the break marker*/
 		unsigned int lower = value & 0x000F;
 		unsigned int index = (value & 0x0070) >> 4;
 		if (value < 128)
 		{
-			keyValues[index] |= (0x00000001 << lower);
+			keyValues[index] |= (1 << lower);
 		}
 		else
 		{
-			keyValues[index] &= ~(0x00000001 << lower);
+			keyValues[index] &= ~(1 << lower);
 		}
 	}
 	else
 	{
+		/*state 1 or 2, decrement state when visited*/
 		if (stateIKBR == 1)
 		{
 			mouseYlocation += ((char)value);

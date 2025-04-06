@@ -6,8 +6,8 @@ DEPENDNACIES =  $(visuals) $(gameLogic) $(sound) $(misc)
 
 all: testIsr dino
 
-testIsr: testIsr.o isr.o clock.o isrAsm.o
-	cc68x -g isrAsm.o isr.o clock.o testIsr.o -o testIsr
+testIsr: testIsr.o isr.o clock.o isrAsm.o input.o
+	cc68x -g input.o isrAsm.o isr.o clock.o testIsr.o -o testIsr
 
 testIsr.o: testIsr.c
 	cc68x -g -c testIsr.c

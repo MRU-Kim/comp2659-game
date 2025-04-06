@@ -54,25 +54,28 @@ int main()
     UINT16 buffer4IntAdd = (UINT16)buffer4Arr;
     UINT16 displacement4 = 256 - buffer4IntAdd % 256;
 
+    Vector originalIKBR = installVector(IKBDVect, IkbrIsr);
+
     int menuSelect = 0;
 
     buffer2 += displacement2;
     buffer3 += displacement3;
     buffer4 += displacement4;
 
-while (menuSelect != 3)
-{
-    set_video_base(buffer2);
-    menuSelect = welcomeScreen(buffer2);
-
-    if (menuSelect == 1)
+    while (menuSelect != 3)
     {
-        runGame(buffer3, buffer4);
+        set_video_base(buffer2);
+        menuSelect = welcomeScreen(buffer2);
+
+        if (menuSelect == 1)
+        {
+            runGame(buffer3, buffer4);
+        }
+        stopSound();
     }
-    stopSound();
-}
 
-
+    installVector(IKBDVect, originalIKBR);
+    
     set_video_base(defaultBuffer);
     stopSound();
     return 0;

@@ -11,34 +11,46 @@ Holds Input function that will be modified later
 #include <stdio.h>
 #include <osbind.h>
 #include "input.h"
+#include "isr.h"
 
-#define esc 0x01
-#define esc_break 0x81
-#define RDR_full 0x01
-#define default_control 0x96
-#define wMake = 0x11
-#define wBreak = wMake ^ 0x80
-#define sMake = 0x1f
-#define sBreak = sMake ^ 0x80
+
 /*
 -------------------------------------------------------------------
     function: getKey
-    Function checks to see if a key from the keyboard is pressed.
-    If a key is pressed, the function returns the char representation
-    of the key, if not, it returns NULL ('\0').
+    purpose: checks what keys are pressed and outputs on priority
 
-    input: 
-        None.
+
     output:
-        Char representation of the pressed key
-        or NULL ('\0').
+        
 -------------------------------------------------------------------
 */
 char getKey()
 {
-    if (Cconis()) {
-        return (char)Cnecin();
+    char output = 0;
+    if (keyValues[0]&2)
+    {
+        output = '`'; /*grave for escape rep and back compatability*/
+    }
+    else if (keyValues[0]&4)
+    {
+        output = '1';
+    }
+    else if (keyValues[0]&8)
+    {
+        output = '2';
+    }
+    else if (keyValues[0]&16)
+    {
+        output = '3';
+    }
+    else if (keyValues[1]&1<<15)
+    {
+        output = 's';
+    }
+    else if (keyValues[1]&2)
+    {
+        output = 'w';
     }
 
-    return 0;
+    return output;
 }

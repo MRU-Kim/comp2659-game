@@ -17,17 +17,40 @@ Purpose: tester for stage 9 isr routines
 
 int main()
 {
-    int oldticks = -1;
-    Vector original = installVector(VblVect, vblIsr);
+    Vector originalVBL = installVector(VblVect, vblIsr);
+    Vector originalIKBR = installVector(IKBDVect, IkbrIsr);
+    int i = 0;
+    char getkeytest = 0;
     UINT32 countcounter = 0;
 
     while (vbCounter < 70)
     {
         countcounter++;
     }
+    vbCounter = 0;
     waitVBlank();
     countcounter = get_Time();
     printf("%lu\n", countcounter);
-    installVector(VblVect, original);
+
+    while (vbCounter < 70)
+    {
+        for (i = 0; i < 8; i++)
+        {
+            printf("%du ", keyValues[i]);
+        }
+
+        printf("\n", );
+    }
+    vbCounter = 0;
+
+    while (vbCounter < 700)
+    {
+        getkeytest = getKey();
+        printf("%c \n", getkeytest);
+    }
+    vbCounter = 0;
+
+    installVector(VblVect, originalVBL);
+    installVector(IKBDVect, originalIKBR);
     return 0;
 }
