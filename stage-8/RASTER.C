@@ -568,3 +568,16 @@ UINT8 *get_video_base()
 
     return (UINT8 *)output;
 }
+
+/*function: set_video_base
+takes a 256 byte alligned address and changes
+the start address of the frame buffer to that address
+Input:
+add- 256 byte alligned adress to change fb to*/
+
+void set_video_base(UINT8 *add)
+{
+    long oldSsp = Super(0);
+    set_video_base_asm(add);
+    Super(oldSsp);
+}

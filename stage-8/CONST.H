@@ -61,6 +61,9 @@ typedef int bool;
 /*Animation logic*/
 #define DinoRunTimerLength 15
 
+/*frame buffer*/
+#define VideoBaseHi 0xFFFF8201
+#define VideoBaseMi 0xFFFF8203
 
 
 #endif

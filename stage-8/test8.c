@@ -11,6 +11,8 @@ void set_video_base_asm(UINT8 *add);
 
 int main()
 {
+    UINT32 oldSsp;
+    UINT8 *fb;
     static UINT8 buffer2Arr[32000 + 256];
     UINT8 *buffer2 = buffer2Arr;
     UINT16 buffer2IntAdd = (UINT16)buffer2Arr;
@@ -19,29 +21,14 @@ int main()
     then add displacement */
     UINT16 displacement = 256 - buffer2IntAdd % 256;
     buffer2 += displacement;
-    /*
-    volatile UINT8 *vhi = VideoBaseHi;
-    volatile UINT8 *vmi = VideoBaseMi;
-    
-    
 
-    */
-    UINT32 oldSsp;
-    UINT8 *fb;
-    /*
-    UINT8 *buffer1 = Physbase();
 
-    printf("%p address\n", buffer1);
-    oldSsp = Super(0);
-    printf("%X address\n", *vhi);
-    printf("%X address\n", *vmi);
-    Super(oldSsp);
     fb = get_video_base();
     printf("%p address\n", fb);
-    */
     set_video_base(buffer2);
     /*modify via ass*/
-
+    Cnecin();
+    set_video_base(fb);
     fb = get_video_base();
     printf("%p address\n", fb);
 

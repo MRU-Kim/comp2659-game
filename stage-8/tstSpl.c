@@ -10,7 +10,7 @@
 int main()
 {
     
-    UINT8 *base = Physbase();
+    UINT8 *base = get_video_base();
 
     Cnecin();
     clearScreen(base);

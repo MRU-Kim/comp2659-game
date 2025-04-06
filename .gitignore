@@ -43,3 +43,8 @@ stage-7/CLOCK.O
 stage-8/RASTER.O
 stage-8/SPLSH.O
 stage-5/EFFECTS.O
+stage-8/RAST_ASM.O
+stage-8/RAST_ASM.O
+stage-8/SPLASH.O
+stage-8/TEST8.O
+stage-8/TSTSPL.O

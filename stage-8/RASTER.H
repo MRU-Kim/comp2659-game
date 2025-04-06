@@ -16,7 +16,7 @@ used to plot the sprites defined in objects.c to the screen.
 
 #include "CONST.H"
 
-void clearScreen(UINT8 *base); 
+void clearScreen(UINT8 *base);
 
 void clear8Bitmap(UINT8 *base, UINT8 bitmap[], int x, int y, int height);
 void clear16Bitmap(UINT8 *base, UINT16 bitmap[], int x, int y, int height);
@@ -35,5 +35,6 @@ void printString(UINT8 *base, int x, int y, char *string);
 void printNum(UINT8 *base, int x, int y, UINT16 num);
 
 UINT8 *get_video_base();
-
+void set_video_base(UINT8 *add);
+void set_video_base_asm(UINT8 *add);
 #endif
