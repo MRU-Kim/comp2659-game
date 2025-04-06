@@ -30,7 +30,7 @@ Contains rendering functions
 #include "model.h"
 
 /*function: initTracker
-    redundant????
+    forces tracker to be different to force redraw
     force all */
 void initTracker(RenderTracker *tracker)
 {
@@ -39,6 +39,8 @@ void initTracker(RenderTracker *tracker)
     {
         tracker->lastDrawnCactiMed[i].x = -16;
     }
+    tracker->lastDrawnScore.value = -1;
+
 }
 
 /*function: redraw
@@ -240,10 +242,11 @@ void clearGround(const Model *model, RenderTracker *tracker, UINT8 *base)
     tracker - pointer to the dino render tracker*/
 void redrawScoreBox(const Model *model, RenderTracker *tracker, UINT8 *base)
 {
+    /*
     if (tracker->lastDrawnHighScore.value != model->highScore.value)
-    {
+    {*/
         printNum(base, ScoreX, ScoreY, model->score.value);
-    }
+   /*}*/ 
 
     if (model->highScore.value != 0 && tracker->lastDrawnHighScore.value != model->highScore.value)
     {

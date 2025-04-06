@@ -41,5 +41,5 @@ char getKey()
         return (char)Cnecin();
     }
 
-    return NULL;
+    return 0;
 }

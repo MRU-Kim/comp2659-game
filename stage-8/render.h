@@ -18,7 +18,7 @@ objects on screen based on changes to the game model.
 #define RENDER_H
 
 #include "CONST.H"
-#include "gameLogic/model.h"
+#include "model.h"
 typedef struct
 {
     DinoPlayer lastDrawnPlayer;

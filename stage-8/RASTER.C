@@ -403,63 +403,49 @@ void clearHorizontalLine(UINT8 *base, int y)
 /*
     function: plotRectangle
 
-    Plots a rectangle by calling plotHorizontalLine in "height" times.
+    Plots a rectangle 80px wide and height tall centered in screen at y coord
 
     inputs:
         base   - pointer to starting address of framebuffer
-        x      - horizontal coordinate
         y      - vertical coordinate
-        width  - width of the rectangle
         height - the times plotHorizontalLine will be called
     output:
         Void.
-
 */
-void plotRectangle(UINT8 *base, int x, int y, int width, int height)
+void plotRectangle(UINT8 *base, int y, int height)
 {
     UINT8 *draw = base;
     int i = 0;
-    int leftShift = (x % 32);
-    int rightShift = (32 - ((width - (32 - leftShift)) % 32));
+    draw = base+(y*80)+35;
+    /*top line*/
+    for (i = 0; i <= 10; i++)
+    {
+        *draw |= 0xFF;
+        draw++;
+    }
+    draw = base+((y+height)*80)+35;
+    /*bottom line*/
+    for (i = 0; i <= 10; i++)
+    {
+        *draw |= 0xFF;
+        draw++;
+    }
 
+    draw = base+(y*80)+35;
+    /*left line*/
     for (i = 0; i < height; i++)
     {
-        plotHorizontalLine(draw, y);
-        draw += 20;
-
+        *draw |= 0x80;
+        draw += 80;
     }
     
-    return;
-}
-
-/*
-    function: clearRectangle
-
-    Clears a rectangle by calling clearHorizontalLine in "height" times.
-
-    inputs:
-        base   - pointer to starting address of framebuffer
-        x      - horizontal coordinate
-        y      - vertical coordinate
-        width  - width of the rectangle
-        height - the times clearHorizontalLine will be called
-    output:
-        Void.
-
-*/
-
-void clearRectangle(UINT8 *base, int x, int y, int width, int height)
-{
-    UINT8 *clean = base;
-    int i = 0;
-
+    draw = base+(y*80)+45;
+    /*right line*/
     for (i = 0; i < height; i++)
     {
-        clearHorizontalLine(clean, y);
-        clean += 80;
+        *draw |= 0x01;
+        draw += 80;
     }
-
-    return;
 }
 
 
@@ -578,6 +564,26 @@ add- 256 byte alligned adress to change fb to*/
 void set_video_base(UINT8 *add)
 {
     long oldSsp = Super(0);
-    set_video_base_asm(add);
+    asm_set_video_base(add);
     Super(oldSsp);
 }
+
+/*funtion: selectBuffer
+    given two frame buffers, sets screen to the second if select is true
+    the first if select is false returns the negation of the select bool
+    input:
+    buff1 - first frame buffer
+    buff2 - second frame buffer
+    select - false to select buff1, true to select buff2*/
+    bool selectBuffer(UINT8 *buff1, UINT8 *buff2, bool select)
+    {
+        if (select)
+        {
+            set_video_base(buff2);
+        }
+        else
+        {
+            set_video_base(buff1);
+        }
+        return !select;
+    }

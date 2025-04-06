@@ -7,7 +7,6 @@ File name       splash.c
 Professor     	Steve Kalmar
 */
 
-#include <osbind.h>
 #include <stdio.h>
 #include "splash.h"
 #include "CONST.H"
@@ -15,102 +14,136 @@ Professor     	Steve Kalmar
 #include "CONST8.h"
 #include "input.h"
 
-void welcomeScreen()
+UINT16 bigD[] = {
+    0xfff8,
+    0xfffc,
+    0xfffe,
+    0xf01f,
+    0xf00f,
+    0xf007,
+    0xf007,
+    0xf007,
+    0xf007,
+    0xf007,
+    0xf007,
+    0xf00f,
+    0xf01f,
+    0xfffe,
+    0xfffc,
+    0xfff8,
+};
+
+UINT16 bigI[] = {
+    0xffff,
+    0xffff,
+    0xffff,
+    0x03c0,
+    0x03c0,
+    0x03c0,
+    0x03c0,
+    0x03c0,
+    0x03c0,
+    0x03c0,
+    0x03c0,
+    0x03c0,
+    0x03c0,
+    0xffff,
+    0xffff,
+    0xffff};
+
+UINT16 bigN[] =
+    {
+        0xf00f,
+        0xf80f,
+        0xfc0f,
+        0xfe0f,
+        0xfe0f,
+        0xff0f,
+        0xff8f,
+        0xf7cf,
+        0xf3cf,
+        0xf3ef,
+        0xf1ff,
+        0xf0ff,
+        0xf07f,
+        0xf01f,
+        0xf00f,
+        0xf00f};
+UINT16 bigO[] =
+    {
+        0x7ffe,
+        0xffff,
+        0xffff,
+        0xffff,
+        0xf00f,
+        0xf00f,
+        0xf00f,
+        0xf00f,
+        0xf00f,
+        0xf00f,
+        0xf00f,
+        0xf00f,
+        0xffff,
+        0xffff,
+        0xffff,
+        0x7ffe};
+
+int welcomeScreen(UINT8 *base)
 {
-    char *playerOneString = "One Player";
-    char *playerTwoString = "Two Players";
-    char *quitString = "Quit";
-    UINT8 *base = get_video_base();
-    bool quit = false;
+
+    int selection = 0;
     long input = 0;
     int result = 0;
     int i;
 
-    initSplash(base, playerOneString, playerTwoString, quitString);
+    initSplash(base);
 
-    while (!quit)
+    input = 0;
+    while (selection == 0)
     {
-        if (getKey())
+        input = getKey();
+        if (input != 0)
         {
-            input = getKey();
-
             switch (input)
             {
-            case EnterKey:
-                if (i == 2)
-                {
-                    result = 2;
-                    quit = true;
-                }
-                else if (i == 1)
-                {
-                    result = 1;
-                    quit = true;
-                }
-                else
-                {
-                    result = 0;
-                    quit = true;
-                }
-                return;
-
-            case UpKey:
-                if (i == 2)
-                {
-                    pressUpKey(base, 280, 300, 200, 10, 4, playerTwoString, quitString);
-                    i--;
-                }
-                else if (i == 1)
-                {
-                    pressUpKey(base, 280, 300, 200, 10, 4, playerOneString, playerTwoString);
-                    i--;
-                }
+            case '1':
+                selection = 1;
                 break;
 
-            case DownKey:
-                if (i == 0)
-                {
-                    pressDownKey(base, 280, 280, 100, 10, 10, playerOneString, playerTwoString);
-                    i++;
-                }
-                else if (i == 1)
-                {
-                    pressDownKey(base, 280, 300, 200, 10, 4, playerTwoString, quitString);
-                    i++;
-                }
+            case '2':
+                break;
+
+            case '3':
+            selection = 3;
+                break;
 
             default:
                 break;
             }
         }
     }
+    return selection;
 }
 
-void initSplash(UINT8 *base, char playerOneString[], char playerTwoString[], char quitString[])
+void initSplash(UINT8 *base)
 {
-    plotRectangle(base, 220, 40, 200, 50);
-    plotRectangle(base, 220, 140, 200, 50);
-    plotRectangle(base, 220, 240, 200, 50);
+    char *playerOneString = "1P(1)";
+    char *playerTwoString = "2P(2)";
+    char *quitString = "Quit(3)";
+    
+    clearScreen(base);
 
-    printString(base, 240, 100, playerOneString);
-    printString(base, 240, 200, playerTwoString);
-    printString(base, 240, 300, quitString);
-}
+    plot16Bitmap(base, bigD, BigDX, BigLettY, BigLettHeight);
+    plot16Bitmap(base, bigI, BigIX, BigLettY, BigLettHeight);
+    plot16Bitmap(base, bigN, BigNX, BigLettY, BigLettHeight);
+    plot16Bitmap(base, bigO, BigOX, BigLettY, BigLettHeight);
 
-void pressDownKey(UINT8 *base, int x1, int x2, int y, int width1, int width2, char string1[], char string2[])
-{
-    clearRectangle(base, x1, y, 80, 16);
-    clearRectangle(base, x2, (y + 100), 80, 16);
+    plotRectangle(base, P1BoxY, BoxHeight);
+    printString(base, MiddleScreen - 2, P1TextY, playerOneString);
 
-    printString(base, x1, y, string1);
-    printString(base, x2, (y + 100), string2);
-}
+    plotRectangle(base, P2BoxY, BoxHeight);
+    printString(base, MiddleScreen - 2, P2TextY, playerTwoString);
 
-void pressUpKey(UINT8 *base, int x1, int x2, int y, int width1, int width2, char string1[], char string2[])
-{
-    clearRectangle(base, x1, y, 80, 16);
-    clearRectangle(base, x2, (y + 100), 80, 16);
-
-    printString(base, x1, y, string1);
-    printString(base, x2, (y + 100), string2);
+    plotRectangle(base, ExitBoxY, BoxHeight);
+    printString(base, MiddleScreen - 8, ExitTextY, quitString);
 }

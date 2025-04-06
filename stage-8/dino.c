@@ -1,7 +1,7 @@
 /*
 Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino
 Course name   	COMP 2659-002
-Stage	    	Stage 7
+Stage	    	Stage 8
 File name       dino.c
 Professor     	Steve Kalmar
 
@@ -11,24 +11,68 @@ calls event, rendering, input and time functions.
 Has added double buffering over previous stage
 */
 
-#include "../stage-2/const.h"
-#include "events.h"
-#include "model.h"
-#include "../stage-4/render.h"
-#include "MUSIC.H"
-#include "PSG.H"
-
-#include "../stage-5/clock.h"
-#include "../stage-5/input.h"
-
 #include <osbind.h>
 #include <stdio.h>
 
-bool selectBuffer(UINT8 *buff1, UINT8 *buff2, bool select);
+#include "const.h"
+#include "events.h"
+#include "model.h"
+#include "render.h"
+#include "RASTER.H"
+#include "MUSIC.H"
+#include "PSG.H"
+#include "splash.h"
+
+#include "clock.h"
+#include "input.h"
+
+runGame(UINT8 *base1, UINT8 *base2);
 
 char input;
 
 int main()
+{
+    UINT8 *defaultBuffer = get_video_base();
+
+    static UINT8 buffer2Arr[32000 + 256];
+    static UINT8 buffer3Arr[32000 + 256];
+    static UINT8 buffer4Arr[32000 + 256];
+
+    /*find displacement of buffer2 from being 256 byte alligned
+    then add displacement */
+    UINT8 *buffer2 = buffer2Arr;
+    UINT16 buffer2IntAdd = (UINT16)buffer2Arr;
+    UINT16 displacement2 = 256 - buffer2IntAdd % 256;
+
+    UINT8 *buffer3 = buffer3Arr;
+    UINT16 buffer3IntAdd = (UINT16)buffer3Arr;
+    UINT16 displacement3 = 256 - buffer3IntAdd % 256;
+
+    UINT8 *buffer4 = buffer4Arr;
+    UINT16 buffer4IntAdd = (UINT16)buffer4Arr;
+    UINT16 displacement4 = 256 - buffer4IntAdd % 256;
+
+    int menuSelect = 0;
+
+    buffer2 += displacement2;
+    buffer3 += displacement3;
+    buffer4 += displacement4;
+
+
+    set_video_base(buffer2);
+    menuSelect = welcomeScreen(buffer2);
+
+    if (menuSelect == 1)
+    {
+        runGame(buffer3, buffer4);
+    }
+    
+    set_video_base(defaultBuffer);
+    stopSound();
+    return 0;
+}
+
+runGame(UINT8 *base1, UINT8 *base2)
 {
     Model gameModel;
 
@@ -38,28 +82,15 @@ int main()
 
     bool bufferSelect;
 
-    UINT8 *buffer1 = Physbase();
-
-    static UINT8 buffer2Arr[32000 + 256];
-    UINT8 *buffer2 = buffer2Arr;
-    UINT16 buffer2IntAdd = (UINT16)buffer2Arr;
-
-    /*find displacement of buffer2 from being 256 byte alligned
-    then add displacement */
-    UINT16 displacement = 256 - buffer2IntAdd % 256;
-    buffer2 += displacement;
-
     modelInitialize(&gameModel);
-
     initTracker(&tracker1);
     initTracker(&tracker2);
-    forceDraw(&gameModel, &tracker1, buffer1);
-    forceDraw(&gameModel, &tracker2, buffer2);
-
+    forceDraw(&gameModel, &tracker1, base1);
+    forceDraw(&gameModel, &tracker2, base2);
     startMusic();
 
     bufferSelect = true;
-    input = NULL;
+    input = 0;
     while (input != '`')
     {
 
@@ -68,7 +99,7 @@ int main()
 
         /*async*/
         input = getKey();
-        if (input != NULL)
+        if (input != 0)
         {
             evKBInputHandle(&gameModel, input);
         }
@@ -81,39 +112,16 @@ int main()
             /*draw backbuffer*/
             if (bufferSelect)
             {
-                redraw(&gameModel, &tracker1, buffer1);
+                redraw(&gameModel, &tracker1, base1);
             }
             else
             {
-                redraw(&gameModel, &tracker2, buffer2);
+                redraw(&gameModel, &tracker2, base2);
             }
             waitVBlank();
-            bufferSelect = selectBuffer(buffer1, buffer2, bufferSelect);
+            bufferSelect = selectBuffer(base1, base2, bufferSelect);
             updateMusic(timeNow);
             timeThen = timeNow;
         }
     }
-    selectBuffer(buffer1, buffer1, bufferSelect);
-    stopSound();
-    return 0;
-}
-
-/*funtion: selectBuffer
-    given two frame buffers, sets screen to the second if select is true
-    the first if select is false returns the negation of the select bool
-    input:
-    buff1 - first frame buffer
-    buff2 - second frame buffer
-    select - false to select buff1, true to select buff2*/
-bool selectBuffer(UINT8 *buff1, UINT8 *buff2, bool select)
-{
-    if (select)
-    {
-        Setscreen(-1, buff2, -1);
-    }
-    else
-    {
-        Setscreen(-1, buff1, -1);
-    }
-    return !select;
 }

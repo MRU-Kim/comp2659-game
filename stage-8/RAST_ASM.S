@@ -1,11 +1,11 @@
-				xdef        _set_video_base_asm
+				xdef        _asm_set_video_base
 
 address			equ         8
 
 VideoBaseHiMin1		equ			$FFFF8200
 VideoBaseMiMin1		equ			$FFFF8202
 
-_set_video_base_asm:                
+_asm_set_video_base:
 			link		a6,#0
 			movem.l		d0-d3/a0-a1,-(sp)
 			move.l		#VideoBaseHiMin1,a0

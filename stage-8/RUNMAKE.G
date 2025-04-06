@@ -1,4 +1,4 @@
-foreach i { splash tstSpl raster input objects font rast_asm}
+foreach i { objects raster rast_asm font render model events psg music effects clock input splash dino}
 	if { -f $i.tos }
 		echo Rm $i.tos
 		Rm $i.tos
@@ -8,5 +8,7 @@ foreach i { splash tstSpl raster input objects font rast_asm}
 		Rm $i.o
 	endif
 endfor
+Rm -f dino.o
+echo -f Rm dino.o
 
-make
+make dino

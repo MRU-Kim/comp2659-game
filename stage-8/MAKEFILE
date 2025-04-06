@@ -4,15 +4,18 @@ sound = psg.o music.o effects.o
 misc = clock.o input.o splash.o dino.o
 DEPENDNACIES =  $(visuals) $(gameLogic) $(sound) $(misc)
 tstSplDEPEND = rast_asm.o tstSpl.o splash.o raster.o objects.o font.o input.o
-all: tstSpl
+all: tstSpl dino
 tstSpl: $(tstSplDEPEND)
 	cc68x  -g $(tstSplDEPEND) -o tstSpl
 
 tstSpl.o: tstSpl.c
 	cc68x -g -c tstSpl.c
 
-splash.o: splash.c
-	cc68x -g -c splash.c
+dino: $(DEPENDNACIES)
+	cc68x -g $(DEPENDNACIES) -o dino
+
+dino.o: dino.c
+	cc68x -g -c dino.c
 
 objects.o: objects.c
 	cc68x -g -c objects.c
@@ -20,14 +23,35 @@ objects.o: objects.c
 raster.o: raster.c
 	cc68x -g -c raster.c
 
+rast_asm.o: rast_asm.s
+	gen -D -o -L2 rast_asm.s
+
 font.o: font.c
 	cc68x -g -c font.c
 
 render.o: render.c
 	cc68x -g -c render.c
+model.o: model.c
+	cc68x -g -c model.c
+
+events.o: events.c
+	cc68x -g -c events.c
+
+psg.o: psg.c
+	cc68x -g -c psg.c
+
+music.o: music.c
+	cc68x -g -c music.c
+
+effects.o: effects.c
+	cc68x -g -c effects.c
+
+clock.o: clock.c
+	cc68x -g -c clock.c
 
 input.o: input.c
 	cc68x -g -c input.c
 
-rast_asm.o: rast_asm.s
-	gen -D -o -L2 rast_asm.s
+splash.o: splash.c
+	cc68x -g -c splash.c
+

@@ -13,20 +13,21 @@ Purpose:
 #ifndef CONST8_H
 #define CONST8_H
 
+/*ox heights*/
+#define P1BoxY      100
+#define P1TextY     P1BoxY+(BoxHeight/2+4)
+#define P2BoxY      200
+#define P2TextY     P2BoxY+(BoxHeight/2+4)
+#define ExitBoxY     300
+#define ExitTextY     ExitBoxY+(BoxHeight/2+4)
+#define MiddleScreen 319
+#define BoxHeight   50
 
-/* keyboard keys */
-#define UpKey 0x00480000L
-#define DownKey 0x00500000L
-#define EnterKey 0x0072000DL
-
-/* plot strings */
-#define  welcomeX 200;
-#define  welcomeY 300;
-#define  player1X 200;
-#define  player1Y 200
-#define  player2X 200
-#define  player2Y 100
-
-
+#define BigLettY     30
+#define BigLettHeight 16
+#define BigDX       MiddleScreen-40
+#define BigIX       MiddleScreen-20
+#define BigNX       MiddleScreen
+#define BigOX       MiddleScreen+20
 
 #endif
