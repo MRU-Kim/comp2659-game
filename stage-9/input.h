@@ -7,10 +7,10 @@ Professor     	Steve Kalmar
 
 #ifndef INPUT_H
 #define INPUT_H
-/*
-char getKey(char input);
-*/
+
 char getKey();
+
+
 #endif
 
 

@@ -220,6 +220,7 @@ void modelResetNonePersists(Model *model)
     modelResetCacSpawnTimer(model);
     model->nextMilestone = MileStoneScore;
     model->runTicksPassed = 0;
+    model->lastInput = 0;
 }
 
 /*function: modelGetSeed

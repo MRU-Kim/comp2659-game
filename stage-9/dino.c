@@ -75,7 +75,7 @@ int main()
     }
 
     installVector(IKBDVect, originalIKBR);
-    
+
     set_video_base(defaultBuffer);
     stopSound();
     return 0;
@@ -112,10 +112,9 @@ runGame(UINT8 *base1, UINT8 *base2)
 
         /*async*/
         input = getKey();
-        if (input != 0)
-        {
+        
             evKBInputHandle(&gameModel, input);
-        }
+        
 
         /*sync*/
         if (timeElapsed > 0)

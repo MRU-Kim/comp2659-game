@@ -33,7 +33,11 @@ different from earlier stages in that it incorperated sound effects
 void evKBInputHandle(Model *model, char input)
 {
     DinoPlayer *player = &(model->player);
-    model->hasInput = true;
+    if (input == 'w' || input == 's')
+    {
+        model->hasInput = true;
+    }
+    
 
     if (model->scrollSpeed.delta_x)
     {
@@ -47,10 +51,12 @@ void evKBInputHandle(Model *model, char input)
             evCrouch(player);
         }
     }
-    else if (input == 'w')
+    else if (input == 'w' && model->lastInput != 'w')
     {
         evStartGame(model);
     }
+    model->lastInput = input;
+
 }
 /*function: evJump
     gives dino upward velocity if they are on the ground
