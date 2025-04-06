@@ -1,7 +1,6 @@
 /*
 Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino
 Course name   	COMP 2659-002
-Stage	    	Stage 2
 File name       CONST.H
 Professor     	Steve Kalmar
 
@@ -61,6 +60,9 @@ typedef int bool;
 /*Animation logic*/
 #define DinoRunTimerLength 15
 
+/*frame buffer*/
+#define VideoBaseHi 0xFFFF8201
+#define VideoBaseMi 0xFFFF8203
 
 
 #endif

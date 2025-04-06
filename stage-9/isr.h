@@ -6,11 +6,20 @@ Deadline
 File name       isr.h
 Professor     	Steve Kalmar
 */
+#include "CONST9.H"
 
 #ifndef ISR_H
 #define ISR_H
 
-void setVsyncFlag(unsigned int flag);
+Vector installVector(int num, Vector vector);
+
+void incVbCounter();
+
 void addBuff(signed int value);
+
+void vblIsr();
+
+void IkbrIsr();
+
 
 #endif
