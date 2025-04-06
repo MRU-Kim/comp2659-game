@@ -1,0 +1,63 @@
+visuals = objects.o raster.o rast_asm.o font.o render.o
+gameLogic = model.o events.o
+sound = psg.o music.o effects.o
+misc = clock.o input.o splash.o isr.o isrAsm.o dino.o
+DEPENDNACIES =  $(visuals) $(gameLogic) $(sound) $(misc)
+
+all: testIsr dino
+
+testIsr: testIsr.o isr.o clock.o isrAsm.o input.o
+	cc68x -g input.o isrAsm.o isr.o clock.o testIsr.o -o testIsr
+
+testIsr.o: testIsr.c
+	cc68x -g -c testIsr.c
+
+dino: $(DEPENDNACIES)
+	cc68x -g $(DEPENDNACIES) -o dino
+
+dino.o: dino.c
+	cc68x -g -c dino.c
+
+objects.o: objects.c
+	cc68x -g -c objects.c
+
+raster.o: raster.c
+	cc68x -g -c raster.c
+
+rast_asm.o: rast_asm.s
+	gen -D -o -L2 rast_asm.s
+
+font.o: font.c
+	cc68x -g -c font.c
+
+render.o: render.c
+	cc68x -g -c render.c
+model.o: model.c
+	cc68x -g -c model.c
+
+events.o: events.c
+	cc68x -g -c events.c
+
+psg.o: psg.c
+	cc68x -g -c psg.c
+
+music.o: music.c
+	cc68x -g -c music.c
+
+effects.o: effects.c
+	cc68x -g -c effects.c
+
+clock.o: clock.c
+	cc68x -g -c clock.c
+
+input.o: input.c
+	cc68x -g -c input.c
+
+splash.o: splash.c
+	cc68x -g -c splash.c
+
+isr.o: isr.c
+	cc68x -g -c isr.c
+
+isrAsm.o: isrAsm.s
+	gen -D -o -L2 isrAsm.s
