@@ -94,7 +94,7 @@ void initSplash(UINT8 *base, char playerOneString[], char playerTwoString[], cha
 
     printString(base, 240, 100, playerOneString);
     printString(base, 240, 200, playerTwoString);
-    printString(base, 340, 300, quitString);
+    printString(base, 240, 300, quitString);
 }
 
 void pressDownKey(UINT8 *base, int x1, int x2, int y, int width1, int width2, char string1[], char string2[])

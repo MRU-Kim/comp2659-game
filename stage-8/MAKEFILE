@@ -3,7 +3,7 @@ gameLogic = model.o events.o
 sound = psg.o music.o effects.o
 misc = clock.o input.o splash.o dino.o
 DEPENDNACIES =  $(visuals) $(gameLogic) $(sound) $(misc)
-tstSplDEPEND = rast_asm.o tstSpl.o splash.o raster.o  objects.o font.o input.o
+tstSplDEPEND = rast_asm.o tstSpl.o splash.o raster.o objects.o font.o input.o
 all: tstSpl
 tstSpl: $(tstSplDEPEND)
 	cc68x  -g $(tstSplDEPEND) -o tstSpl
