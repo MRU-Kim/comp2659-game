@@ -1,0 +1,5 @@
+tst_isr: tst_isr.o isr.o
+	cc68x -g isr.h -o tst_isr
+
+isr.o: isr.c isr.h
+	cc68x -g -c -isr.c
