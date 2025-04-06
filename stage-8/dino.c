@@ -1,12 +1,11 @@
 /*
 Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino
 Course name   	COMP 2659-002
-Stage	    	Stage 8
 File name       dino.c
 Professor     	Steve Kalmar
 
 Purpose:
-Main driver of game, initializes stuctures, runs main loop,
+Main driver of game, initializes stuctures,runs start screen  runs main loop,
 calls event, rendering, input and time functions.
 Has added double buffering over previous stage
 */
@@ -58,7 +57,8 @@ int main()
     buffer3 += displacement3;
     buffer4 += displacement4;
 
-
+while (menuSelect != 3)
+{
     set_video_base(buffer2);
     menuSelect = welcomeScreen(buffer2);
 
@@ -66,12 +66,17 @@ int main()
     {
         runGame(buffer3, buffer4);
     }
-    
+    stopSound();
+}
+
+
     set_video_base(defaultBuffer);
     stopSound();
     return 0;
 }
 
+/*function runGame: main game loop
+main loop of game*/
 runGame(UINT8 *base1, UINT8 *base2)
 {
     Model gameModel;

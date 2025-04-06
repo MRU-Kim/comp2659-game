@@ -1,3 +1,14 @@
+/*
+Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino
+Course name   	COMP 2659-002
+File name       test8.c
+Professor     	Steve Kalmar
+
+purpose:
+test driver of new characteristics of stage 8 implementation
+ie: get_video_base, set_video_base
+rectangles.
+*/
 #include <osbind.h>
 #include <stdio.h>
 #include "const.h"

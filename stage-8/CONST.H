@@ -1,7 +1,6 @@
 /*
 Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino
 Course name   	COMP 2659-002
-Stage	    	Stage 2
 File name       CONST.H
 Professor     	Steve Kalmar
 

@@ -1,3 +1,9 @@
+/*
+Names 			Talah Al-Zamel, Ethan Sigfusson, Kim Carino
+Course name   	COMP 2659-002
+File name       tstSpl.c
+Professor     	Steve Kalmar
+
 #include "RASTER.H"
 #include "CONST8.H"
 #include "splash.h"
@@ -6,7 +12,7 @@
 #include"RASTER.H"
 
 /*Purpose:
-tester for splash stuff*/
+tester for splash screen functions stuff*/
 
 int main()
 {
