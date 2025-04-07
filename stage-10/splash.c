@@ -26,9 +26,13 @@ int welcomeScreen(UINT8 *base)
     int selection = 0;
     long input = 0;
     int result = 0;
-    int x, y, click;
+
+    static int x, y, click; /*static for sprite clarity*/
 
     int i = 0;
+
+    clear16Bitmap(base, DinoStandSpriteClear, x, y, 16);
+
 
     input = 0;
     while (selection == 0)
@@ -37,6 +41,8 @@ int welcomeScreen(UINT8 *base)
         y = getMouseY();
         click = getMouseClick();
 
+
+        /*mouse potting*/
         plot16Bitmap(base, DinoStandSprite, x, y, 16);
 
         plotSplash(base);
@@ -45,7 +51,6 @@ int welcomeScreen(UINT8 *base)
 
         clear16Bitmap(base, DinoStandSpriteClear, x, y, 16);
 
- 
 
         if (click)
         {
@@ -60,6 +65,7 @@ int welcomeScreen(UINT8 *base)
 
         }
 
+        /*kb input handleing still if I lose my mouse*/
         input = getKey();
         if (input != 0)
         {
@@ -81,9 +87,14 @@ int welcomeScreen(UINT8 *base)
             }
         }
     }
+    plot16Bitmap(base, DinoStandSprite, x, y, 16);
+
+
     return selection;
 }
 
+/*function: plotSplash
+plots splash screen elements*/
 void plotSplash(UINT8 *base)
 {
     char *playerOneString = "1P(1)";
