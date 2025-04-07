@@ -11,7 +11,7 @@ endfor
 Rm -f dino.o
 echo -f Rm dino.o
 
-Rm -f testIsr.o
-echo -f Rm tstIsr.o
+Rm -f test10.o
+echo -f Rm test10.o
 
-make dino
+make test10

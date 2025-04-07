@@ -12,8 +12,8 @@ Professor     	Steve Kalmar
 UINT16 keyValues[] = {0, 0, 0, 0, 0, 0, 0, 0}; /*global variable*/
 
 UINT16 stateIKBR = 0;
-int mouseXlocation = 128;
-int mouseYlocation = 128;
+int mouseXlocation = 320;
+int mouseYlocation = 200;
 int mousePress = 0;
 
 /*function: install_vector*/
@@ -72,14 +72,24 @@ void addBuff(signed int value)
 	}
 	else
 	{
-		/*state 1 or 2 both for mouse delta position input, decrement state when visited*/
+		/*state 1 or 2 both for mouse delta position input, decrement state when visited
+		if low byte high bit 1 set high byte*/
+
+
+		if (value&0x80)
+		{
+			value |= 0xFF00;
+		}
+		
+
+
 		if (stateIKBR == 1)
 		{
-			mouseYlocation += ((int)value);
+			mouseYlocation += (value);
 		}
 		else
 		{
-			mouseXlocation += ((int)value);
+			mouseXlocation += (value);
 		}
 		stateIKBR--;
 	}

@@ -4,13 +4,13 @@ sound = psg.o music.o effects.o
 misc = clock.o input.o splash.o isr.o isrAsm.o dino.o
 DEPENDNACIES =  $(visuals) $(gameLogic) $(sound) $(misc)
 
-all: testIsr dino
+all: test10 dino
 
-testIsr: testIsr.o isr.o clock.o isrAsm.o input.o
-	cc68x -g input.o isrAsm.o isr.o clock.o testIsr.o -o testIsr
+test10: test10.o isr.o clock.o isrAsm.o input.o objects.o raster.o rast_asm.o font.o
+	cc68x -g raster.o objects.o input.o isrAsm.o isr.o clock.o test10.o rast_asm.o font.o -o test10
 
-testIsr.o: testIsr.c
-	cc68x -g -c testIsr.c
+test10.o: test10.c
+	cc68x -g -c test10.c
 
 dino: $(DEPENDNACIES)
 	cc68x -g $(DEPENDNACIES) -o dino

@@ -15,7 +15,9 @@ Professor     	Steve Kalmar
 Vector installVector(int num, Vector vector);
 
 extern volatile UINT16 keyValues[];
-
+extern int mouseXlocation;
+extern int mouseYlocation;
+extern int mousePress;
 
 void incVbCounter();
 
