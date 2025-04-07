@@ -7,7 +7,7 @@ File name       soundconst.h
 Professor     	Steve Kalmar
 
 Purpose:
-    Holds constants for stage-8 implementation.
+    Holds constants for splash screen dimenisonal implementation.
 */
 
 #ifndef CONST8_H

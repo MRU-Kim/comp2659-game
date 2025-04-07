@@ -17,8 +17,6 @@ different from earlier stages in that it incorperated sound effects
 #include "events.h"
 #include "EFFECTS.H"
 
-/*tester libs*/
-#include <stdio.h>
 
 /*ASYNC EVENTS*/
 
@@ -270,7 +268,7 @@ void evPlayerNeutal(Model *model)
 */
 void evMilestone(Model *model)
 {
-    if (model->nextMilestone < model->score.value)
+    if (model->nextMilestone < model->score.value && model->score.value < DifficultyScoreCap)
     {
         model->scrollSpeed.delta_x++;
         model->nextMilestone += MileStoneScore;

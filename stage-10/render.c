@@ -15,7 +15,6 @@ Assumptions:
 - The raster, object, and CONST files from Stage 2 are correctly implemented and included.
 
 
-*/
 
 /*
 Contains rendering functions

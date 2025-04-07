@@ -13,8 +13,7 @@ the sprites in objects.c.
 
 */
 
-#include <stdio.h>
-#include <osbind.h>
+
 
 #include "RASTER.H"
 #include "CONST.H"

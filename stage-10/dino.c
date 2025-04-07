@@ -10,8 +10,7 @@ calls event, rendering, input and time functions.
 Has added double buffering over previous stage
 */
 
-#include <osbind.h>
-#include <stdio.h>
+
 
 #include "CONST.H"
 #include "CONST9.H"

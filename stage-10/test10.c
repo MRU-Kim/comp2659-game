@@ -52,14 +52,6 @@ int main()
 
         printf("%d %d\n", mousePress, click);
 
-        if (x>100 && x <540 &&)
-        {
-            for ( i = 0; i < 50; i++)
-            {
-                plot16Bitmap(defaultBuffer, DinoStandSprite, 100, i, 16);
-            }
-            
-        }
         
         waitVBlank();
         clear16Bitmap(defaultBuffer, DinoStandSpriteClear, x, y, 16);

@@ -10,6 +10,8 @@ Dino game, including the dinosaur in its different states (standing, moving, cro
 and dead) and various obstacles like cacti. These sprites are 16-bit hexadecimal values
 representing each object's bitmap, which will be rendered on the screen.
 
+It also stores sprites used in the splash screen
+
 Assumptions:
 - Each sprite is defined as a 16-element array of UINT16 values.
 
@@ -236,3 +238,152 @@ UINT16 CactusMedSpriteClear[] = {
     ~0x03C0,
     ~0x03C0,
 };
+
+UINT16 bigD[] = {
+    0xfff8,
+    0xfffc,
+    0xfffe,
+    0xf01f,
+    0xf00f,
+    0xf007,
+    0xf007,
+    0xf007,
+    0xf007,
+    0xf007,
+    0xf007,
+    0xf00f,
+    0xf01f,
+    0xfffe,
+    0xfffc,
+    0xfff8,
+};
+
+UINT16 bigI[] = {
+    0xffff,
+    0xffff,
+    0xffff,
+    0x03c0,
+    0x03c0,
+    0x03c0,
+    0x03c0,
+    0x03c0,
+    0x03c0,
+    0x03c0,
+    0x03c0,
+    0x03c0,
+    0x03c0,
+    0xffff,
+    0xffff,
+    0xffff};
+
+UINT16 bigN[] =
+    {
+        0xf00f,
+        0xf80f,
+        0xfc0f,
+        0xfe0f,
+        0xfe0f,
+        0xff0f,
+        0xff8f,
+        0xf7cf,
+        0xf3cf,
+        0xf3ef,
+        0xf1ff,
+        0xf0ff,
+        0xf07f,
+        0xf01f,
+        0xf00f,
+        0xf00f};
+UINT16 bigO[] =
+    {
+        0x7ffe,
+        0xffff,
+        0xffff,
+        0xffff,
+        0xf00f,
+        0xf00f,
+        0xf00f,
+        0xf00f,
+        0xf00f,
+        0xf00f,
+        0xf00f,
+        0xf00f,
+        0xffff,
+        0xffff,
+        0xffff,
+        0x7ffe};
+
+UINT16 box1[] =
+    {
+        0x0180,
+        0x0380,
+        0x0780,
+        0x0180,
+        0x0180,
+        0x0180,
+        0x0180,
+        0x0180,
+        0x0180,
+        0x0180,
+        0x0180,
+        0x0180,
+        0x0180,
+        0x0180,
+        0x0180,
+        0x0180};
+UINT16 boxP[] =
+    {
+        0x0fc0,
+        0x0fe0,
+        0x0c10,
+        0x0c10,
+        0x0c10,
+        0x0fe0,
+        0x0fc0,
+        0x0c00,
+        0x0c00,
+        0x0c00,
+        0x0c00,
+        0x0c00,
+        0x0c00,
+        0x0c00,
+        0x0c00,
+        0x0c00};
+
+UINT16 box2[] =
+    {
+        0x07f8,
+        0x0ffc,
+        0x1c1c,
+        0x181c,
+        0x001c,
+        0x0038,
+        0x0070,
+        0x00e0,
+        0x01c0,
+        0x0380,
+        0x0700,
+        0x0e00,
+        0x0c00,
+        0x1800,
+        0x1ffc,
+        0x1ffc};
+
+UINT16 boxExit[] =
+    {
+        0x0000,
+        0x0cfc,
+        0x1e7c,
+        0x1e7c,
+        0x0c7c,
+        0x7c7c,
+        0x4f7c,
+        0x4d7c,
+        0x4c7c,
+        0x0e7c,
+        0x0a7c,
+        0x7a7c,
+        0x027c,
+        0x027c,
+        0x007c,
+        0x0000};

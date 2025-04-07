@@ -250,12 +250,24 @@ void modelTicksPassedReset(Model *model)
 /*function: modelResetCacSpawnTimer
     after spawning a cactus this is called to reset to
     MinCacSpawnTime + 0 to MaxCacSpawnTimeAdd ticks
+    spawn time is shortened by a portion of the score to a certain number of score
     inputs:
     model - pointer to model*/
 void modelResetCacSpawnTimer(Model *model)
 {
+    int timeMod = 0;
+    if (model->score.value < DifficultyScoreCap)
+    {
+        timeMod = (model->score.value/SpawnModScoreDiv);
+    }
+    else
+    {
+        timeMod = (model->score.value/DifficultyScoreCap);
+    }
+    
+    
     model->ranNum = lfsr16(model->ranNum);
-    model->cacSpawnTimer = abs(model->ranNum % MaxCacSpawnTimeAdd) + MinCacSpawnTime - (model->score.value/100); /*70 ticks in a second*/
+    model->cacSpawnTimer = abs(model->ranNum % MaxCacSpawnTimeAdd) + MinCacSpawnTime - timeMod; /*70 ticks in a second*/
 }
 
 /*helper functions*/

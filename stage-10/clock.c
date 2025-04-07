@@ -10,7 +10,6 @@ global varaiable vbCounter
 */
 
 #include "clock.h"
-#include "osbind.h"
 #include "const.h"
 #include "CONST9.H"
 

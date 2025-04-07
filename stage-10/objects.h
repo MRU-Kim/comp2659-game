@@ -33,5 +33,14 @@ extern UINT16 DinoCrouchSpriteClear[];
 extern UINT16 CactusMedSprite[];
 extern UINT16 CactusMedSpriteClear[];
 
+extern UINT16 bigD[];
+
+extern UINT16 bigI[];
+extern UINT16 bigN[];
+extern UINT16 bigO[];
+extern UINT16 box1[];
+extern UINT16 boxP[];
+extern UINT16 box2[];
+extern UINT16 boxExit[];
 
 #endif

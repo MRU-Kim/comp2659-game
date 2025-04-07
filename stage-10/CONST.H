@@ -5,7 +5,7 @@ File name       CONST.H
 Professor     	Steve Kalmar
 
 Purpose:
-Holds constants for rendering and gameplay logic
+Holds constants for basic rendering and gameplay logic
 */
 
 #ifndef CONST_H
@@ -51,6 +51,8 @@ typedef int bool;
 #define MileStoneScore 500
 #define StartScrollSpeed 3
 #define leftLimit -30
+#define DifficultyScoreCap 1500
+#define SpawnModScoreDiv 100
 
 /*cactus logic*/
 #define MaxCactus 10
