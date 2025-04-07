@@ -11,6 +11,6 @@ Professor     	Steve Kalmar
 #include "CONST.H"
 
 int welcomeScreen(UINT8 *base);
-void initSplash(UINT8 *base);
+void plotSplash(UINT8 *base);
 
 #endif

@@ -14,4 +14,4 @@ echo -f Rm dino.o
 Rm -f test10.o
 echo -f Rm test10.o
 
-make test10
+make

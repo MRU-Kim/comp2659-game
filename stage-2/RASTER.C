@@ -485,7 +485,7 @@ void printChar(UINT8 *base, int x, int y, char ch)
     UINT8 *charHexCode =(UINT8 *) GLYPH_START(ch);
     for (i = 0; i < 8; i++, charHexCode++)
     {
-        *(base + (y + i) * 80 + (x >> 3)) = *charHexCode;
+        *(base + (y + i) * 80 + (x >> 3)) |= *charHexCode;
     }
 }
 /*

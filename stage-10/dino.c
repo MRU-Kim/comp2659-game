@@ -55,6 +55,8 @@ int main()
     UINT16 displacement4 = 256 - buffer4IntAdd % 256;
 
     Vector originalIKBR = installVector(IKBDVect, IkbrIsr);
+    Vector originalVB = installVector(VblVect, vblIsr);
+
 
     int menuSelect = 0;
 
@@ -75,6 +77,8 @@ int main()
     }
 
     installVector(IKBDVect, originalIKBR);
+    installVector(VblVect, originalVB);
+
 
     set_video_base(defaultBuffer);
     stopSound();
@@ -91,7 +95,6 @@ runGame(UINT8 *base1, UINT8 *base2)
 
     UINT32 timeThen, timeNow, timeElapsed;
 
-    Vector original = installVector(VblVect, vblIsr);
 
     bool bufferSelect;
 
@@ -136,5 +139,4 @@ runGame(UINT8 *base1, UINT8 *base2)
             timeThen = timeNow;
         }
     }
-    installVector(VblVect, original);
 }

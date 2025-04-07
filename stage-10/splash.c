@@ -11,6 +11,9 @@ Professor     	Steve Kalmar
 #include "RASTER.H"
 #include "CONST8.h"
 #include "input.h"
+#include "objects.h"
+#include "clock.h"
+#include "isr.h"
 
 UINT16 bigD[] = {
     0xfff8,
@@ -86,19 +89,121 @@ UINT16 bigO[] =
         0xffff,
         0x7ffe};
 
+UINT16 box1[] =
+    {
+        0x0180,
+        0x0380,
+        0x0780,
+        0x0180,
+        0x0180,
+        0x0180,
+        0x0180,
+        0x0180,
+        0x0180,
+        0x0180,
+        0x0180,
+        0x0180,
+        0x0180,
+        0x0180,
+        0x0180,
+        0x0180};
+UINT16 boxP[] =
+    {
+        0x0fc0,
+        0x0fe0,
+        0x0c10,
+        0x0c10,
+        0x0c10,
+        0x0fe0,
+        0x0fc0,
+        0x0c00,
+        0x0c00,
+        0x0c00,
+        0x0c00,
+        0x0c00,
+        0x0c00,
+        0x0c00,
+        0x0c00,
+        0x0c00};
+
+UINT16 box2[] =
+    {
+        0x07f8,
+        0x0ffc,
+        0x1c1c,
+        0x181c,
+        0x001c,
+        0x0038,
+        0x0070,
+        0x00e0,
+        0x01c0,
+        0x0380,
+        0x0700,
+        0x0e00,
+        0x0c00,
+        0x1800,
+        0x1ffc,
+        0x1ffc};
+
+UINT16 boxExit[] =
+    {
+        0x0000,
+        0x0cfc,
+        0x1e7c,
+        0x1e7c,
+        0x0c7c,
+        0x7c7c,
+        0x4f7c,
+        0x4d7c,
+        0x4c7c,
+        0x0e7c,
+        0x0a7c,
+        0x7a7c,
+        0x027c,
+        0x027c,
+        0x007c,
+        0x0000};
+
 int welcomeScreen(UINT8 *base)
 {
 
     int selection = 0;
     long input = 0;
     int result = 0;
-    int i;
+    int x, y, click;
 
-    initSplash(base);
+    int i = 0;
 
     input = 0;
     while (selection == 0)
     {
+        x = getMouseX();
+        y = getMouseY();
+        click = getMouseClick();
+
+        plot16Bitmap(base, DinoStandSprite, x, y, 16);
+
+        plotSplash(base);
+
+        waitVBlank();
+
+        clear16Bitmap(base, DinoStandSpriteClear, x, y, 16);
+
+ 
+
+        if (click)
+        {
+            if (x >= P1BoxLX && x <= P1BoxRX && y >= P1BoxTY && y <= P1BoxBY)
+            {
+                selection = 1;
+            }
+            else if (x >= ExitBoxLX && x <= ExitBoxRX && y >= ExitBoxTY && y <= ExitBoxBY)
+            {
+                selection = 3;
+            }
+
+        }
+
         input = getKey();
         if (input != 0)
         {
@@ -112,7 +217,7 @@ int welcomeScreen(UINT8 *base)
                 break;
 
             case '3':
-            selection = 3;
+                selection = 3;
                 break;
 
             default:
@@ -123,13 +228,11 @@ int welcomeScreen(UINT8 *base)
     return selection;
 }
 
-void initSplash(UINT8 *base)
+void plotSplash(UINT8 *base)
 {
     char *playerOneString = "1P(1)";
     char *playerTwoString = "2P(2)";
     char *quitString = "Quit(3)";
-    
-    clearScreen(base);
 
     plot16Bitmap(base, bigD, BigDX, BigLettY, BigLettHeight);
     plot16Bitmap(base, bigI, BigIX, BigLettY, BigLettHeight);
@@ -137,11 +240,14 @@ void initSplash(UINT8 *base)
     plot16Bitmap(base, bigO, BigOX, BigLettY, BigLettHeight);
 
     plotRectangle(base, P1BoxY, BoxHeight);
-    printString(base, MiddleScreen - 2, P1TextY, playerOneString);
+
+    plot16Bitmap(base, boxP, MiddleScreen + 8, P1BoxY + 20, BigLettHeight);
+    plot16Bitmap(base, box1, MiddleScreen - 8, P1BoxY + 20, BigLettHeight);
 
     plotRectangle(base, P2BoxY, BoxHeight);
-    printString(base, MiddleScreen - 2, P2TextY, playerTwoString);
+    plot16Bitmap(base, boxP, MiddleScreen + 8, P2BoxY + 20, BigLettHeight);
+    plot16Bitmap(base, box2, MiddleScreen - 8, P2BoxY + 20, BigLettHeight);
 
     plotRectangle(base, ExitBoxY, BoxHeight);
-    printString(base, MiddleScreen - 8, ExitTextY, quitString);
+    plot16Bitmap(base, boxExit, MiddleScreen, ExitBoxY + 20, BigLettHeight);
 }
