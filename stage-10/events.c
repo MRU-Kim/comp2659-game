@@ -268,7 +268,7 @@ void evPlayerNeutal(Model *model)
 */
 void evMilestone(Model *model)
 {
-    if (model->nextMilestone < model->score.value && model->score.value < DifficultyScoreCap)
+    if (model->nextMilestone < model->score.value && model->score.value <= DifficultyScoreCap)
     {
         model->scrollSpeed.delta_x++;
         model->nextMilestone += MileStoneScore;

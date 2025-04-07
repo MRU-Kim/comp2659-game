@@ -256,7 +256,7 @@ void modelTicksPassedReset(Model *model)
 void modelResetCacSpawnTimer(Model *model)
 {
     int timeMod = 0;
-    if (model->score.value < DifficultyScoreCap)
+    if (model->score.value <= DifficultyScoreCap)
     {
         timeMod = (model->score.value/SpawnModScoreDiv);
     }

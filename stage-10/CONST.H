@@ -51,12 +51,12 @@ typedef int bool;
 #define MileStoneScore 500
 #define StartScrollSpeed 3
 #define leftLimit -30
-#define DifficultyScoreCap 1500
+#define DifficultyScoreCap 2000
 #define SpawnModScoreDiv 100
 
 /*cactus logic*/
 #define MaxCactus 10
-#define MinCacSpawnTime 30
+#define MinCacSpawnTime 40
 #define MaxCacSpawnTimeAdd 70
 
 /*Animation logic*/
